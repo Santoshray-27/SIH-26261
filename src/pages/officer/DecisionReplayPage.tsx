@@ -130,6 +130,8 @@ export const DecisionReplayPage: React.FC = () => {
               Rulebook Specification Version:
             </label>
             <select
+              id="replay-rulebook-select"
+              aria-label="Rulebook Specification Version"
               value={pinnedRuleVersion}
               onChange={(e) => setPinnedRuleVersion(e.target.value)}
               className="w-full bg-surface border border-border rounded-xs p-2 text-text font-bold outline-none focus:border-accent-2"
@@ -149,6 +151,8 @@ export const DecisionReplayPage: React.FC = () => {
               Software Engine Build Version:
             </label>
             <select
+              id="replay-software-select"
+              aria-label="Software Engine Build Version"
               value={pinnedSoftwareVersion}
               onChange={(e) => setPinnedSoftwareVersion(e.target.value)}
               className="w-full bg-surface border border-border rounded-xs p-2 text-text font-bold outline-none focus:border-accent-2"
@@ -168,6 +172,7 @@ export const DecisionReplayPage: React.FC = () => {
             </label>
             <input
               type="date"
+              aria-label="Pinned Statutory Reference Cutoff Date"
               value={pinnedReferenceDate}
               onChange={(e) => setPinnedReferenceDate(e.target.value)}
               className="w-full bg-surface border border-border rounded-xs p-2 text-text font-bold outline-none focus:border-accent-2"
@@ -211,6 +216,7 @@ export const DecisionReplayPage: React.FC = () => {
               <span className="text-slate">Left (Recorded)</span>
               <input
                 type="range"
+                aria-label="Diff Split Position"
                 min={20}
                 max={80}
                 value={splitPosition}

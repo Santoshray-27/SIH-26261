@@ -389,7 +389,7 @@ export const CaseReviewPage: React.FC = () => {
           <div className="border border-hairline bg-ink-surface p-4 space-y-3">
             <div className="flex items-center justify-between pb-2 border-b border-hairline/60">
               <span className="font-bold text-paper text-sm uppercase">Preserved Document Registry</span>
-              <span className="text-[10px] text-slate uppercase">Original Bytes Immutable</span>
+              <span className="text-[10px] text-slate uppercase">Original Bytes Tamper-Evident</span>
             </div>
 
             <table className="w-full text-left font-mono text-xs">

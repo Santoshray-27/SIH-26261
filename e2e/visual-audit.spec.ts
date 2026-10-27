@@ -80,11 +80,11 @@ test.describe('Pramana - Comprehensive Visual & Accessibility Audit', () => {
 
   test('/officer/tools - tab state matches rendered panel & URL', async ({ page }) => {
     await page.goto('/officer/tools?tool=structure');
-    await expect(page.locator('button[role="tab"][data-state="active"]')).toContainText('PDF Structure');
-    await expect(page.locator('text=Synthetically Tagged Document Hierarchy')).toBeVisible();
+    await expect(page.locator('button[role="tab"][data-state="active"]')).toContainText('PDF Byte Structure');
+    await expect(page.locator('text=PDF Structure & Byte-Level Inspection')).toBeVisible();
 
     await page.goto('/officer/tools?tool=geotag');
-    await expect(page.locator('button[role="tab"][data-state="active"]')).toContainText('Geotag');
-    await expect(page.locator('text=Geographic Boundary Verification')).toBeVisible();
+    await expect(page.locator('button[role="tab"][data-state="active"]')).toContainText('Geotag & Haversine');
+    await expect(page.locator('text=Campus Photo Geotag Verification')).toBeVisible();
   });
 });

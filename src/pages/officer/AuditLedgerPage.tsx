@@ -206,6 +206,7 @@ export const AuditLedgerPage: React.FC = () => {
         <div className="flex items-center gap-2 w-full sm:w-auto justify-end">
           <Filter className="w-3.5 h-3.5 text-slate" />
           <select
+            aria-label="Filter Audit Events by Type"
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
             className="bg-surface-2 border border-border rounded px-2.5 py-1 text-text outline-none"

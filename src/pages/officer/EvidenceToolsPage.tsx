@@ -89,6 +89,7 @@ export const EvidenceToolsPage: React.FC = () => {
               key={tab.id}
               role="tab"
               data-tab-id={tab.id}
+              data-state={isSelected ? 'active' : 'inactive'}
               aria-selected={isSelected}
               tabIndex={isSelected ? 0 : -1}
               onClick={() => handleSelectTab(tab.id)}

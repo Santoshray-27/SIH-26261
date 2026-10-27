@@ -244,6 +244,8 @@ export const OfficerDashboardPage: React.FC = () => {
             <Filter size={14} />
             <span>Category:</span>
             <select
+              id="category-filter"
+              aria-label="Filter by Category"
               value={selectedCategory}
               onChange={(e) => {
                 setSelectedCategory(e.target.value);
@@ -319,7 +321,12 @@ export const OfficerDashboardPage: React.FC = () => {
                 <th className="p-3.5 min-w-[280px]">Institution & Application ID</th>
                 <th className="p-3.5 min-w-[150px]">Lifecycle State</th>
                 <th className="p-3.5 min-w-[170px]">Sufficiency Gate</th>
-                <th className="p-3.5 min-w-[280px]">Limiting Signal (§3.4)</th>
+                <th className="p-3.5 min-w-[280px]">
+                  <span>{language === 'hi' ? 'मुख्य रुकावट (सबसे कमजोर बिंदु)' : 'Primary Blocking Reason'}</span>
+                  <span className="block text-[10px] font-sans font-normal text-text-muted lowercase">
+                    {language === 'hi' ? 'निर्णय रोकने वाला मुख्य कारण' : 'weakest limiting signal'}
+                  </span>
+                </th>
                 <th className="p-3.5 min-w-[120px]">Check Coverage</th>
                 <th className="p-3.5 text-right min-w-[110px]">Action</th>
               </tr>

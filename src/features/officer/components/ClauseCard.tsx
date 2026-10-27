@@ -26,7 +26,12 @@ export const ClauseCard: React.FC<ClauseCardProps> = ({ rule, finding }) => {
         </div>
       </div>
 
-      <div className="flex-1 p-5 overflow-auto space-y-5">
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label="Rule Clause Details and Legal Basis"
+        className="flex-1 p-5 overflow-auto space-y-5 focus:outline-none focus:ring-1 focus:ring-accent-2"
+      >
         {/* Rule Identifier and Title */}
         <div className="space-y-1.5">
           <div className="flex items-center gap-2">

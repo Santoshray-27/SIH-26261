@@ -64,7 +64,12 @@ export const DocViewer: React.FC<DocViewerProps> = ({
       </div>
 
       {/* Document Viewport */}
-      <div className="flex-1 overflow-auto p-4 bg-bg flex justify-center items-start">
+      <div
+        tabIndex={0}
+        role="region"
+        aria-label="Document Page Canvas Viewer"
+        className="flex-1 overflow-auto p-4 bg-bg flex justify-center items-start focus:outline-none focus:ring-1 focus:ring-accent-2"
+      >
         <div
           style={{ width: `${(zoom / 100) * 540}px` }}
           className="transition-all duration-150 relative bg-surface text-text shadow-2xl rounded-sm p-8 min-h-[680px] font-serif border border-border select-none"

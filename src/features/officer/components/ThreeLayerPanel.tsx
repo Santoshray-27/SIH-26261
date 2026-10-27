@@ -76,7 +76,9 @@ export const ThreeLayerPanel: React.FC<ThreeLayerPanelProps> = ({
               <span className="font-bold text-paper">{gateOutput?.mandatoryChecksRunRatio || 'N/A'}</span>
             </div>
             <div className="pt-1">
-              <span className="text-slate text-[10px] uppercase block">Limiting Signal:</span>
+              <span className="text-slate text-[10px] uppercase block">
+                Primary Blocking Reason (Limiting Signal):
+              </span>
               <span className="font-sans text-xs text-ochre leading-tight block truncate" title={gateOutput?.limitingSignal}>
                 {gateOutput?.limitingSignal || 'None'}
               </span>

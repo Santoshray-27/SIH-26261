@@ -181,7 +181,7 @@ export const PrecheckEmbedWidget: React.FC = () => {
       <div className="space-y-4">
         <div
           onClick={runPrecheckSimulation}
-          className="p-6 border-2 border-dashed border-border hover:border-border-strong bg-white rounded cursor-pointer transition-colors text-center"
+          className="p-6 border-2 border-dashed border-border hover:border-border-strong bg-surface rounded cursor-pointer transition-colors text-center"
         >
           <UploadCloud className="w-8 h-8 text-text-muted mx-auto mb-2" />
           <div className="font-serif font-bold text-sm text-text">
@@ -201,7 +201,7 @@ export const PrecheckEmbedWidget: React.FC = () => {
             type="button"
             onClick={runPrecheckSimulation}
             disabled={isEvaluating}
-            className="px-6 py-2.5 bg-text hover:bg-surface-2 text-text font-mono text-xs rounded transition-colors flex items-center gap-2 shadow"
+            className="px-6 py-2.5 bg-accent text-surface font-mono text-xs rounded transition-colors flex items-center gap-2 shadow hover:opacity-90"
           >
             {isEvaluating ? (
               <>
@@ -236,7 +236,7 @@ export const PrecheckEmbedWidget: React.FC = () => {
           {items.map((item) => (
             <div
               key={item.id}
-              className={`p-3.5 bg-white border rounded transition-all ${
+              className={`p-3.5 bg-surface border rounded transition-all ${
                 item.status === 'RECTIFIABLE_GAP'
                   ? 'border-st-deficiency bg-st-deficiency-bg shadow-sm'
                   : 'border-border'

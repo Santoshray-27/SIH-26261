@@ -101,6 +101,7 @@ export const VerificationReportsPage: React.FC = () => {
         <div className="flex items-center gap-3 shrink-0">
           <div className="relative">
             <select
+              aria-label="Select Application for Formal Verification Report"
               value={selectedAppId}
               onChange={(e) => setSelectedAppId(e.target.value)}
               className="appearance-none bg-surface border border-border rounded-xs px-3 py-2 pr-8 text-xs font-sans text-text focus:outline-none shadow-subtle cursor-pointer"

@@ -40,23 +40,23 @@ npm run preview
 
 | Route | View Description | Theme | User Audience |
 |---|---|---|---|
-| `/` | **Awwwards-Caliber Landing Page** (GSAP pinned preloader, Fraunces headline, three stacked evidence planes, interactive seal, marquee) | Paper (`#F3EEE5`) | Public / Statutory Visitors |
-| `/precheck` | **Applicant Pre-Check Landing** with interactive intake checklist | Paper | Prospective Institutions |
+| `/` | **Awwwards-Caliber Landing Page** (GSAP pinned preloader, Fraunces headline, three stacked evidence planes, interactive seal, marquee) | Forensic Editorial (`#F3EDE0`) | Public / Statutory Visitors |
+| `/precheck` | **Applicant Pre-Check Landing** with interactive intake checklist | Forensic Editorial (`#F3EDE0`) | Prospective Institutions |
 | `/portal/a` | **Legacy Government Mock Host Portal** (Ministry of Education navy/saffron layout embedding Pramāṇa widget) | Custom Gov (`#002855`) | Integration Proof (Legacy) |
 | `/portal/b` | **Modern Minimal Mock Host Portal** (Dark Tailwind edge architecture embedding Pramāṇa widget) | Modern Dark (`#0A0A0A`) | Integration Proof (Modern) |
-| `/embed/precheck` | **Standalone Embeddable Pre-Check Widget** (Style-isolated iframe target; rectifiable gaps only, suppresses vigilance flags) | Isolated Paper | Multi-portal iframe embed |
-| `/applicant/rectify/:id` | **Applicant Rectification Screen** (View approved notice, upload replacement file, animated differential re-check creating Version 2) | Paper / Editorial | Rectifying Institutions |
-| `/ui-kit` | **Interactive Design System & Status Vocabulary Showcase** (11 non-collapsing status pills, buttons, themes, typography) | Paper / Dark toggle | Developers & Designers |
-| `/officer` | **Officer Triage Ledger & Dashboard** (Lifecycle state strip, weakest limiting signals, alerts rail, Cmd+K palette, keyboard row nav) | Dark Ink (`#0F0F0E`) | Reviewing Officers |
-| `/officer/queue` | **Triage Queue** with statutory category filtering and readiness verdict badges | Dark Ink | Scrutiny Reviewers |
-| `/officer/cases/:id` | **Case Overview Workstation** (Header v1/v2 selector, ThreeLayerPanel, CoverageStatement "9 of 11 checks ran", gate verdict, 4 tabs) | Dark Ink | Case Reviewers |
-| `/officer/cases/:id/review` | **1-Finding-at-a-Time Adjudication Workstation** (DocViewer with cited bounding box, ValueCompare, ClauseCard, J/K/C/R/E/X hotkeys) | Dark Ink | Adjudicating Officers |
-| `/officer/cases/:id/replay` | **Deterministic Decision Replay Engine** (Pin rule version, software build, cutoff date; side-by-side findings scrubber diff) | Dark Ink | Regulatory Auditors |
-| `/officer/tools` | **Forensic Evidence Toolbox** (Web Crypto SHA-256 duplicate check, PDF structure inspector, PAdES signature panel, Haversine geotag, Canvas Shoelace floorplan measurement, video frame strip, sandbox QR) | Dark Ink | Forensic Analysts |
-| `/officer/rules` | **Governed Rule Packs & Readiness Profiles** (5-stage lifecycle board, formula definitions with named inputs, senior-only readiness editor) | Dark Ink | Bureau Policy Authors |
-| `/officer/network` | **Cross-Application Entity Graph** (SVG graph of institution/document/deponent collisions; banner: *"Designed now · built in Phase 4"*) | Dark Ink | Vigilance Division |
-| `/officer/reports` | **Statutory Verification Gazette & Neutralized CSV Export** (Printable per-case gazette, formula injection defense) | Dark Ink / Print Paper | Council Executives |
-| `/officer/audit` | **Cryptographic Audit Event Hash-Chain** (Live Web Crypto SHA-256 verification against external published checkpoint, simulate tampering) | Dark Ink | Statutory Auditors |
+| `/embed/precheck` | **Standalone Embeddable Pre-Check Widget** (Style-isolated iframe target; rectifiable gaps only, suppresses vigilance flags) | Sandstone & Teal (`#F3EDE0`) | Multi-portal iframe embed |
+| `/applicant/rectify/:id` | **Applicant Rectification Screen** (View approved notice, upload replacement file, animated differential re-check creating Version 2) | Sandstone & Teal (`#F3EDE0`) | Rectifying Institutions |
+| `/ui-kit` | **Interactive Design System & Status Vocabulary Showcase** (13 status pills, buttons, themes, typography) | Sandstone & Teal (`#F3EDE0`) | Developers & Designers |
+| `/officer` | **Officer Triage Ledger & Dashboard** (Lifecycle state strip, weakest limiting signals, alerts rail, Cmd+K palette, keyboard row nav) | Sandstone & Teal (`#F3EDE0`) | Reviewing Officers |
+| `/officer/queue` | **Triage Queue** with statutory category filtering and readiness verdict badges | Sandstone & Teal (`#F3EDE0`) | Scrutiny Reviewers |
+| `/officer/cases/:id` | **Case Overview Workstation** (Header v1/v2 selector, ThreeLayerPanel, CoverageStatement "9 of 11 checks ran", gate verdict, 4 tabs) | Sandstone & Teal (`#F3EDE0`) | Case Reviewers |
+| `/officer/cases/:id/review` | **1-Finding-at-a-Time Adjudication Workstation** (DocViewer with cited bounding box, ValueCompare, ClauseCard, J/K/C/R/E/X hotkeys) | Sandstone & Teal (`#F3EDE0`) | Adjudicating Officers |
+| `/officer/cases/:id/replay` | **Deterministic Decision Replay Engine** (Pin rule version, software build, cutoff date; side-by-side findings scrubber diff) | Sandstone & Teal (`#F3EDE0`) | Regulatory Auditors |
+| `/officer/tools` | **Forensic Evidence Toolbox** (Web Crypto SHA-256 duplicate check, PDF structure inspector, PAdES signature panel, Haversine geotag, Canvas Shoelace floorplan measurement, video frame strip, sandbox QR) | Sandstone & Teal (`#F3EDE0`) | Forensic Analysts |
+| `/officer/rules` | **Governed Rule Packs & Readiness Profiles** (5-stage lifecycle board, formula definitions with named inputs, senior-only readiness editor) | Sandstone & Teal (`#F3EDE0`) | Bureau Policy Authors |
+| `/officer/network` | **Cross-Application Entity Graph** (SVG graph of institution/document/deponent collisions; banner: *"Designed now · built in Phase 4"*) | Sandstone & Teal (`#F3EDE0`) | Vigilance Division |
+| `/officer/reports` | **Statutory Verification Gazette & Neutralized CSV Export** (Printable per-case gazette, formula injection defense) | Sandstone & Teal (`#F3EDE0`) | Council Executives |
+| `/officer/audit` | **Cryptographic Audit Event Hash-Chain** (Live Web Crypto SHA-256 verification against external published checkpoint, simulate tampering) | Sandstone & Teal (`#F3EDE0`) | Statutory Auditors |
 
 ---
 
