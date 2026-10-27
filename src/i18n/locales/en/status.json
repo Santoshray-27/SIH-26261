@@ -1,0 +1,54 @@
+{
+  "PASS": {
+    "label": "Pass",
+    "caveat": "Does NOT prove all factual claims in document are true."
+  },
+  "DEFICIENCY_FOUND": {
+    "label": "Deficiency Found",
+    "caveat": "Document fails explicit handbook criteria; fixable gap."
+  },
+  "MISMATCH_FOUND": {
+    "label": "Mismatch Found",
+    "caveat": "Inconsistency between two records; does not prove forgery."
+  },
+  "POSSIBLE_DUPLICATE": {
+    "label": "Possible Duplicate",
+    "caveat": "SHA-256 match found; requires contextual human review."
+  },
+  "SIGNATURE_VALID": {
+    "label": "Signature Valid",
+    "caveat": "Cryptographic check passed; does NOT certify truth of document claims."
+  },
+  "SIGNATURE_INVALID_OR_BROKEN": {
+    "label": "Signature Invalid / Broken",
+    "caveat": "Certificate or digest verification failed under trust policy."
+  },
+  "SOURCE_UNAVAILABLE": {
+    "label": "Source Unavailable",
+    "caveat": "External issuer API could not be reached; NOT a negative finding."
+  },
+  "VERIFICATION_PENDING": {
+    "label": "Verification Pending",
+    "caveat": "Awaiting asynchronous source response or human review."
+  },
+  "LOW_CONFIDENCE_EXTRACTION": {
+    "label": "Low-Confidence Extraction",
+    "caveat": "OCR confidence below floor; requires human confirmation."
+  },
+  "MANUAL_REVIEW_REQUIRED": {
+    "label": "Manual Review Required",
+    "caveat": "Ambiguous handbook clause or unresolved discrepancy."
+  },
+  "CHECK_NOT_RUN": {
+    "label": "Check Not Run",
+    "caveat": "Mandatory check did not execute; case evidence incomplete."
+  },
+  "GEOTAG_ABSENT": {
+    "label": "Geotag Absent",
+    "caveat": "EXIF location absent; more evidence needed, not an automatic failure."
+  },
+  "STRUCTURE_INDICATOR": {
+    "label": "Structure Indicator",
+    "caveat": "PDF revision or font anomaly detected; indicator, requires review."
+  }
+}

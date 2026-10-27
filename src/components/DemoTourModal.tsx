@@ -26,7 +26,7 @@ export const DEMO_TOUR_STEPS: TourStep[] = [
     titleHi: 'कृत्रिम ईओए आवेदन प्रस्तुतीकरण',
     route: '/officer/cases/APP-2026-8801',
     descriptionEn: 'Submit and inspect Sri Vidya Institute of Technology (synthetic) with Affidavit, NOC, and Accreditation certificates.',
-    descriptionHi: 'शपथ पत्र, अनापत्ति प्रमाणपत्र और प्रत्यायन प्रमाणपत्र के साथ श्री विद्या प्रौद्योगिकी संस्थान के आवेदन का निरीक्षण करें।',
+    descriptionHi: 'शपथ पत्र, अनापत्ति साक्ष्य‑I5पत्र और प्रत्यायन साक्ष्य‑I5पत्र के साथ श्री विद्या प्रौद्योगिकी संस्थान के आवेदन का निरीक्षण करें।',
     targetFocusLabel: 'Case Header & Version v1',
     solutionSection: '§8.1',
   },
@@ -43,7 +43,7 @@ export const DEMO_TOUR_STEPS: TourStep[] = [
   {
     stepNumber: 3,
     titleEn: 'Expired Accreditation Certificate Detection',
-    titleHi: 'समाप्त प्रत्यायन प्रमाणपत्र की पहचान',
+    titleHi: 'समाप्त प्रत्यायन साक्ष्य‑I5पत्र की पहचान',
     route: '/officer/cases/APP-2026-8801/review',
     descriptionEn: 'Trigger RULE-APH-2.4-EXPIRY. Shows expiry date 2025-12-31 versus reference cutoff 2026-06-30 with bounding box overlay.',
     descriptionHi: 'समाप्ति तिथि 2025-12-31 बनाम संदर्भ कटऑफ 2026-06-30 की तुलना और बाउंडिंग बॉक्स ओवरले देखें।',
@@ -56,7 +56,7 @@ export const DEMO_TOUR_STEPS: TourStep[] = [
     titleHi: 'संस्थान के कानूनी नाम में विसंगति',
     route: '/officer/cases/APP-2026-8801/review',
     descriptionEn: 'RULE-APH-1.2-NAME-MATCH detects string mismatch between Affidavit ("Sri Vidya Inst of Technology") and State NOC.',
-    descriptionHi: 'शपथ पत्र और राज्य अनापत्ति प्रमाणपत्र के बीच नाम की विसंगति का स्वतः पता लगाना।',
+    descriptionHi: 'शपथ पत्र और राज्य अनापत्ति साक्ष्य‑I5पत्र के बीच नाम की विसंगति का स्वतः पता लगाना।',
     targetFocusLabel: 'Finding FIND-8801-02 · Name Mismatch',
     solutionSection: '§8.4',
   },
@@ -123,7 +123,7 @@ export const DEMO_TOUR_STEPS: TourStep[] = [
   {
     stepNumber: 11,
     titleEn: 'Tamper-Evident Audit Event Hash Chain',
-    titleHi: 'छेड़छाड़-प्रमाणित ऑडिट हैश-श्रृंखला',
+    titleHi: 'छेड़छाड़-साक्ष्य‑I5ित ऑडिट हैश-श्रृंखला',
     route: '/officer/audit',
     descriptionEn: 'Inspect sequential SHA-256 block chain. Click "Verify Chain" to run in-browser verification against the external checkpoint.',
     descriptionHi: 'अनुक्रमिक ब्लॉक श्रृंखला का वेब क्रिप्टो से सत्यापन और बाहरी चेकपॉइंट मिलान।',
@@ -227,7 +227,7 @@ export const DemoTourModal: React.FC<{
         <div className="flex items-center gap-2">
           <Compass className="w-4 h-4 text-st-review animate-spin-slow" />
           <span className="font-mono text-xs font-bold text-st-review tracking-wider uppercase">
-            Pramāṇa Guided Tour · Step {currentStep.stepNumber} of 17 ({currentStep.solutionSection})
+            Sakshya‑I5 Guided Tour · Step {currentStep.stepNumber} of 17 ({currentStep.solutionSection})
           </span>
         </div>
 

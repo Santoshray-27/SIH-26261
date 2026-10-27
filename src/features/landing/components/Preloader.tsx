@@ -9,7 +9,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
 
   useEffect(() => {
     // Check if user has already seen preloader in this session
-    const seen = sessionStorage.getItem('pramana_preloader_seen');
+    const seen = sessionStorage.getItem('sakshya-i5_preloader_seen');
     if (seen) {
       onComplete();
       return;
@@ -18,7 +18,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
     const timer = setTimeout(() => {
       setFading(true);
       setTimeout(() => {
-        sessionStorage.setItem('pramana_preloader_seen', 'true');
+        sessionStorage.setItem('sakshya-i5_preloader_seen', 'true');
         onComplete();
       }, 600);
     }, 1800);
@@ -46,7 +46,7 @@ export const Preloader: React.FC<PreloaderProps> = ({ onComplete }) => {
           />
           <text className="font-mono text-[11px] uppercase tracking-[0.24em] fill-ink font-semibold">
             <textPath href="#textCircle" startOffset="0%">
-              प्रमाण · EVIDENCE · PROOF · LEDGER · AICTE ·
+              साक्ष्य‑I5 · EVIDENCE · PROOF · LEDGER · AICTE ·
             </textPath>
           </text>
         </svg>

@@ -84,7 +84,7 @@ export const DevSimulationPanel: React.FC = () => {
 
           <div className="p-5 space-y-5 text-text-muted flex-1 overflow-y-auto font-sans">
             <p className="text-xs leading-relaxed">
-              Deterministic simulation overrides to prove Pramāṇa never masks non-pass states or collapses unknown status into pass.
+              Deterministic simulation overrides to prove Sakshya‑I5 never masks non-pass states or collapses unknown status into pass.
             </p>
 
             {/* Toggle 1: SOURCE_UNAVAILABLE */}

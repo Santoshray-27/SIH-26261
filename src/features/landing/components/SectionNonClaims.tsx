@@ -44,8 +44,8 @@ export const SectionNonClaims: React.FC = () => {
 
         <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-text uppercase mb-4">
           {language === 'hi'
-            ? 'प्रमाण क्या दावा नहीं करता'
-            : 'What Pramāṇa will NOT claim.'}
+            ? 'साक्ष्य‑I5 क्या दावा नहीं करता'
+            : 'What Sakshya‑I5 will NOT claim.'}
         </h2>
 
         <p className="font-mono text-xs text-text-muted max-w-2xl mb-16">

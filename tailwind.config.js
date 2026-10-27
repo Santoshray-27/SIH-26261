@@ -92,11 +92,12 @@ export default {
         },
       },
       fontFamily: {
-        display: ['Fraunces', 'Noto Serif Devanagari', 'serif'],
-        sans: ['Geist Sans', 'Noto Sans Devanagari', 'system-ui', 'sans-serif'],
-        mono: ['JetBrains Mono', 'monospace'],
-        devanagariDisplay: ['Noto Serif Devanagari', 'serif'],
-        devanagariSans: ['Noto Sans Devanagari', 'sans-serif'],
+        sans: ['var(--font-body)'],
+        serif: ['var(--font-heading)'],
+        display: ['var(--font-heading)'],
+        mono: ['var(--font-mono)'],
+        devanagariDisplay: ['Noto Serif Devanagari', 'var(--font-heading)'],
+        devanagariSans: ['Noto Sans Devanagari', 'var(--font-body)'],
       },
       boxShadow: {
         'subtle': '0 1px 3px 0 rgba(31, 43, 61, 0.05)',

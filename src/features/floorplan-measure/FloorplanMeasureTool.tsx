@@ -98,7 +98,8 @@ export const FloorplanMeasureTool: React.FC = () => {
       ctx.lineWidth = 2;
       ctx.strokeRect(60, 60, 360, 260); // outer wall
 
-      ctx.font = '11px JetBrains Mono, monospace';
+      const monoFont = computed.getPropertyValue('--font-mono').trim() || '"Roboto Mono", monospace';
+      ctx.font = `11px ${monoFont}`;
       ctx.fillStyle = computed.getPropertyValue('--text-muted').trim() || 'rgb(74, 85, 104)';
       ctx.fillText('LABORATORY WING - BLOCK B (AICTE APPROVED FLOORPLAN)', 70, 50);
       ctx.fillText('SCALE BAR REF', 50, 365);
@@ -107,6 +108,7 @@ export const FloorplanMeasureTool: React.FC = () => {
     const reviewColor = getComputedStyle(canvas).getPropertyValue('--st-review').trim() || 'rgb(138, 90, 0)';
     const passColor = getComputedStyle(canvas).getPropertyValue('--st-pass').trim() || 'rgb(27, 111, 79)';
     const textColor = getComputedStyle(canvas).getPropertyValue('--text').trim() || 'rgb(31, 43, 61)';
+    const monoFont = getComputedStyle(canvas).getPropertyValue('--font-mono').trim() || '"Roboto Mono", monospace';
 
     // Render Scale Bar Line & Points
     if (scalePoints.length > 0) {
@@ -126,7 +128,7 @@ export const FloorplanMeasureTool: React.FC = () => {
         ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '10px JetBrains Mono, monospace';
+        ctx.font = `10px ${monoFont}`;
         ctx.fillStyle = textColor;
         ctx.fillText(`P${i + 1}`, pt.x - 8, pt.y - 10);
       });
@@ -135,7 +137,7 @@ export const FloorplanMeasureTool: React.FC = () => {
         const midX = (scalePoints[0].x + scalePoints[1].x) / 2;
         const midY = (scalePoints[0].y + scalePoints[1].y) / 2;
         ctx.fillStyle = textColor;
-        ctx.font = '11px JetBrains Mono, monospace';
+        ctx.font = `11px ${monoFont}`;
         ctx.fillText(`${statedScaleLength}m (${Math.round(euclideanDistance(scalePoints[0], scalePoints[1]))}px)`, midX - 25, midY - 8);
       }
     }
@@ -164,7 +166,7 @@ export const FloorplanMeasureTool: React.FC = () => {
         ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
         ctx.fill();
 
-        ctx.font = '9px JetBrains Mono, monospace';
+        ctx.font = `9px ${monoFont}`;
         ctx.fillStyle = textColor;
         ctx.fillText(`V${i + 1}`, pt.x + 6, pt.y + 4);
       });

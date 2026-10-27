@@ -57,7 +57,7 @@ export const CorrectValueDrawer: React.FC<CorrectValueDrawerProps> = ({
         <div className="p-3 bg-st-structure/30 border border-st-structure rounded text-[11px] text-slate flex items-start gap-2">
           <ShieldCheck className="w-4 h-4 text-verdigris flex-shrink-0 mt-0.5" />
           <span>
-            <strong>Tamper-Evident Provenance Rule:</strong> Pramāṇa never overwrites values in place.
+            <strong>Tamper-Evident Provenance Rule:</strong> Sakshya‑I5 never overwrites values in place.
             Your correction creates a superseding record linked to your officer ID with timestamp.
           </span>
         </div>

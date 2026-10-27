@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
-import { PrototypeBanner } from './PrototypeBanner';
+import { Breadcrumbs } from './gov';
 import { LangToggle } from './LangToggle';
 import { RoleSwitcher } from './RoleSwitcher';
 import { ToastContainer } from './ui/Toast';
@@ -23,6 +23,7 @@ import {
 import { DemoTourModal } from './DemoTourModal';
 import { DevSimulationPanel } from './DevSimulationPanel';
 import { useAppStore } from '../store/useAppStore';
+import { BRAND } from '../config/brand';
 
 export const OfficerShell: React.FC = () => {
   const { t } = useI18n();
@@ -32,23 +33,22 @@ export const OfficerShell: React.FC = () => {
   const [mobileDrawerOpen, setMobileDrawerOpen] = useState<boolean>(false);
 
   const navItems = [
-    { to: '/officer', label: t.nav.dashboard, icon: Inbox, exact: true },
+    { to: '/officer', label: t('nav:dashboard'), icon: Inbox, exact: true },
     { to: '/officer/queue', label: 'Triage Queue', icon: FileCheck2 },
     { to: '/officer/tools', label: 'Evidence Tools', icon: Wrench },
     { to: '/officer/network', label: 'Network Graph', icon: Network },
     { to: '/officer/reports', label: 'Reports & CSV', icon: FileText },
-    { to: '/officer/rules', label: t.nav.rules, icon: Sliders },
-    { to: '/officer/audit', label: t.nav.audit, icon: History },
-    { to: '/ui-kit', label: t.nav.uiKit, icon: LayoutGrid },
+    { to: '/officer/rules', label: t('nav:rules'), icon: Sliders },
+    { to: '/officer/audit', label: t('nav:audit'), icon: History },
+    { to: '/ui-kit', label: t('nav:uiKit'), icon: LayoutGrid },
   ];
 
   return (
     <div className="h-dvh flex flex-col font-sans bg-bg text-text overflow-hidden selection:bg-tint-ochre selection:text-text">
       <div className="editorial-grain" />
 
-      {/* Chrome Block (Sticky Banner + Sticky Header) */}
+      {/* Chrome Header Block */}
       <div className="sticky top-0 z-40 bg-bg shrink-0 shadow-subtle border-b border-border">
-        <PrototypeBanner />
 
         <header className="px-4 sm:px-6 py-2.5 sm:py-3 flex items-center justify-between bg-bg-elevated transition-colors">
           <div className="flex items-center gap-3 sm:gap-4">
@@ -61,15 +61,15 @@ export const OfficerShell: React.FC = () => {
             </button>
 
             <Link to="/" className="flex items-center gap-2.5">
-              <div className="w-8 h-8 border border-border-strong flex items-center justify-center font-serif font-black text-sm bg-accent-2 text-accent-2-contrast rounded-xs">
-                प्र
+              <div className="w-9 h-9 border border-border-strong flex items-center justify-center font-serif font-bold text-base bg-accent-2 text-accent-2-contrast rounded-xs shrink-0 select-none">
+                {BRAND.GLYPH}
               </div>
               <div>
-                <span className="font-display font-bold text-base sm:text-lg tracking-tight uppercase text-text block leading-none">
-                  {t.common.appName}
+                <span className="font-serif font-bold text-lg text-text block leading-tight tracking-[0.01em]">
+                  {BRAND.NAME_EN}
                 </span>
-                <span className="text-text-muted text-[11px] font-mono tracking-wider">
-                  Officer Review Console
+                <span className="text-text-muted text-[13px] font-sans font-normal leading-tight">
+                  Officer review console
                 </span>
               </div>
             </Link>
@@ -78,7 +78,7 @@ export const OfficerShell: React.FC = () => {
           <div className="flex items-center gap-2 sm:gap-3">
             <button
               onClick={() => setShowTour(true)}
-              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 bg-tint-ochre hover:opacity-90 text-st-review border border-border-strong rounded font-mono text-xs font-bold transition-colors shadow-sm"
+              className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 bg-tint-ochre hover:opacity-90 text-st-review border border-border-strong rounded font-sans text-xs font-semibold transition-colors shadow-sm"
             >
               <Compass className="w-3.5 h-3.5 animate-spin-slow" />
               <span>Guided Demo (17 Steps)</span>
@@ -205,8 +205,11 @@ export const OfficerShell: React.FC = () => {
         )}
 
         {/* Main Content Pane */}
-        <main className="flex-1 overflow-y-auto p-4 sm:p-6 md:p-8 bg-bg transition-colors">
-          <Outlet />
+        <main id="main-content" tabIndex={-1} className="flex-1 overflow-y-auto flex flex-col bg-bg transition-colors focus:outline-none">
+          <Breadcrumbs />
+          <div className="p-4 sm:p-6 md:p-8 flex-1">
+            <Outlet />
+          </div>
         </main>
       </div>
 

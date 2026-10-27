@@ -1,0 +1,9 @@
+{
+  "duplicateTitle": "SHA-256 Document Duplicate Check",
+  "structureTitle": "PDF Structure & Byte-Level Inspection",
+  "signatureTitle": "Digital Signature Verification",
+  "geotagTitle": "Campus Photo Geotag Verification",
+  "floorplanTitle": "Architectural Floor-Plan Area Measurement",
+  "videoTitle": "Video Frame Strip & Tamper Analysis",
+  "qrTitle": "Official QR Code Sandbox"
+}

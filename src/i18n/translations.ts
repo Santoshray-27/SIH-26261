@@ -1,6 +1,6 @@
 export const en = {
   common: {
-    appName: "Pramāṇa",
+    appName: "Sakshya‑I5",
     appSubTitle: "Regulatory Compliance & Document Authentication Engine",
     prototypeBanner: "Prototype — synthetic data; external issuer response is simulated.",
     designedNow: "Designed now · built in Phase 4",
@@ -114,8 +114,8 @@ export const en = {
 
 export const hi = {
   common: {
-    appName: "प्रमाण (Pramāṇa)",
-    appSubTitle: "नियामक अनुपालन एवं दस्तावेज़ प्रमाणीकरण प्रणाली",
+    appName: "साक्ष्य‑I5 (Sakshya‑I5)",
+    appSubTitle: "नियामक अनुपालन एवं दस्तावेज़ साक्ष्य‑I5ीकरण प्रणाली",
     prototypeBanner: "प्रोटोटाइप — कृत्रिम डेटा; बाहरी जारीकर्ता अनुक्रिया सिम्युलेटेड है।",
     designedNow: "अब डिज़ाइन किया गया · चरण 4 में निर्मित",
     role: "भूमिका",
@@ -135,7 +135,7 @@ export const hi = {
     coverageRatio: "अनिवार्य जांच कवरेज",
     limitingSignal: "मुख्य रुकावट (निर्णय रोकने वाला कारण)",
     evidenceGate: "साक्ष्य पर्याप्तता द्वार",
-    auditTrail: "छेड़छाड़-प्रमाणित ऑडिट ट्रेल",
+    auditTrail: "छेड़छाड़-साक्ष्य‑I5ित ऑडिट ट्रेल",
     replayNotice: "निर्णय पुनरावृत्ति ऐतिहासिक नियम संस्करण के तहत मामला निष्पादित करती है।",
     phaseTag: "एसआईएच-26261 · एआईसीटीई",
   },
@@ -164,11 +164,11 @@ export const hi = {
     },
     SIGNATURE_VALID: {
       label: "हस्ताक्षर मान्य (Signature Valid)",
-      caveat: "क्रिप्टोग्राफ़िक जांच सफल; यह सभी दावों की सत्यता प्रमाणित नहीं करता।",
+      caveat: "क्रिप्टोग्राफ़िक जांच सफल; यह सभी दावों की सत्यता साक्ष्य‑I5ित नहीं करता।",
     },
     SIGNATURE_INVALID_OR_BROKEN: {
       label: "अमान्य या टूटा हुआ हस्ताक्षर",
-      caveat: "प्रमाणपत्र या डाइजेस्ट सत्यापन नीति के तहत विफल हुआ।",
+      caveat: "साक्ष्य‑I5पत्र या डाइजेस्ट सत्यापन नीति के तहत विफल हुआ।",
     },
     SOURCE_UNAVAILABLE: {
       label: "स्रोत अनुपलब्ध (Source Unavailable)",

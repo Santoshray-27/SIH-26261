@@ -23,9 +23,30 @@ interface ChecklistItem {
 }
 
 export const PrecheckEmbedWidget: React.FC = () => {
-  const [lang, setLang] = useState<'en' | 'hi'>('en');
+  const [lang, setLang] = useState<'en' | 'hi'>(() => {
+    if (typeof window !== 'undefined') {
+      const params = new URLSearchParams(window.location.search);
+      const urlLng = params.get('lng');
+      if (urlLng === 'hi' || urlLng === 'en') return urlLng;
+    }
+    return 'en';
+  });
   const [isEvaluating, setIsEvaluating] = useState<boolean>(false);
   const [hasRun, setHasRun] = useState<boolean>(false);
+
+  // Sync language with parent host frame via postMessage 'sakshya-i5:lang'
+  React.useEffect(() => {
+    const handleMessage = (event: MessageEvent) => {
+      if (event.data && typeof event.data === 'object' && event.data.channel === 'sakshya-i5:lang') {
+        const nextLang = event.data.lang;
+        if (nextLang === 'en' || nextLang === 'hi') {
+          setLang(nextLang);
+        }
+      }
+    };
+    window.addEventListener('message', handleMessage);
+    return () => window.removeEventListener('message', handleMessage);
+  }, []);
 
   const [items, setItems] = useState<ChecklistItem[]>([
     {
@@ -132,11 +153,11 @@ export const PrecheckEmbedWidget: React.FC = () => {
       <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-border gap-3">
         <div className="flex items-center gap-2.5">
           <div className="w-7 h-7 bg-text text-bg flex items-center justify-center font-serif font-black text-sm rounded-xs">
-            प्र
+            सा
           </div>
           <div>
             <h3 className="font-serif font-bold text-base text-text">
-              {lang === 'en' ? 'Pramāṇa Applicant Pre-Check' : 'प्रमाण आवेदक पूर्व-सत्यापन'}
+              {lang === 'en' ? 'Sakshya‑I5 Applicant Pre-Check' : 'साक्ष्य‑I5 आवेदक पूर्व-सत्यापन'}
             </h3>
             <p className="text-[11px] font-mono text-text-muted">
               {lang === 'en'

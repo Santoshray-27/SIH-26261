@@ -61,15 +61,15 @@ export const SectionHero: React.FC = () => {
         <div className="space-y-0">
           <div className="flex flex-wrap items-baseline gap-4 md:gap-8">
             <h1 className="font-devanagariDisplay font-black text-6xl sm:text-8xl md:text-9xl text-ink tracking-tight select-none">
-              प्रमाण
+              साक्ष्य‑I5
             </h1>
             <span className="font-display italic font-normal text-4xl sm:text-6xl md:text-8xl text-ink/75 tracking-tight">
-              Pramāṇa
+              Sakshya‑I5
             </span>
           </div>
 
           <p className="font-serif italic text-2xl sm:text-4xl md:text-5xl text-ink mt-4 tracking-tight">
-            “{language === 'hi' ? 'निर्णय नहीं, केवल प्रमाण।' : 'Proof, not just a verdict.'}”
+            “{language === 'hi' ? 'निर्णय नहीं, केवल साक्ष्य‑I5।' : 'Proof, not just a verdict.'}”
           </p>
         </div>
 

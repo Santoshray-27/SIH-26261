@@ -21,7 +21,7 @@ export const SectionPortalIndependence: React.FC = () => {
         </h2>
 
         <p className="font-mono text-xs text-slate max-w-2xl mb-12">
-          Regulatory logic is never coupled to portal-specific payloads. Pramāṇa powers the official AICTE portal,
+          Regulatory logic is never coupled to portal-specific payloads. Sakshya‑I5 powers the official AICTE portal,
           State Technical University portals, and an embeddable applicant pre-check widget using the exact same API.
         </p>
 
@@ -73,7 +73,7 @@ export const SectionPortalIndependence: React.FC = () => {
                 {activePortal === 'embed' && 'https://institution.edu.in/apply/aicte-precheck'}
               </span>
             </div>
-            <span>Powered by Pramāṇa Engine</span>
+            <span>Powered by Sakshya‑I5 Engine</span>
           </div>
 
           {/* Host Portal Body Content */}

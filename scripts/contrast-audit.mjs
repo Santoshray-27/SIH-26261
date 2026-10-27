@@ -86,10 +86,15 @@ const checks = [
   // Non-text UI Contrast (>= 3.0:1)
   { name: 'Control Border on Surface', fg: PALETTE.borderControl, bg: PALETTE.surface, min: 3.0 },
   { name: 'Focus Ring on BG', fg: PALETTE.focusRing, bg: PALETTE.bg, min: 3.0 },
+
+  // Gov Chrome Semantic Aliases
+  { name: 'Gov MainNav Text on Nav BG', fg: PALETTE.bgElevated, bg: PALETTE.accent2, min: 4.5 },
+  { name: 'Gov Utility Bar Text on Surface 2', fg: PALETTE.text, bg: PALETTE.surface2, min: 4.5 },
+  { name: 'Gov Prototype Banner Text on Ochre', fg: PALETTE.text, bg: PALETTE.tintOchre, min: 4.5 },
 ];
 
 console.log('========================================================================');
-console.log(' PRAMĀṆA — SANDSTONE & TEAL WCAG AA CONTRAST AUDIT');
+console.log(' SAKSHYA-I5 — SANDSTONE & TEAL WCAG AA CONTRAST AUDIT');
 console.log('========================================================================');
 console.log(
   'Token Pair Name'.padEnd(42) +

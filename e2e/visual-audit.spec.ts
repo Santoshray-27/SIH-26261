@@ -17,6 +17,14 @@ const ROUTES = [
   '/embed/precheck',
   '/rectification',
   '/ui-kit',
+  '/about',
+  '/faq',
+  '/accessibility',
+  '/privacy',
+  '/terms',
+  '/disclaimer',
+  '/sitemap',
+  '/help',
 ];
 
 const VIEWPORTS = [
@@ -27,7 +35,7 @@ const VIEWPORTS = [
   { name: 'phone-landscape-844x390', width: 844, height: 390 },
 ];
 
-test.describe('Pramana - Comprehensive Visual & Accessibility Audit', () => {
+test.describe('Sakshya‑I5 - Comprehensive Visual & Accessibility Audit', () => {
   for (const route of ROUTES) {
     for (const vp of VIEWPORTS) {
       test(`${route} @ ${vp.name} - no overflow & accessibility check`, async ({ page }) => {
@@ -86,5 +94,41 @@ test.describe('Pramana - Comprehensive Visual & Accessibility Audit', () => {
     await page.goto('/officer/tools?tool=geotag');
     await expect(page.locator('button[role="tab"][data-state="active"]')).toContainText('Geotag & Haversine');
     await expect(page.locator('text=Campus Photo Geotag Verification')).toBeVisible();
+  });
+
+  test('Government Chrome - Text Scaling, Language Toggle, Ticker, and Marquee interactions', async ({ page }) => {
+    await page.goto('/');
+
+    // 1. Text Size Scaling in MainNav
+    const textSizeBtn125 = page.locator('button:has-text("A++")').first();
+    await textSizeBtn125.click();
+    const htmlFontSize = await page.evaluate(() => document.documentElement.style.fontSize);
+    expect(htmlFontSize).toBe('125%');
+
+    // Reset text size
+    const textSizeBtn100 = page.locator('button:has-text("A")').nth(1);
+    await textSizeBtn100.click();
+
+    // 2. Language Switch to Hindi and persistence in MainNav
+    const hiBtn = page.locator('button[lang="hi"]').first();
+    await hiBtn.click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'hi');
+    const storedLang = await page.evaluate(() => localStorage.getItem('sakshya-i5:lang'));
+    expect(storedLang).toBe('hi');
+
+    // Switch back to English
+    const enBtn = page.locator('button[lang="en"]').first();
+    await enBtn.click();
+    await expect(page.locator('html')).toHaveAttribute('lang', 'en');
+
+    // 3. Notice Ticker Pause/Play
+    const tickerPauseBtn = page.locator('button[aria-label="Pause notice ticker"], button[aria-label="Play notice ticker"]');
+    await expect(tickerPauseBtn).toBeVisible();
+    await tickerPauseBtn.click();
+    await expect(page.locator('button[aria-label="Play notice ticker"]')).toBeVisible();
+
+    // 4. Highlights Continuous Marquee on Landing Page
+    const marquee = page.locator('[aria-label="Portal Highlights Marquee"]');
+    await expect(marquee).toBeVisible();
   });
 });

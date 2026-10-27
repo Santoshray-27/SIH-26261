@@ -31,22 +31,22 @@ export const LifecycleStrip: React.FC<LifecycleStripProps> = ({
   return (
     <div className="border border-border bg-surface p-4 font-sans text-xs rounded-xs shadow-subtle">
       <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-3 border-b border-border">
-        <span className="text-[12px] font-mono uppercase tracking-wider text-text-muted font-bold">
-          Lifecycle State Stepper (§6 / §7)
+        <span className="text-[13px] font-sans text-text-muted font-semibold tracking-[0.02em]">
+          Lifecycle state stepper (<span className="font-mono text-[0.9em]">§6 / §7</span>)
         </span>
         <button
           onClick={() => onSelectState('ALL')}
-          className={`text-xs px-2.5 py-1 border rounded-xs transition-colors font-medium ${
+          className={`text-xs px-2.5 py-1 border rounded-xs transition-colors font-medium tabular-nums ${
             selectedState === 'ALL'
               ? 'border-accent-2 bg-tint-teal text-accent-2 font-bold'
               : 'border-border text-text-muted hover:text-text hover:bg-surface-2'
           }`}
         >
-          View All ({totalCount})
+          View all ({totalCount})
         </button>
       </div>
 
-      {/* Wrapping Stepper (No scrollbar; responsive wrap across viewports) */}
+      {/* Wrapping Stepper */}
       <div className="flex flex-wrap items-center gap-2">
         {ORDERED_LIFECYCLE_STATES.map((item) => {
           const count = stateCounts[item.state] || 0;
@@ -58,7 +58,7 @@ export const LifecycleStrip: React.FC<LifecycleStripProps> = ({
             <button
               key={item.state}
               onClick={() => onSelectState(item.state)}
-              className={`flex items-center gap-2 px-3 py-1.5 border text-xs rounded-xs transition-colors ${
+              className={`flex items-center gap-2 px-3 py-1.5 border text-xs rounded-xs transition-colors font-medium ${
                 isSelected
                   ? 'border-accent-2 bg-tint-teal text-accent-2 font-bold shadow-subtle'
                   : isEscalated && count > 0
@@ -70,7 +70,7 @@ export const LifecycleStrip: React.FC<LifecycleStripProps> = ({
             >
               <span>{item.label}</span>
               <span
-                className={`px-1.5 py-0.2 rounded-xs font-mono text-[11px] ${
+                className={`px-1.5 py-0.2 rounded-xs font-sans tabular-nums text-xs font-semibold ${
                   isSelected
                     ? 'bg-accent-2 text-accent-2-contrast'
                     : 'bg-surface-2 text-text font-bold'

@@ -1,0 +1,7 @@
+{
+  "ledgerTitle": "Cryptographic Proof Ledger",
+  "ledgerSubTitle": "Sequential SHA-256 block hash-chain linking all officer actions and system evaluations",
+  "verifyChain": "Verify Audit Chain",
+  "simulateTamper": "Simulate Tampering",
+  "checkpointStatus": "Published Checkpoint Verification"
+}

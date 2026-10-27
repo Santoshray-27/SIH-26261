@@ -104,7 +104,7 @@ export const CaseReviewPage: React.FC = () => {
   if (!application) {
     return (
       <div className="p-8 font-mono text-sm text-slate animate-pulse bg-ink-dark">
-        {t.common.loading}
+        {t('common:loading')}
       </div>
     );
   }

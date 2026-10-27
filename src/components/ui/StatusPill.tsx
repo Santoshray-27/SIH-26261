@@ -19,7 +19,10 @@ export const StatusPill: React.FC<StatusPillProps> = ({
   className = '',
 }) => {
   const { t } = useI18n();
-  const info = t.statuses[status] || { label: status, caveat: 'Status check' };
+  const info = {
+    label: t(`status:${status}.label`, { defaultValue: status }),
+    caveat: t(`status:${status}.caveat`, { defaultValue: 'Status check' }),
+  };
   const displayLabel = label || info.label;
 
   let styleClasses = '';
@@ -75,23 +78,23 @@ export const StatusPill: React.FC<StatusPillProps> = ({
   }
 
   const sizeClasses = {
-    sm: 'text-xs px-2 py-0.5 tracking-tight min-h-[24px]',
-    md: 'text-xs px-2.5 py-1 tracking-tight font-medium min-h-[28px]',
-    lg: 'text-sm px-3.5 py-1.5 font-medium min-h-[32px]',
+    sm: 'text-xs px-2.5 py-0.5 min-h-[24px] font-sans font-semibold leading-normal whitespace-nowrap',
+    md: 'text-[13px] px-3 py-1 min-h-[26px] font-sans font-semibold leading-normal whitespace-nowrap',
+    lg: 'text-sm px-3.5 py-1 min-h-[28px] font-sans font-semibold leading-normal whitespace-nowrap',
   }[size];
 
   return (
-    <div className={`relative group inline-block ${className}`}>
+    <div className={`relative group inline-flex items-center ${className}`}>
       <span
         tabIndex={0}
         aria-label={`${info.label}. Limitation note: ${info.caveat}`}
-        className={`inline-flex items-center gap-1.5 rounded-xs font-mono uppercase transition-colors select-none focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-focus-ring ${sizeClasses} ${styleClasses}`}
+        className={`inline-flex items-center gap-1.5 rounded-xs font-sans transition-colors select-none focus:outline-none focus:ring-1 focus:ring-offset-1 focus:ring-focus-ring ${sizeClasses} ${styleClasses}`}
       >
         {status === 'CHECK_NOT_RUN' && (
           <span className="absolute inset-0 hatch-pattern pointer-events-none" />
         )}
-        <Icon size={12} strokeWidth={2.5} className="shrink-0 relative z-10" />
-        <span className="relative z-10">{displayLabel}</span>
+        <Icon size={13} strokeWidth={2.2} className="shrink-0 relative z-10" />
+        <span className="relative z-10 tracking-normal">{displayLabel}</span>
       </span>
 
       {showCaveatTooltip && (
@@ -99,9 +102,9 @@ export const StatusPill: React.FC<StatusPillProps> = ({
           role="tooltip"
           className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 hidden group-hover:flex group-focus-within:flex flex-col z-50 pointer-events-none w-64 bg-surface border border-border-strong text-text p-2.5 rounded-xs shadow-floating text-left"
         >
-          <div className="font-mono text-[11px] uppercase text-st-review tracking-wider mb-1 font-bold flex items-center justify-between">
-            <span>Evidence Limitation</span>
-            <span>§3.3</span>
+          <div className="font-sans text-[11px] font-semibold text-st-review mb-1 flex items-center justify-between">
+            <span>Evidence limitation</span>
+            <span className="font-mono">§3.3</span>
           </div>
           <p className="text-xs font-sans leading-tight text-text-muted">
             {info.caveat}

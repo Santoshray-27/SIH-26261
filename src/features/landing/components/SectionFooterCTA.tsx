@@ -18,7 +18,7 @@ export const SectionFooterCTA: React.FC = () => {
 
           <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-ink uppercase mb-4">
             {language === 'hi'
-              ? 'प्रमाण प्रणाली का अन्वेषण करें'
+              ? 'साक्ष्य‑I5 प्रणाली का अन्वेषण करें'
               : 'Inspect the live synthetic ledger.'}
           </h2>
 
@@ -48,7 +48,7 @@ export const SectionFooterCTA: React.FC = () => {
             <QrCode size={110} strokeWidth={1.2} className="text-ink/80" />
             <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
               <div className="bg-paper px-2 py-0.5 border border-hairline text-[9px] font-bold uppercase">
-                PRAMĀṆA
+                SAKSHYA-I5
               </div>
             </div>
           </div>

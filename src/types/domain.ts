@@ -1,5 +1,5 @@
 /**
- * Pramāṇa Domain Types
+ * Sakshya‑I5 Domain Types
  * Derived from docs/final-solution.md §3.3, §6, §7
  */
 

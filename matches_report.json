@@ -1,0 +1,161 @@
+{
+  "counts": {
+    "Pramāṇa": 52,
+    "Pramana": 4,
+    "PRAMANA": 0,
+    "PRAMĀṆA": 4,
+    "pramana": 17,
+    "pramaan": 6,
+    "प्रमाण": 37,
+    "प्र": 92
+  },
+  "fileMatches": {
+    ".agent\\rules\\design-system.md": {
+      "Pramāṇa": 2,
+      "प्रमाण": 1,
+      "प्र": 1
+    },
+    "docs\\final-solution.md": {
+      "Pramāṇa": 21,
+      "pramaan": 6,
+      "प्रमाण": 1,
+      "प्र": 1
+    },
+    "docs\\FINAL_QA_REPORT.md": {
+      "Pramāṇa": 1,
+      "प्रमाण": 1,
+      "प्र": 1
+    },
+    "e2e\\visual-audit.spec.ts": {
+      "Pramana": 1
+    },
+    "index.html": {
+      "Pramāṇa": 1
+    },
+    "package-lock.json": {
+      "pramana": 2
+    },
+    "package.json": {
+      "pramana": 1
+    },
+    "README.md": {
+      "Pramāṇa": 5,
+      "pramana": 8,
+      "प्रमाण": 1,
+      "प्र": 1
+    },
+    "scripts\\check-colors.mjs": {
+      "PRAMĀṆA": 1
+    },
+    "scripts\\contrast-audit.mjs": {
+      "PRAMĀṆA": 1
+    },
+    "src\\App.tsx": {
+      "Pramāṇa": 1
+    },
+    "src\\components\\DemoTourModal.tsx": {
+      "Pramāṇa": 1,
+      "प्रमाण": 5,
+      "प्र": 14
+    },
+    "src\\components\\DevSimulationPanel.tsx": {
+      "Pramāṇa": 1
+    },
+    "src\\components\\OfficerShell.tsx": {
+      "प्र": 1
+    },
+    "src\\components\\PublicShell.tsx": {
+      "Pramāṇa": 1,
+      "प्र": 1
+    },
+    "src\\config\\brand.ts": {
+      "Pramāṇa": 1,
+      "प्र": 3
+    },
+    "src\\features\\landing\\components\\Preloader.tsx": {
+      "pramana": 2,
+      "प्रमाण": 1,
+      "प्र": 2
+    },
+    "src\\features\\landing\\components\\ScrollProgressRuler.tsx": {
+      "PRAMĀṆA": 1
+    },
+    "src\\features\\landing\\components\\SectionFooterCTA.tsx": {
+      "PRAMĀṆA": 1,
+      "प्रमाण": 1,
+      "प्र": 2
+    },
+    "src\\features\\landing\\components\\SectionHero.tsx": {
+      "Pramāṇa": 1,
+      "प्रमाण": 2,
+      "प्र": 3
+    },
+    "src\\features\\landing\\components\\SectionNonClaims.tsx": {
+      "Pramāṇa": 1,
+      "प्रमाण": 1,
+      "प्र": 1
+    },
+    "src\\features\\landing\\components\\SectionPortalIndependence.tsx": {
+      "Pramāṇa": 2
+    },
+    "src\\features\\landing\\components\\SectionProblem.tsx": {
+      "प्रमाण": 1,
+      "प्र": 6
+    },
+    "src\\features\\officer\\components\\CorrectValueDrawer.tsx": {
+      "Pramāṇa": 1
+    },
+    "src\\features\\officer\\components\\NoticeDraft.tsx": {
+      "प्रमाण": 3,
+      "प्र": 9
+    },
+    "src\\features\\precheck-embed\\PrecheckEmbedWidget.tsx": {
+      "Pramāṇa": 1,
+      "प्रमाण": 8,
+      "प्र": 18
+    },
+    "src\\i18n\\translations.ts": {
+      "Pramāṇa": 2,
+      "प्रमाण": 5,
+      "प्र": 14
+    },
+    "src\\i18n\\useI18n.ts": {
+      "pramana": 3
+    },
+    "src\\mock\\mockData.test.ts": {
+      "Pramana": 1
+    },
+    "src\\mock\\mockData.ts": {
+      "Pramāṇa": 1,
+      "प्रमाण": 5,
+      "प्र": 12
+    },
+    "src\\pages\\officer\\CrossAppNetworkPage.tsx": {
+      "Pramāṇa": 1
+    },
+    "src\\pages\\officer\\VerificationReportsPage.tsx": {
+      "Pramāṇa": 1,
+      "pramana": 1,
+      "प्र": 1
+    },
+    "src\\pages\\PortalAPage.tsx": {
+      "Pramāṇa": 2,
+      "Pramana": 1
+    },
+    "src\\pages\\PortalBPage.tsx": {
+      "Pramāṇa": 1,
+      "Pramana": 1
+    },
+    "src\\pages\\UiKitPage.tsx": {
+      "Pramāṇa": 1,
+      "प्रमाण": 1,
+      "प्र": 1
+    },
+    "src\\styles\\tokens.css": {
+      "Pramāṇa": 1
+    },
+    "src\\types\\domain.ts": {
+      "Pramāṇa": 1
+    }
+  }
+}

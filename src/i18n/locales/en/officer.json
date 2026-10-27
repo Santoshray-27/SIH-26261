@@ -1,0 +1,13 @@
+{
+  "queueTitle": "Institutional Verification Ledger",
+  "queueSubTitle": "AICTE Approval Process Handbook (APH 2026-27) Case Review Queue",
+  "categoryFilter": "Category Filter",
+  "allCategories": "All Categories",
+  "totalApplications": "Total Applications",
+  "reviewAction": "Review Dossier",
+  "findingReview": "Adjudication Workstation",
+  "correctField": "Correct Extracted Value",
+  "draftNotice": "Draft Clarification Notice",
+  "escalateCase": "Escalate to Senior Officer",
+  "resolveFinding": "Mark Finding Resolved"
+}

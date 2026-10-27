@@ -1,0 +1,22 @@
+{
+  "home": "Home",
+  "about": "About",
+  "services": "Services",
+  "howItWorks": "How It Works",
+  "resources": "Resources",
+  "help": "Help",
+  "precheck": "Applicant Pre-Check",
+  "officer": "Officer Console",
+  "evidenceTools": "Evidence Tools",
+  "rules": "Rule Governance",
+  "audit": "Audit Ledger",
+  "reports": "Reports & CSV",
+  "network": "Network Graph",
+  "uiKit": "UI Kit & Tokens",
+  "faq": "FAQ",
+  "docs": "Documentation",
+  "accessibility": "Accessibility Statement",
+  "guidedDemo": "Guided Demo",
+  "dashboard": "Officer Queue",
+  "cases": "Applications"
+}

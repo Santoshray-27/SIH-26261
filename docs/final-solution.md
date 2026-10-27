@@ -1,4 +1,5 @@
-# Pramāṇa — Final SIH Solution
+# Sakshya-I5 — Final SIH Solution
+> Former working name: Pramāṇa
 ## AICTE Application Validation, Document Authentication & Regulatory Compliance Verification
 
 **Problem Statement:** SIH 26261 · AICTE · Software · Smart Automation  
@@ -11,7 +12,7 @@
 
 ## 1. Executive Summary
 
-**Pramāṇa** (प्रमाण — evidence/proof) is a proposed AICTE application-validation and regulatory-compliance platform that helps officers review institution applications through one evidence-linked workflow. It combines deterministic rules, document intelligence, issuer verification adapters, infrastructure evidence review, cross-application pattern detection, and a secure officer dashboard.
+**Sakshya‑I5** (साक्ष्य = evidence) is a proposed AICTE application-validation and regulatory-compliance platform that helps officers review institution applications through one evidence-linked workflow. It combines deterministic rules, document intelligence, issuer verification adapters, infrastructure evidence review, cross-application pattern detection, and a secure officer dashboard.
 
 The platform is designed to address the full problem space captured in the source drafts:
 
@@ -27,7 +28,7 @@ The platform is designed to address the full problem space captured in the sourc
 
 ### Core differentiator
 
-Pramāṇa does not merely return a pass/fail label. Each finding is designed to show **what was checked, which evidence triggered it, which rule or source was used, how confident the system is, and what the officer should review next**. The system assists the officer; it does not replace AICTE's statutory decision-making authority.
+Sakshya‑I5 does not merely return a pass/fail label. Each finding is designed to show **what was checked, which evidence triggered it, which rule or source was used, how confident the system is, and what the officer should review next**. The system assists the officer; it does not replace AICTE's statutory decision-making authority.
 
 Beyond that, five properties are meant to be demonstrable on screen rather than merely asserted:
 
@@ -39,7 +40,7 @@ Beyond that, five properties are meant to be demonstrable on screen rather than 
 
 ### Presentation strategy
 
-The PPT should present Pramāṇa as a coherent, end-to-end **proposed system**, not as a list of disconnected AI features. Describe the target workflow, architecture, modules, and planned national-finale build. Use “designed to”, “will verify”, and “proposed integration” for capabilities that have not yet been implemented; do not describe mock adapters or future models as already connected or validated.
+The PPT should present Sakshya‑I5 as a coherent, end-to-end **proposed system**, not as a list of disconnected AI features. Describe the target workflow, architecture, modules, and planned national-finale build. Use “designed to”, “will verify”, and “proposed integration” for capabilities that have not yet been implemented; do not describe mock adapters or future models as already connected or validated.
 
 ---
 
@@ -66,15 +67,15 @@ The PPT should present Pramāṇa as a coherent, end-to-end **proposed system**,
 
 ### Consolidation conclusion
 
-**Solution 1 remains the stronger implementation baseline; Solution 2 remains the broader coverage checklist.** The repository review adds several architectural patterns worth incorporating without blindly copying any repository's claims: an evidence-sufficiency gate, governed rule-pack activation, guided one-finding-at-a-time review, explicit lifecycle transitions, provenance-preserving evidence handling, robust adapter failure states, and a first-class infrastructure evidence workflow. These are incorporated below as design decisions. A second review pass added further patterns: configurable readiness thresholds with weakest-signal reporting, separate finding classes, formula-type rules, Decision Replay, differential re-checks, supersede-only corrections, database-level audit protection with external checkpoints, hardened uploads, PDF structure inspection, and an applicant-side pre-check. The first-pass table in 2.1 is retained; Section 2.2 lists what was deliberately **not** adopted. Repository READMEs and self-reported metrics are reference material, not proof that the same results will be achieved by Pramāṇa.
+**Solution 1 remains the stronger implementation baseline; Solution 2 remains the broader coverage checklist.** The repository review adds several architectural patterns worth incorporating without blindly copying any repository's claims: an evidence-sufficiency gate, governed rule-pack activation, guided one-finding-at-a-time review, explicit lifecycle transitions, provenance-preserving evidence handling, robust adapter failure states, and a first-class infrastructure evidence workflow. These are incorporated below as design decisions. A second review pass added further patterns: configurable readiness thresholds with weakest-signal reporting, separate finding classes, formula-type rules, Decision Replay, differential re-checks, supersede-only corrections, database-level audit protection with external checkpoints, hardened uploads, PDF structure inspection, and an applicant-side pre-check. The first-pass table in 2.1 is retained; Section 2.2 lists what was deliberately **not** adopted. Repository READMEs and self-reported metrics are reference material, not proof that the same results will be achieved by Sakshya‑I5.
 
-### 2.1 Repository research: patterns adopted into Pramāṇa
+### 2.1 Repository research: patterns adopted into Sakshya‑I5
 
 The repositories reviewed were specific to SIH 26261 and adjacent implementations of the same AICTE validation problem. The review compared documented architecture and selected files/READMEs; it was **not** a full clone, code audit, reproducible benchmark, or independent validation of every repository's implementation.
 
-| Repository/reference | Useful pattern observed in the reviewed material | Pramāṇa design decision | What we will not assume |
+| Repository/reference | Useful pattern observed in the reviewed material | Sakshya‑I5 design decision | What we will not assume |
 |---|---|---|---|
-| [Adi-ctive/pramaan](https://github.com/Adi-ctive/pramaan) | Portal-independent validation core; adapters; versioned rule packs; guided reviewer flow; completion checks; documented experiments and limitations for visual analysis | Separate the validation engine from portal integrations; add rule lifecycle/governance; use a guided review queue; retain explicit test and limitation reporting | Do not copy its reported floor-plan/video/handwriting performance as Pramāṇa performance. The reviewed progress notes report weak results for some visual tasks, which reinforces the need for scoped claims and measured evaluation. |
+| [Adi-ctive/pramaan](https://github.com/Adi-ctive/pramaan) | Portal-independent validation core; adapters; versioned rule packs; guided reviewer flow; completion checks; documented experiments and limitations for visual analysis | Separate the validation engine from portal integrations; add rule lifecycle/governance; use a guided review queue; retain explicit test and limitation reporting | Do not copy its reported floor-plan/video/handwriting performance as Sakshya‑I5 performance. The reviewed progress notes report weak results for some visual tasks, which reinforces the need for scoped claims and measured evaluation. |
 | [atharva23x/verigate](https://github.com/atharva23x/verigate) | Evidence-gating concept that considers OCR confidence, issuer checks, tamper signals, duplicates, and cross-record consistency | Add an **Evidence Sufficiency Gate** that decides whether a case has enough resolved evidence to proceed to a defensible officer decision | Do not turn a composite score into a legal verdict. Keep individual signals visible and the gate separate from compliance and officer decisions. |
 | [aquasimp/SIH26261](https://github.com/aquasimp/SIH26261) and [ANUJ-YADAV22/SIH26261](https://github.com/ANUJ-YADAV22/SIH26261) | Broad regulatory review workstation; infrastructure analysis; distinction between fixable deficiency and suspected fraud | Make infrastructure evidence a complete module; distinguish rectifiable deficiency, unresolved evidence, and suspected fraud/escalation | Treat closely similar descriptions as related reference material, not automatically as independent innovation. Do not adopt named statutory timelines/forms without official verification. |
 | [omkardiggi/sih26261-scandoc](https://github.com/omkardiggi/sih26261-scandoc) | Original-file preservation, derivative outputs, OCR provenance, explicit processing states, retry/idempotency concepts, access control, audit history | Preserve originals; store OCR/extraction as derivatives; capture page/region provenance where available; define processing states, retry policy, and backend authorization | A hash chain alone does not make the database immutable or make submitted claims true. |
@@ -88,7 +89,7 @@ The repositories reviewed were specific to SIH 26261 and adjacent implementation
 
 ### 2.2 Ideas deliberately not adopted
 
-| Idea seen in reviewed material | Why Pramāṇa leaves it out | What Pramāṇa does instead |
+| Idea seen in reviewed material | Why Sakshya‑I5 leaves it out | What Sakshya‑I5 does instead |
 |---|---|---|
 | Automatic approval/rejection driven by a numeric trust level | Conflicts with the human-decision safeguard in the problem statement | The readiness gate only routes work; only an authorized officer records a decision |
 | One blended authenticity/trust score with a veto rule | Opaque aggregate that hides which signal drove the outcome | Independent signals, with the *limiting* (weakest) signal reported |
@@ -145,7 +146,7 @@ A status is scoped to the check. For example, `SIGNATURE_VALID` does **not** mea
 
 ### 3.4 Three separate outcomes: check result, evidence sufficiency, officer decision
 
-Pramāṇa must never compress these three layers into one score or one status:
+Sakshya‑I5 must never compress these three layers into one score or one status:
 
 1. **Check result:** what a specific rule, comparison, source adapter, or analysis returned (`PASS`, `MISMATCH_FOUND`, `SOURCE_UNAVAILABLE`, etc.).
 2. **Evidence sufficiency:** whether all mandatory checks have run and whether any unresolved critical uncertainty prevents the case from being ready for a defensible decision.
@@ -262,7 +263,7 @@ The phases are sequencing priorities, not a claim that only Phase 1 is part of t
 
 ## 5. Proposed Architecture
 
-Pramāṇa is designed as a **portal-independent validation core** surrounded by intake, evidence processing, verification adapters, and an officer decision workflow. The system separates raw evidence, automated check results, evidence sufficiency, and the final officer decision.
+Sakshya‑I5 is designed as a **portal-independent validation core** surrounded by intake, evidence processing, verification adapters, and an officer decision workflow. The system separates raw evidence, automated check results, evidence sufficiency, and the final officer decision.
 
 ```mermaid
 flowchart TD
@@ -458,7 +459,7 @@ Use synthetic documents only. Put a persistent banner on the demo saying **“Pr
 
 ## 9. Problem-Statement Coverage Matrix
 
-The matrix below maps every requirement family represented in the two source drafts to the proposed Pramāṇa module and the PPT proof point. This is a **solution-coverage matrix**, not a claim that the software is already implemented. Keep this matrix as the master checklist while creating slides: no PS point should disappear just because its implementation comes later.
+The matrix below maps every requirement family represented in the two source drafts to the proposed Sakshya‑I5 module and the PPT proof point. This is a **solution-coverage matrix**, not a claim that the software is already implemented. Keep this matrix as the master checklist while creating slides: no PS point should disappear just because its implementation comes later.
 
 | PS requirement / capability | Proposed module and response | What the PPT should show | Build/validation acceptance gate | Important boundary |
 |---|---|---|---|---|
@@ -484,7 +485,7 @@ The matrix below maps every requirement family represented in the two source dra
 
 Use this checklist while reviewing the final slide deck. These details are easy to miss if the deck only shows the high-level A–F modules.
 
-| Detailed PS ask | Where it is covered in Pramāṇa | Slide / visual evidence to include |
+| Detailed PS ask | Where it is covered in Sakshya‑I5 | Slide / visual evidence to include |
 |---|---|---|
 | Identify application category and select the applicable checklist | Application intake and category-based rules/checklists | Application category selector leading to a tailored checklist |
 | Use available authorized AICTE institutional records | Institutional-record adapter and case context | Show a record-retrieval layer for authorized records; include previous EoA/approval status and application history |
@@ -678,11 +679,11 @@ The following issues are prioritized by how directly they could make the proposa
 
 ### Recommended one-line pitch
 
-**Pramāṇa is an AICTE application-validation and compliance intelligence platform that connects document checks, regulatory rules, infrastructure evidence, and cross-application fraud signals into one explainable officer workflow.**
+**Sakshya‑I5 is an AICTE application-validation and compliance intelligence platform that connects document checks, regulatory rules, infrastructure evidence, and cross-application fraud signals into one explainable officer workflow.**
 
 ### Recommended wording for the deck
 
-- “Pramāṇa is designed to validate applications, authenticate documents, verify regulatory compliance, and review infrastructure evidence through one integrated workflow.”
+- “Sakshya‑I5 is designed to validate applications, authenticate documents, verify regulatory compliance, and review infrastructure evidence through one integrated workflow.”
 - “An Evidence Sufficiency Gate keeps incomplete mandatory checks and unresolved critical uncertainty visible before the case advances to officer decision-making; it does not replace the officer or determine approval.”
 - “The validation core is portal-independent, with adapters for authorized portals, issuer/registry sources, and notifications.”
 - “Original submissions are preserved as versioned evidence; extracted text, annotations, and later submissions are stored as traceable derivatives/versions rather than silently replacing prior evidence.”
@@ -708,7 +709,7 @@ The following issues are prioritized by how directly they could make the proposa
 5. **Honest status vocabulary:** `SOURCE_UNAVAILABLE`, `CHECK_NOT_RUN`, `GEOTAG_ABSENT` and `VERIFICATION_PENDING` are first-class states and never collapse into pass/fail.
 6. **Coverage statement per case:** absence of evidence is made visible.
 
-**Alternative closing line:** *Pramāṇa shows officers not only what looks wrong, but what was checked, what could not be checked, and which rule version said so — and can replay the decision.*
+**Alternative closing line:** *Sakshya‑I5 shows officers not only what looks wrong, but what was checked, what could not be checked, and which rule version said so — and can replay the decision.*
 
 ### Presentation polish worth including
 
@@ -738,7 +739,7 @@ This wording keeps the pitch ambitious and complete while presenting the system 
 
 ## 15. PPT Blueprint — Recommended 15-Slide Flow
 
-1. **Title and one-line pitch** — Pramāṇa, AICTE PS 26261, team, and core promise.
+1. **Title and one-line pitch** — Sakshya‑I5, AICTE PS 26261, team, and core promise.
 2. **Problem and current pain** — manual document review, fragmented evidence, inconsistent checks, fraud risk, and infrastructure verification burden.
 3. **What the PS asks for** — application validation, document authentication, compliance, infrastructure evidence, dashboard/security/audit, cross-application patterns, integrations, scale, accessibility, alerts, and evaluation.
 4. **Proposed solution overview** — unified workflow and module map; show that evidence, rule results, sufficiency, and officer decision are separate.
@@ -760,7 +761,7 @@ This wording keeps the pitch ambitious and complete while presenting the system 
 
 ## 16. Final Decision Summary
 
-The final combined proposal is **Pramāṇa as an end-to-end AICTE application validation, document authentication, regulatory compliance, infrastructure evidence, and officer-governance platform**.
+The final combined proposal is **Sakshya‑I5 as an end-to-end AICTE application validation, document authentication, regulatory compliance, infrastructure evidence, and officer-governance platform**.
 
 - Keep Solution 1's deterministic-first architecture, evidence-linked findings, explicit rule versioning, and human oversight.
 - Keep Solution 2's complete requirement breadth: infrastructure photos/floor plans/videos, external integrations, cross-application fraud signals, pan-India scalability, alerts, and accessibility.
@@ -780,13 +781,13 @@ These references were checked as a limited, standard web verification pass (not 
 
 1. **AICTE Approval Process Handbook 2024–2027** — official AICTE PDF: https://aicte.gov.in/sites/default/files/APH%20Final.pdf. It contains a chapter on Extension of Approval for existing institutions, supporting EoA as a real workflow category. The exact checklist and rules used in the product still need to be mapped to the applicable handbook clauses and year.
 2. **Government of India Press Information Bureau announcement about the AICTE Approval Process Handbook 2024–2027** — https://www.pib.gov.in/Pressreleaseshare.aspx?PRID=1983013&lang=2&reg=48. This confirms the handbook's 2024–2027 period and its role in the approval process. Confirm whether any later amendment or circular applies before encoding a rule.
-3. **NIST FIPS 180-4, Secure Hash Standard** — https://csrc.nist.gov/files/pubs/fips/180-4/final/docs/fips180-4.pdf. NIST describes SHA-256 as a message-digest algorithm and explains its use in detecting changes to a message. In Pramāṇa, this supports using SHA-256 for byte-level identity/integrity comparisons, not treating a digest as proof that a document was genuine at upload time.
+3. **NIST FIPS 180-4, Secure Hash Standard** — https://csrc.nist.gov/files/pubs/fips/180-4/final/docs/fips180-4.pdf. NIST describes SHA-256 as a message-digest algorithm and explains its use in detecting changes to a message. In Sakshya‑I5, this supports using SHA-256 for byte-level identity/integrity comparisons, not treating a digest as proof that a document was genuine at upload time.
 4. **pyHanko PDF signature validation documentation** — https://docs.pyhanko.eu/en/latest/cli-guide/validation.html. The documentation distinguishes cryptographic integrity from certificate-chain trust and discusses incremental PDF updates and timestamp validation. The implementation must configure trust and report the exact validation scope rather than simply displaying “authentic.”
 5. **pyHanko validation API documentation** — https://pyhanko.readthedocs.io/en/latest/api-docs/pyhanko.sign.validation.html. This describes validation-context and trust-chain inputs, reinforcing that signature verification requires an explicit validation policy.
 
 **Problem-statement source note:** The detailed functional checklist was cross-checked against the SIH 26261 text reproduced by an SIH problem-statement archive (Zaid Sayyed, “SIH26261 — AI-Powered Application Validation, Document Authentication and Regulatory Compliance Verification,” https://zaidsayyed.in/tools/sih-problem-statements/sih26261). Treat the official SIH listing as authoritative if any wording differs. The A–F grouping comes from `solution-2.md`; the detailed checklist expands it to include specific institutional records, source-verification methods/statuses, alerts, audit events, prototype-data guidance, and evaluation metrics. No OCR accuracy figure, fraud-detection metric, or production-integration claim is asserted in this document.
 
-**Repository-review source note:** Repository links in Section 2.1 point to SIH 26261-related public repositories reviewed for documented design patterns. The comparison is inspiration and design review, not a certification that their implementations are complete or that their reported metrics are independently reproducible. The reviewed progress documentation for `Adi-ctive/pramaan` is available at https://github.com/Adi-ctive/pramaan/blob/main/docs/PROGRESS.md. Before adopting any algorithm, benchmark, statutory form, or workflow detail, validate it against primary documentation and Pramāṇa's own evaluation set.
+**Repository-review source note:** Repository links in Section 2.1 point to SIH 26261-related public repositories reviewed for documented design patterns. The comparison is inspiration and design review, not a certification that their implementations are complete or that their reported metrics are independently reproducible. The reviewed progress documentation for `Adi-ctive/pramaan` is available at https://github.com/Adi-ctive/pramaan/blob/main/docs/PROGRESS.md. Before adopting any algorithm, benchmark, statutory form, or workflow detail, validate it against primary documentation and Sakshya‑I5's own evaluation set.
 
 **Second-pass review note:** The additional repository comparison behind the v2 revisions was README-level only; no code was cloned, run or benchmarked, and no repository's “implemented” label or metric is treated as evidence. Several of the six extra references listed in Section 2.1 were not re-opened in this pass.
 

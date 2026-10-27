@@ -1,0 +1,20 @@
+{
+  "title": "Frequently Asked Questions",
+  "subtitle": "Understanding Sakshya‑I5 purpose, scope, and technical design",
+  "q1": "What is Sakshya‑I5?",
+  "a1": "Sakshya‑I5 is a prototype regulatory compliance and document authentication engine designed for Smart India Hackathon 2026 (SIH-26261). It connects AICTE Approval Process Handbook criteria to verifiable cryptographic proof.",
+  "q2": "Is Sakshya‑I5 an official Government of India website?",
+  "a2": "No. Sakshya‑I5 is a student-built prototype solution proposal for AICTE. It is not affiliated with or endorsed by AICTE or the Government of India.",
+  "q3": "Does Sakshya‑I5 automatically approve or reject applications?",
+  "a3": "No. Sakshya‑I5 strictly enforces an Evidence Sufficiency Gate. It verifies whether mandatory checks have run and evidence is present. Final approval or rejection remains solely with authorized AICTE officers.",
+  "q4": "What data does this prototype use?",
+  "a4": "All institutional applications, land deeds, NOC certificates, and affidavits displayed in this prototype are 100% synthetic mock fixtures. No real personal records are stored or processed.",
+  "q5": "Which parts are simulated versus real?",
+  "a5": "SHA-256 client digesting, Shoelace area calculation, Haversine coordinate math, CSV formula sanitization, and audit hash-chain verification run real code locally. External issuer APIs (such as state land registries) are simulated with synthetic responses.",
+  "q6": "How are compliance rules sourced?",
+  "a6": "Rules directly reflect the AICTE Approval Process Handbook (APH 2026-27), with each finding citing exact handbook appendix clauses and formula norms.",
+  "q7": "Does the platform support multiple Indian languages?",
+  "a7": "Yes. The interface is available in both English and हिन्दी, with Devanagari typography tuned for readability without diacritic clipping.",
+  "q8": "What accessibility standards does Sakshya‑I5 follow?",
+  "a8": "Sakshya‑I5 adheres to WCAG 2.1 AA standards, featuring high contrast, A- A A+ font scaling, skip to main content navigation, and full keyboard operability."
+}

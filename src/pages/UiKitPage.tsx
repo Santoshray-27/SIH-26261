@@ -41,7 +41,7 @@ export const UiKitPage: React.FC = () => {
             Design Specifications · Sandstone & Teal Theme (§3.3)
           </span>
           <h1 className="font-display font-black text-2xl sm:text-4xl md:text-5xl tracking-tight text-text mt-1 leading-[1.18] pt-1">
-            Pramāṇa UI Primitives & Status Taxonomy
+            Sakshya‑I5 UI Primitives & Status Taxonomy
           </h1>
           <p className="text-sm font-sans text-text-muted mt-1 max-w-2xl leading-relaxed">
             Strict verification vocabulary for statutory AICTE evidence adjudication. Never collapses unknown or unavailable status into binary pass/fail.
@@ -123,7 +123,7 @@ export const UiKitPage: React.FC = () => {
                         {status === 'SIGNATURE_VALID' && 'Teal tint solid + Check icon'}
                       </td>
                       <td className="p-3 text-text-muted leading-relaxed">
-                        {t.statuses[status]?.caveat}
+                        {t(`status:${status}.caveat`, { defaultValue: 'Status check' })}
                       </td>
                     </tr>
                   ))}
@@ -251,19 +251,19 @@ export const UiKitPage: React.FC = () => {
             <h3 className="font-display font-bold text-xl mb-4 text-text">Editorial Font Hierarchy</h3>
             <div className="space-y-4">
               <div>
-                <span className="font-mono text-xs text-text-muted">Display / Headings: Fraunces & Noto Serif Devanagari</span>
-                <p className="font-display font-bold text-2xl tracking-tight mt-1 text-text leading-[1.25]">
-                  प्रमाण — Evidence & Authenticity Ledger
+                <span className="text-xs text-text-muted">Headings: Merriweather & Noto Serif Devanagari</span>
+                <p className="font-serif font-bold text-2xl tracking-tight mt-1 text-text leading-[1.25]">
+                  साक्ष्य‑I5 — Evidence & Authenticity Ledger
                 </p>
               </div>
               <div>
-                <span className="font-mono text-xs text-text-muted">Body & UI: Geist Sans (15–16px baseline)</span>
-                <p className="text-sm text-text-muted mt-1 leading-relaxed">
+                <span className="text-xs text-text-muted">Body & UI: Public Sans (16px baseline)</span>
+                <p className="text-base text-text-muted mt-1 leading-relaxed">
                   Clear, accessible editorial typography with strict WCAG AA contrast against all sandstone and tinted surfaces.
                 </p>
               </div>
               <div>
-                <span className="font-mono text-xs text-text-muted">Mono: JetBrains Mono (IDs & Hashes only)</span>
+                <span className="text-xs text-text-muted">Mono: Roboto Mono (IDs & Hashes only)</span>
                 <p className="font-mono text-xs text-text mt-1 break-all bg-surface-2 p-2 rounded-xs border border-border">
                   SHA-256: d7a8fbb307d7809469ca9abcb0082e4f8d5651e46d3cdb762d02d0bf37c9e592
                 </p>

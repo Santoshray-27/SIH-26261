@@ -1,4 +1,4 @@
-/* Pramāṇa — Design System Tokens (Sandstone & Teal Single Light Theme) */
+/* Sakshya‑I5 — Design System Tokens (Sandstone & Teal Single Light Theme) */
 :root {
   /* Core Palette (NO pure black, NO pure white, lightest surface = #FFFCF5) */
   --bg: #F3EDE0;                /* Sandstone background */
@@ -55,8 +55,13 @@
   --st-unavailable-border: #566074;
   --st-unavailable-fg: #566074;
 
-  /* Chrome measurements */
-  --chrome-h: 76px;
+  /* Government Chrome Aliases (Mapped to Sandstone & Teal Palette) */
+  --header-bg: #FAF6EC;
+  --nav-bg: #1C6B6F;            /* Deep Teal government nav bar */
+  --nav-fg: #FAF6EC;            /* Sandstone elevated text */
+  --nav-hover: #155356;
+  --utility-bg: #ECE5D4;        /* Bone utility bar */
+  --footer-bg: #ECE5D4;
 
   /* Legacy color aliases mapped strictly to Sandstone & Teal */
   --ink: var(--text);
@@ -69,17 +74,87 @@
   --slate: var(--st-unavailable);
   --hairline: var(--border);
   --hairline-contrast: var(--border-strong);
+
+  /* Font Family Stacks (subsets: latin + devanagari only) */
+  --font-body: "Public Sans", system-ui, "Segoe UI", Roboto, Arial, sans-serif;
+  --font-heading: "Merriweather", Georgia, "Times New Roman", serif;
+  --font-mono: "Roboto Mono", ui-monospace, Consolas, monospace;
 }
 
-/* Base Body Styles */
+/* Hindi typography font stacks switch via html[lang="hi"] or html.font-hindi */
+html[lang="hi"],
+html.font-hindi {
+  --font-body: "Noto Sans Devanagari", "Public Sans", system-ui, sans-serif;
+  --font-heading: "Noto Serif Devanagari", "Merriweather", Georgia, serif;
+}
+
+/* Base Body Styles & Global Typography Rules */
 body {
   background-color: var(--bg);
   color: var(--text);
-  font-family: 'Geist Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
-  font-size: 15px;
-  line-height: 1.5;
+  font-family: var(--font-body);
+  font-size: 1rem; /* 16px minimum */
+  line-height: 1.6;
+  text-align: left;
   letter-spacing: -0.01em;
   min-height: 100dvh;
+}
+
+html[lang="hi"] body,
+html.font-hindi body {
+  line-height: 1.75;
+}
+
+/* Tabular numerals for tables, counters, dates, and audit ledger */
+table,
+.tabular-nums,
+[role="table"],
+.audit-ledger,
+.counter-num,
+.stat-value {
+  font-variant-numeric: tabular-nums;
+}
+
+/* Headings scale and family */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  line-height: 1.2;
+  text-align: left;
+}
+
+html[lang="hi"] h1,
+html[lang="hi"] h2,
+html[lang="hi"] h3,
+html[lang="hi"] h4,
+html.font-hindi h1,
+html.font-hindi h2,
+html.font-hindi h3,
+html.font-hindi h4 {
+  line-height: 1.4;
+}
+
+/* Headings type scale */
+h1 {
+  font-size: clamp(1.9rem, 3.2vw, 2.5rem);
+}
+h2 {
+  font-size: clamp(1.5rem, 2.4vw, 1.875rem);
+}
+h3 {
+  font-size: 1.375rem;
+}
+h4 {
+  font-size: 1.125rem;
+}
+
+/* Prose running text limits */
+p {
+  max-width: 66ch;
+}
+.long-desc {
+  max-width: 75ch;
 }
 
 /* Scrollbars Styled to Match Sandstone & Teal */
@@ -173,4 +248,35 @@ body {
     border: 1px solid #666666 !important;
     padding: 6px 8px !important;
   }
+}
+
+/* High Contrast Mode Toggle (still strictly within Sandstone & Teal hues, no #000 or #fff) */
+[data-contrast="high"] {
+  --text: #0E1724;
+  --text-muted: #242F3E;
+  --border: #8B8068;
+  --border-strong: #504735;
+  --control-border: #504735;
+  --focus-ring: #0E4B4E;
+}
+
+/* Hindi Devanagari Typography Tuning is handled via CSS variables --font-body and --font-heading above */
+
+/* Continuous Marquee Animation */
+@keyframes marqueeScroll {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-33.333%);
+  }
+}
+
+.animate-marquee {
+  display: flex;
+  animation: marqueeScroll 25s linear infinite;
+}
+
+.animate-marquee:hover {
+  animation-play-state: paused;
 }

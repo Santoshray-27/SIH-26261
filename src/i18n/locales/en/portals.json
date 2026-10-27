@@ -1,0 +1,5 @@
+{
+  "portalATitle": "Ministry of Education Affiliation Portal (Mock Host A)",
+  "portalBTitle": "State Higher Education Technical Gateway (Mock Host B)",
+  "isolatedNote": "Demonstrates style-isolated iframe embed without CSS leakage"
+}

@@ -8,7 +8,7 @@ interface KbdProps {
 export const Kbd: React.FC<KbdProps> = ({ children, className = '' }) => {
   return (
     <kbd
-      className={`inline-block px-1.5 py-0.5 font-mono text-[10px] uppercase font-semibold text-ink dark:text-paper bg-bone dark:bg-ink-surface border border-hairline rounded shadow-subtle ${className}`}
+      className={`inline-block px-1.5 py-0.5 font-sans text-xs font-semibold text-text bg-surface-2 border border-border rounded-xs shadow-xs leading-none ${className}`}
     >
       {children}
     </kbd>

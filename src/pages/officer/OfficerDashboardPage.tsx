@@ -9,6 +9,7 @@ import { CommandPalette } from '../../features/officer/components/CommandPalette
 import { StatusPill } from '../../components/ui/StatusPill';
 import { Button } from '../../components/ui/Button';
 import { Kbd } from '../../components/ui/Kbd';
+import { IdText } from '../../components/ui/MonoText';
 import {
   Search,
   Filter,
@@ -103,15 +104,15 @@ export const OfficerDashboardPage: React.FC = () => {
       {/* Editorial Header */}
       <div className="border-b border-border pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-text-muted mb-1">
-            <span>Regulatory Workstation</span>
+          <div className="flex items-center gap-2 font-sans font-semibold text-[13px] text-accent-2 mb-2 tracking-[0.02em]">
+            <span>Regulatory workstation</span>
             <span>·</span>
             <span>AICTE Approval Process Handbook 2026-27</span>
           </div>
-          <h1 className="font-display font-black text-2xl md:text-4xl tracking-tight text-text">
-            Officer Verification Ledger
+          <h1 className="font-serif font-bold text-2xl md:text-3xl tracking-normal text-text">
+            Officer verification ledger
           </h1>
-          <p className="font-sans text-sm text-text-muted mt-1 max-w-2xl">
+          <p className="font-sans text-sm text-text-muted mt-2 max-w-[66ch] leading-relaxed">
             Deterministic triage ledger. Evaluates evidence sufficiency and surfaces weakest limiting signals without automated verdict generation.
           </p>
         </div>
@@ -120,7 +121,7 @@ export const OfficerDashboardPage: React.FC = () => {
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => setCommandPaletteOpen(true)}
-            className="px-3 py-2 border border-border bg-surface hover:bg-surface-2 font-mono text-xs text-text-muted hover:text-text flex items-center gap-2 transition-colors rounded-xs shadow-subtle"
+            className="px-3 py-2 border border-border bg-surface hover:bg-surface-2 font-sans text-xs text-text-muted hover:text-text flex items-center gap-2 transition-colors rounded-xs shadow-subtle"
             title="Open Command Palette (Ctrl/Cmd+K)"
           >
             <Command size={14} />
@@ -136,7 +137,7 @@ export const OfficerDashboardPage: React.FC = () => {
               addToast('Initiating case batch sync...', 'info');
             }}
           >
-            Batch Re-Evaluate
+            Batch re-evaluate
           </Button>
         </div>
       </div>
@@ -144,27 +145,27 @@ export const OfficerDashboardPage: React.FC = () => {
       {/* Row of 4 Summary Metric Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
         <div className="p-4 bg-surface border border-border rounded-xs shadow-subtle">
-          <span className="text-xs text-text-muted font-medium uppercase tracking-wider block">Total Applications</span>
-          <p className="text-3xl font-display font-black text-text mt-1">{summaryMetrics.total}</p>
-          <span className="text-[12px] text-text-muted">Dossiers in queue</span>
+          <span className="text-xs text-text-muted font-semibold block">Total applications</span>
+          <p className="text-3xl font-serif font-bold text-text mt-1 tabular-nums">{summaryMetrics.total}</p>
+          <span className="text-xs text-text-muted">Dossiers in queue</span>
         </div>
 
         <div className="p-4 bg-tint-teal border border-border rounded-xs shadow-subtle">
-          <span className="text-xs text-accent-2 font-bold uppercase tracking-wider block">Ready for Review</span>
-          <p className="text-3xl font-display font-black text-accent-2 mt-1">{summaryMetrics.readyForReview}</p>
-          <span className="text-[12px] text-text-muted">Sufficiency passed</span>
+          <span className="text-xs text-accent-2 font-semibold block">Ready for review</span>
+          <p className="text-3xl font-serif font-bold text-accent-2 mt-1 tabular-nums">{summaryMetrics.readyForReview}</p>
+          <span className="text-xs text-text-muted">Sufficiency passed</span>
         </div>
 
         <div className="p-4 bg-tint-clay border border-border rounded-xs shadow-subtle">
-          <span className="text-xs text-st-deficiency font-bold uppercase tracking-wider block">Escalated to Vigilance</span>
-          <p className="text-3xl font-display font-black text-st-deficiency mt-1">{summaryMetrics.escalated}</p>
-          <span className="text-[12px] text-text-muted">Integrity alerts flagged</span>
+          <span className="text-xs text-st-deficiency font-semibold block">Escalated to vigilance</span>
+          <p className="text-3xl font-serif font-bold text-st-deficiency mt-1 tabular-nums">{summaryMetrics.escalated}</p>
+          <span className="text-xs text-text-muted">Integrity alerts flagged</span>
         </div>
 
         <div className="p-4 bg-tint-ochre border border-border rounded-xs shadow-subtle">
-          <span className="text-xs text-st-review font-bold uppercase tracking-wider block">Evidence Incomplete</span>
-          <p className="text-3xl font-display font-black text-st-review mt-1">{summaryMetrics.incomplete}</p>
-          <span className="text-[12px] text-text-muted">Mandatory checks missing</span>
+          <span className="text-xs text-st-review font-semibold block">Evidence incomplete</span>
+          <p className="text-3xl font-serif font-bold text-st-review mt-1 tabular-nums">{summaryMetrics.incomplete}</p>
+          <span className="text-xs text-text-muted">Mandatory checks missing</span>
         </div>
       </div>
 
@@ -261,7 +262,7 @@ export const OfficerDashboardPage: React.FC = () => {
             </select>
           </div>
 
-          <span className="text-xs text-text-muted font-mono">
+          <span className="text-xs text-text-muted font-sans tabular-nums">
             Showing {filteredApps.length} of {applications.length}
           </span>
         </div>
@@ -280,16 +281,16 @@ export const OfficerDashboardPage: React.FC = () => {
                     <Link to={`/officer/case/${app.id}`} className="font-bold text-accent-2 text-base hover:underline">
                       {language === 'hi' && app.institutionNameHi ? app.institutionNameHi : app.institutionName}
                     </Link>
-                    <div className="text-xs text-text-muted font-mono">{app.id} · {app.category.replace(/_/g, ' ')}</div>
+                    <div className="text-xs text-text-muted font-sans"><IdText>{app.id}</IdText> · <span className="capitalize">{app.category.replace(/_/g, ' ').toLowerCase()}</span></div>
                   </div>
-                  <span className="px-2 py-0.5 bg-surface-2 border border-border text-[11px] font-mono rounded-xs">
-                    {app.currentState.replace(/_/g, ' ')}
+                  <span className="px-2 py-0.5 bg-surface-2 border border-border text-[11px] font-sans font-medium rounded-xs capitalize">
+                    {app.currentState.replace(/_/g, ' ').toLowerCase()}
                   </span>
                 </div>
 
                 <div className="flex items-center gap-2">
                   {assess && <StatusPill status={assess.sufficiencyStatus as any} size="sm" />}
-                  <span className="text-xs text-text-muted font-mono">
+                  <span className="text-xs text-text-muted font-sans tabular-nums">
                     Coverage: {assess?.mandatoryChecksCompleted ?? 0}/{assess?.mandatoryChecksTotal ?? 11}
                   </span>
                 </div>
@@ -316,18 +317,18 @@ export const OfficerDashboardPage: React.FC = () => {
         {/* Desktop View: Formatted Table */}
         <div className="hidden md:block overflow-x-auto">
           <table className="w-full text-left font-sans text-sm">
-            <thead className="bg-bg-elevated text-text-muted font-mono uppercase text-xs tracking-wider border-b border-border">
+            <thead className="bg-bg-elevated text-text-muted font-sans text-xs font-semibold border-b border-border">
               <tr>
-                <th className="p-3.5 min-w-[280px]">Institution & Application ID</th>
-                <th className="p-3.5 min-w-[150px]">Lifecycle State</th>
-                <th className="p-3.5 min-w-[170px]">Sufficiency Gate</th>
+                <th className="p-3.5 min-w-[280px]">Institution & application ID</th>
+                <th className="p-3.5 min-w-[150px]">Lifecycle state</th>
+                <th className="p-3.5 min-w-[170px]">Sufficiency gate</th>
                 <th className="p-3.5 min-w-[280px]">
-                  <span>{language === 'hi' ? 'मुख्य रुकावट (सबसे कमजोर बिंदु)' : 'Primary Blocking Reason'}</span>
-                  <span className="block text-[10px] font-sans font-normal text-text-muted lowercase">
+                  <span>{language === 'hi' ? 'मुख्य रुकावट (सबसे कमजोर बिंदु)' : 'Primary blocking reason'}</span>
+                  <span className="block text-[11px] font-sans font-normal text-text-muted">
                     {language === 'hi' ? 'निर्णय रोकने वाला मुख्य कारण' : 'weakest limiting signal'}
                   </span>
                 </th>
-                <th className="p-3.5 min-w-[120px]">Check Coverage</th>
+                <th className="p-3.5 min-w-[120px]">Check coverage</th>
                 <th className="p-3.5 text-right min-w-[110px]">Action</th>
               </tr>
             </thead>
@@ -360,10 +361,10 @@ export const OfficerDashboardPage: React.FC = () => {
                             ? app.institutionNameHi
                             : app.institutionName}
                         </Link>
-                        <div className="flex items-center gap-2 mt-0.5 text-xs text-text-muted font-mono">
-                          <span>{app.id}</span>
+                        <div className="flex items-center gap-2 mt-0.5 text-xs text-text-muted font-sans">
+                          <IdText>{app.id}</IdText>
                           <span>·</span>
-                          <span>{app.category.replace(/_/g, ' ')}</span>
+                          <span className="capitalize">{app.category.replace(/_/g, ' ').toLowerCase()}</span>
                         </div>
                       </td>
 

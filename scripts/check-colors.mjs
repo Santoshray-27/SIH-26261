@@ -85,7 +85,7 @@ function traverse(dir) {
 traverse(SRC_DIR);
 
 console.log('========================================================================');
-console.log(' PRAMĀṆA — COLOR AUDIT (NO RAW HEX, NO #000/#FFF OUTSIDE TOKENS.CSS)');
+console.log(' SAKSHYA-I5 — COLOR AUDIT (NO RAW HEX, NO #000/#FFF OUTSIDE TOKENS.CSS)');
 console.log('========================================================================');
 
 if (violations.length === 0) {

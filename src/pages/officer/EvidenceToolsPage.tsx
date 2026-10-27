@@ -57,21 +57,21 @@ export const EvidenceToolsPage: React.FC = () => {
       {/* Editorial Header */}
       <div className="border-b border-border pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-st-review uppercase tracking-wider mb-1">
-            <Wrench className="w-4 h-4" />
-            <span>Forensic Evidence Verifiers · §3.3 / §6 / §14</span>
+          <div className="flex items-center gap-2 font-sans font-semibold text-[13px] text-accent-2 mb-2 tracking-[0.02em]">
+            <Wrench className="w-4 h-4 text-accent-2" />
+            <span>Forensic evidence verifiers · <span className="font-mono text-[0.9em]">§3.3 / §6 / §14</span></span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-display font-black tracking-tight text-text">
-            Forensic Evidence Toolbox
+          <h1 className="text-2xl md:text-3xl font-serif font-bold tracking-normal text-text">
+            Forensic evidence toolbox
           </h1>
-          <p className="text-sm font-sans text-text-muted mt-1 max-w-2xl">
+          <p className="text-sm font-sans text-text-muted mt-2 max-w-[66ch] leading-relaxed">
             Client-side cryptographic hashing, PDF structure markers, PAdES signature boundaries, Haversine geospatial tolerances, and interactive floorplan polygon tracing.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 font-mono text-xs text-text-muted bg-surface px-3 py-1.5 border border-border rounded-xs shadow-subtle">
+        <div className="flex items-center gap-2 font-sans text-xs text-text-muted bg-surface px-3 py-1.5 border border-border rounded-xs shadow-subtle font-medium">
           <span className="w-2 h-2 rounded-full bg-st-pass animate-pulse" />
-          <span>7 Active Forensic Tools</span>
+          <span>7 active forensic tools</span>
         </div>
       </div>
 

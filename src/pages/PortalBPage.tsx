@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowLeft, Sparkles } from 'lucide-react';
+import { PrototypeBanner } from '../components/gov';
 
 export const PortalBPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#1F2B3D] text-[#FAF6EC] font-sans">
+      <PrototypeBanner />
       {/* Modern Minimal Header */}
       <header className="border-b border-[#3A4A9C]/30 bg-[#162030]/80 backdrop-blur-md sticky top-0 z-20">
         <div className="max-w-6xl mx-auto px-6 h-16 flex items-center justify-between">
@@ -48,7 +50,7 @@ export const PortalBPage: React.FC = () => {
             Pre-Check Embedded Instance
           </h2>
           <p className="text-sm text-[#DCEAE5] max-w-2xl leading-relaxed">
-            Even though Portal B represents a modern minimal SaaS host environment, the exact same Pramāṇa Pre-Check widget
+            Even though Portal B represents a modern minimal SaaS host environment, the exact same Sakshya‑I5 Pre-Check widget
             is loaded without any style leakage or font collision, proving complete portal autonomy.
           </p>
         </div>
@@ -67,7 +69,7 @@ export const PortalBPage: React.FC = () => {
 
           <iframe
             src="/embed/precheck"
-            title="Pramana Pre-Check Widget (Modern Portal B)"
+            title="Sakshya‑I5 Pre-Check Widget (Modern Portal B)"
             className="w-full h-[620px] border-none"
           />
         </div>

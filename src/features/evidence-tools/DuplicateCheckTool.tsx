@@ -87,24 +87,24 @@ export const DuplicateCheckTool: React.FC = () => {
       {/* Header */}
       <div className="px-5 py-3.5 bg-surface-2 border-b border-border flex items-center justify-between">
         <div>
-          <div className="text-[10px] uppercase font-mono tracking-wider text-slate">
-            CRYPTO EVIDENCE TOOL · §3.3
+          <div className="text-[12px] font-sans font-semibold text-text-muted">
+            Crypto evidence tool · <span className="font-mono text-[0.9em]">§3.3</span>
           </div>
-          <h3 className="text-sm font-serif font-bold text-text mt-0.5">
-            Client-Side SHA-256 Duplicate Check
+          <h3 className="text-sm font-sans font-bold text-text mt-0.5">
+            Client-side SHA-256 duplicate check
           </h3>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 bg-surface-2 border border-border rounded font-mono text-[10px] text-verdigris">
-            COMPUTED LOCALLY (WEB CRYPTO API)
+          <span className="px-2 py-0.5 bg-surface-2 border border-border rounded-xs font-sans text-[11px] font-semibold text-st-pass">
+            Computed locally (Web Crypto API)
           </span>
         </div>
       </div>
 
       <div className="p-6 space-y-5">
-        <p className="text-xs text-slate leading-relaxed">
+        <p className="text-xs text-text-muted leading-relaxed">
           Drop any local file. Your browser computes the SHA-256 cryptographic digest locally via the
-          native Web Crypto API (<code className="font-mono text-text">crypto.subtle.digest</code>).
+          native Web Crypto API (<code className="font-mono text-text bg-surface-2 px-1 py-0.5 rounded-xs border border-border">crypto.subtle.digest</code>).
           The file is never transmitted to any external server.
         </p>
 
@@ -118,8 +118,8 @@ export const DuplicateCheckTool: React.FC = () => {
           onDrop={handleDrop}
           className={`border-2 border-dashed rounded-md p-8 text-center transition-all cursor-pointer ${
             isDragging
-              ? 'border-ochre bg-ochre/10'
-              : 'border-border bg-black/30 hover:border-border-strong'
+              ? 'border-st-review bg-st-review-bg'
+              : 'border-border bg-surface hover:border-border-strong'
           }`}
           onClick={() => document.getElementById('duplicate-file-input')?.click()}
         >
@@ -129,11 +129,11 @@ export const DuplicateCheckTool: React.FC = () => {
             onChange={handleFileChange}
             className="hidden"
           />
-          <UploadCloud className="w-8 h-8 text-slate mx-auto mb-2" />
-          <div className="text-xs font-mono text-text font-semibold">
+          <UploadCloud className="w-8 h-8 text-text-muted mx-auto mb-2" />
+          <div className="text-xs font-sans text-text font-semibold">
             {isComputing ? 'Computing digest locally...' : 'Drop any file here or click to browse'}
           </div>
-          <div className="text-[11px] text-slate mt-1 font-mono">
+          <div className="text-[11px] text-text-muted mt-1 font-sans">
             PDF, JPG, PNG, DOCX — any format supported
           </div>
         </div>
@@ -143,11 +143,11 @@ export const DuplicateCheckTool: React.FC = () => {
           <button
             type="button"
             onClick={testKnownDuplicate}
-            className="text-[11px] font-mono text-ochre hover:underline flex items-center gap-1"
+            className="text-xs font-sans font-semibold text-accent-2 hover:underline flex items-center gap-1"
           >
-            <span>Load Known Duplicate Hash (DOC-8801-04 Land Deed collision)</span>
+            <span>Load known duplicate hash (DOC-8801-04 Land Deed collision)</span>
           </button>
-          <span className="text-[10px] font-mono text-slate">Cross-Application Hash Registry</span>
+          <span className="text-xs font-sans text-text-muted">Cross-application hash registry</span>
         </div>
 
         {/* Computation Result */}

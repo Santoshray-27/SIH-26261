@@ -22,7 +22,7 @@ export const ScrollProgressRuler: React.FC = () => {
       className="fixed right-0 top-0 bottom-0 w-8 z-40 hidden md:flex flex-col items-center justify-between py-12 pointer-events-none select-none font-mono text-[9px] text-slate/70 border-l border-hairline/40 bg-paper/20 backdrop-blur-[2px]"
     >
       <div className="writing-vertical text-center tracking-widest uppercase">
-        PRAMĀṆA · LEDGER
+        SAKSHYA-I5 · LEDGER
       </div>
 
       <div className="flex-1 w-full flex flex-col justify-between items-end pr-2 py-4">

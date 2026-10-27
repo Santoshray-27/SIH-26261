@@ -1,0 +1,28 @@
+{
+  "heroTitle": "Sakshya‑I5 — evidence-first application validation for AICTE",
+  "heroDesc": "A tamper-evident compliance assessment platform linking AICTE handbook criteria to cryptographic document proof, deterministic calculations, and officer-first adjudication.",
+  "openPrecheck": "Open Applicant Pre-Check",
+  "officerConsole": "Officer Review Console",
+  "searchPlaceholder": "Search a service or case ID (e.g. APP-2026-8801)...",
+  "trustChip1": "Rule-linked evidentiary findings",
+  "trustChip2": "Human decision stays with the officer",
+  "trustChip3": "Tamper-evident hash-chain audit",
+  "quickTiles": {
+    "precheck": "Self-Check Dossier",
+    "duplicate": "SHA-256 Duplication",
+    "geotag": "Campus Geotag Audit",
+    "floorplan": "Shoelace Area Measure"
+  },
+  "stepper": {
+    "step1Title": "1. Intake & Pre-Check",
+    "step1Desc": "Applicants run deterministic offline checks catching fixable deficiencies prior to statutory filing.",
+    "step2Title": "2. Formal Submission",
+    "step2Desc": "Institutions submit affidavits, land deeds, and NOCs with preserved immutable SHA-256 digests.",
+    "step3Title": "3. Automated Checks",
+    "step3Desc": "Document layout analysis, signature chain parsing, Haversine geotag math, and mock issuer queries execute.",
+    "step4Title": "4. Sufficiency Gate",
+    "step4Desc": "Evaluates the weakest limiting signal. No case proceeds to decision if mandatory checks are incomplete.",
+    "step5Title": "5. Officer Adjudication",
+    "step5Desc": "Officer reviews evidence bounding boxes, issues clarification notices, or supersedes values with audit logs."
+  }
+}

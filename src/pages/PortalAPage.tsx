@@ -1,10 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { ArrowRight } from 'lucide-react';
+import { PrototypeBanner } from '../components/gov';
 
 export const PortalAPage: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#F0EDE4] text-[#1F2B3D] font-serif">
+      <PrototypeBanner />
       {/* Government Legacy Top Header */}
       <header className="bg-[#1B2A49] text-[#FAF6EC] border-b-4 border-[#C48A12] shadow-md">
         <div className="max-w-6xl mx-auto px-6 py-4 flex flex-col md:flex-row items-center justify-between gap-4">
@@ -60,7 +62,7 @@ export const PortalAPage: React.FC = () => {
           </div>
 
           <p className="text-xs font-sans text-[#4A5568] leading-relaxed mb-6">
-            This legacy government host portal embeds the standalone Pramāṇa Pre-Check widget via an{' '}
+            This legacy government host portal embeds the standalone Sakshya‑I5 Pre-Check widget via an{' '}
             <code className="font-mono bg-[#ECE5D4] px-1.5 py-0.5 border border-[#D8CFB9] text-[#1B2A49]">
               &lt;iframe src="/embed/precheck" /&gt;
             </code>
@@ -77,7 +79,7 @@ export const PortalAPage: React.FC = () => {
             </div>
             <iframe
               src="/embed/precheck"
-              title="Pramana Pre-Check Widget (Legacy Portal A)"
+              title="Sakshya‑I5 Pre-Check Widget (Legacy Portal A)"
               className="w-full h-[620px] border-none"
             />
           </div>
@@ -86,7 +88,7 @@ export const PortalAPage: React.FC = () => {
 
       {/* Legacy Footer */}
       <footer className="bg-[#E7E0D2] border-t border-[#D8CFB9] text-center py-4 text-xs font-sans text-[#4A5568]">
-        Portal A Proof of Independence · Pramāṇa Embeddable Evidence Engine · Ministry of Education
+        Portal A Proof of Independence · Sakshya‑I5 Embeddable Evidence Engine · Ministry of Education
       </footer>
     </div>
   );

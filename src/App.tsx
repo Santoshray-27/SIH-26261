@@ -19,6 +19,10 @@ import { EvidenceToolsPage } from './pages/officer/EvidenceToolsPage';
 import { DecisionReplayPage } from './pages/officer/DecisionReplayPage';
 import { CrossAppNetworkPage } from './pages/officer/CrossAppNetworkPage';
 import { VerificationReportsPage } from './pages/officer/VerificationReportsPage';
+import { AboutPage } from './pages/AboutPage';
+import { FaqPage } from './pages/FaqPage';
+import { AccessibilityPage } from './pages/AccessibilityPage';
+import { LegalPage } from './pages/LegalPage';
 
 export const App: React.FC = () => {
   return (
@@ -26,7 +30,7 @@ export const App: React.FC = () => {
       <Suspense
         fallback={
           <div className="min-h-screen flex items-center justify-center font-mono text-xs text-slate">
-            Loading Pramāṇa Evidence System...
+            Loading Sakshya‑I5 Evidence System...
           </div>
         }
       >
@@ -41,6 +45,15 @@ export const App: React.FC = () => {
           {/* Public Portal Routes */}
           <Route element={<PublicShell />}>
             <Route path="/" element={<LandingPage />} />
+            <Route path="/about" element={<AboutPage />} />
+            <Route path="/how-it-works" element={<LandingPage />} />
+            <Route path="/faq" element={<FaqPage />} />
+            <Route path="/accessibility" element={<AccessibilityPage />} />
+            <Route path="/privacy" element={<LegalPage type="privacy" />} />
+            <Route path="/terms" element={<LegalPage type="terms" />} />
+            <Route path="/disclaimer" element={<LegalPage type="disclaimer" />} />
+            <Route path="/sitemap" element={<LegalPage type="sitemap" />} />
+            <Route path="/help" element={<LegalPage type="help" />} />
             <Route path="/precheck" element={<ApplicantPrecheckPage />} />
             <Route path="/applicant/rectify/:id" element={<ApplicantRectificationPage />} />
             <Route path="/ui-kit" element={<UiKitPage />} />

@@ -31,7 +31,7 @@ export const ToastContainer: React.FC = () => {
             <Info size={18} strokeWidth={1.5} className="shrink-0 mt-0.5 text-st-review" />
           )}
 
-          <div className="flex-1 font-mono text-xs leading-relaxed">{toast.message}</div>
+          <div className="flex-1 font-sans text-sm leading-relaxed">{toast.message}</div>
 
           <button
             onClick={() => removeToast(toast.id)}

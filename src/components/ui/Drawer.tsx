@@ -42,7 +42,7 @@ export const Drawer: React.FC<DrawerProps> = ({
             <div>
               <h2 className="font-display font-bold text-xl tracking-tight text-text">{title}</h2>
               {subtitle && (
-                <p className="font-mono text-xs text-text-muted mt-0.5">{subtitle}</p>
+                <p className="font-sans text-xs text-text-muted mt-0.5">{subtitle}</p>
               )}
             </div>
             <button

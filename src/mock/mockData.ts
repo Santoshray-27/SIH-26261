@@ -929,7 +929,7 @@ export const mockAuditEvents: AuditEvent[] = [
   {
     id: 'AUD-8801-02',
     actorId: 'SYSTEM',
-    actorName: 'Pramāṇa Validation Pipeline',
+    actorName: 'Sakshya‑I5 Validation Pipeline',
     actorRole: 'SYSTEM',
     eventType: 'CHECK_EXECUTED',
     targetEntityId: 'FIND-8801-01',

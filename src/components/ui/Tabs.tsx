@@ -27,7 +27,7 @@ export const Tabs: React.FC<TabsProps> = ({
           <button
             key={tab.id}
             onClick={() => onChange(tab.id)}
-            className={`pb-3 font-mono text-xs uppercase tracking-wider flex items-center gap-2 border-b-2 transition-colors whitespace-nowrap focus:outline-none ${
+            className={`pb-3 font-sans text-sm font-medium flex items-center gap-2 border-b-2 transition-colors whitespace-nowrap focus:outline-none ${
               isActive
                 ? 'border-ink text-ink dark:border-paper dark:text-paper font-semibold'
                 : 'border-transparent text-slate hover:text-ink dark:hover:text-paper'

@@ -1,7 +1,7 @@
 import { describe, it, expect } from 'vitest';
 import { mockApplications, mockFindings } from './mockData';
 
-describe('Pramana Domain Model & Synthetic Seeds', () => {
+describe('Sakshya‑I5 Domain Model & Synthetic Seeds', () => {
   it('contains the Hero case Sri Vidya Institute of Technology matching steps 1-10', () => {
     const hero = mockApplications.find((app) => app.id === 'APP-2026-8801');
     expect(hero).toBeDefined();
