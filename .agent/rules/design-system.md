@@ -4,38 +4,48 @@ trigger: always_on
 
 # Pramāṇa — Design System (always follow)
 
-## Concept: "Forensic editorial"
+## Concept: "Forensic Editorial" (Sandstone & Teal)
 Government-grade trust x printed gazette x evidence ledger. NOT generic SaaS.
-Reference feel: Awwwards editorial sites — oversized type, hairline rules, asymmetric
-grids, numbered sections ("01 —"), marginalia annotations, stamps/seals, mono for IDs/hashes.
-BANNED: purple gradients, glassmorphism card grids, "3 feature cards" hero, emoji icons,
-stock illustrations, lorem ipsum, tricolor-flag clichés.
+ONE single soft, light, colorful theme across the entire app (landing + officer console +
+portals + embed widgets). No dark theme. No pure black (#000000) or pure white (#FFFFFF).
+Lightest allowed surface is #FFFCF5.
+
+BANNED: dark console / dark mode, near-black surfaces, pure black (#000) / pure white (#fff),
+purple gradients, glassmorphism card grids, "3 feature cards" hero, emoji icons, stock illustrations,
+lorem ipsum, tricolor-flag clichés, and dark inverted blocks.
 
 ## Color tokens (CSS variables in src/styles/tokens.css)
---ink #0C0C0B | --paper #F3EEE5 | --bone #E7E0D2
---vermilion #D6361F (deficiency/mismatch/primary accent)
---verdigris #1F6B5C (pass) | --ochre #C48A12 (review/duplicate/geotag-absent)
---indigo #1B2A49 (structure indicators/info) | --slate #6B6B66 (unavailable/pending)
-Public site = paper theme. Officer console = dark ink theme (#0F0F0E bg, #171715 surface,
-#EDE7DA text), light toggle optional. Hairlines: 1px rgba(12,12,11,.14) / rgba(237,231,218,.12).
+--bg: #F3EDE0 (sandstone)          --bg-elevated: #FAF6EC
+--surface: #FBF8F0                 --surface-2: #ECE5D4
+--tint-teal: #DCEAE5               --tint-clay: #F2DFD0
+--tint-indigo: #E1E4F2             --tint-ochre: #F3E7C6
+--text: #1F2B3D (ink-navy)         --text-muted: #4A5568      --text-subtle: #5F6B7E
+--border: #D8CFB9                  --control-border: #8B8068  --focus-ring: #1C6B6F
+--accent: #B5432A (terracotta)     --accent-2: #1C6B6F (teal, links & active nav)
 
-## Typography (use @fontsource, self-hosted)
-Display: Fraunces (variable, big, tight tracking, italic for emphasis)
-Body/UI: Geist | Mono (ids, hashes, clauses): JetBrains Mono
-Hindi: Noto Serif Devanagari (display), Noto Sans Devanagari (body)
-Fluid type with clamp(); hero display 12–20vw allowed. Hindi must never clip or break layout.
+Status vocabulary (each with -fg, -bg tint, -border):
+- PASS: #1B6F4F (teal-green)
+- DEFICIENCY_FOUND / MISMATCH_FOUND: #B3341C (terracotta)
+- POSSIBLE_DUPLICATE / MANUAL_REVIEW_REQUIRED / GEOTAG_ABSENT: #8A5A00 (ochre amber)
+- STRUCTURE_INDICATOR: #3A4A9C (indigo)
+- SOURCE_UNAVAILABLE / VERIFICATION_PENDING: #566074 (slate)
 
-## Motion
-GSAP+ScrollTrigger+Lenis for landing; Framer Motion for app UI. Text-split reveals,
-pinned scroll scenes, magnetic buttons, custom cursor (landing only), grain overlay.
-Easing: cubic-bezier(.22,1,.36,1). Respect prefers-reduced-motion (disable pinning/parallax).
+Hierarchy is created with tinted surfaces (teal, clay, indigo, ochre) instead of dark inverted panels.
+Emphasis sections (such as "What Pramāṇa will NOT claim") use --tint-clay with terracotta rules.
 
-## Status vocabulary (never collapse unknown into pass/fail)
-PASS=verdigris solid | DEFICIENCY_FOUND/MISMATCH_FOUND=vermilion solid
-POSSIBLE_DUPLICATE/MANUAL_REVIEW_REQUIRED/GEOTAG_ABSENT=ochre (GEOTAG_ABSENT outlined)
-STRUCTURE_INDICATOR=indigo | SOURCE_UNAVAILABLE/VERIFICATION_PENDING=slate dashed
-CHECK_NOT_RUN=hollow outline with diagonal hatch | SIGNATURE_VALID/INVALID_OR_BROKEN | LOW_CONFIDENCE_EXTRACTION=ochre dotted
-Every pill has a tooltip explaining what it does NOT prove.
+## Typography & Readability (self-hosted fonts)
+- Display / Headings: Fraunces (tight tracking, italic for emphasis, padding for diacritics).
+- Body / UI / Tables: Geist Sans. Minimum sizes: body 15–16px, table cells 14px, buttons 14px,
+  micro-labels 12px (nothing below 12px). Sentence case for navigation, buttons, tabs, table headers.
+- Mono: JetBrains Mono ONLY for hashes, IDs, clauses, rule numbers, coordinates.
+- Hindi: Noto Serif Devanagari (display), Noto Sans Devanagari (body). Adequate line-height (≥ 1.3)
+  ensuring no diacritic clipping on characters like प्रमाण.
+
+## Motion & Chrome
+GSAP+ScrollTrigger+Lenis for landing (simplified/disabled below md or for prefers-reduced-motion);
+Framer Motion for app UI.
+Fixed-height app frame (100dvh) with sticky header (--chrome-h) and independent scrolling main/sidebar.
+Dev Overrides panel lives in a discreet header action and opens an off-canvas drawer (no intrusive floating pills).
 
 ## Copy rules (from solution §14)
 Say "tamper-evident" never "immutable". Say "indicator, requires review" never "forgery".

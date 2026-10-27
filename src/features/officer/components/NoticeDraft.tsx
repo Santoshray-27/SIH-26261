@@ -96,13 +96,13 @@ Approval Bureau, All India Council for Technical Education`;
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#141413] border border-white/15 rounded-lg w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
+      <div className="bg-surface border border-border rounded-lg w-full max-w-3xl max-h-[90vh] flex flex-col shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+        <div className="px-6 py-4 bg-surface-2 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <Mail className="w-5 h-5 text-ochre" />
             <div>
-              <h3 className="text-base font-serif font-bold text-[#EDE7DA]">
+              <h3 className="text-base font-serif font-bold text-text">
                 Draft Rectification Notice
               </h3>
               <p className="text-[11px] font-mono text-slate">
@@ -112,7 +112,7 @@ Approval Bureau, All India Council for Technical Education`;
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-slate hover:text-white transition-colors"
+            className="p-1 text-slate hover:text-text transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -121,7 +121,7 @@ Approval Bureau, All India Council for Technical Education`;
         {/* Content body */}
         <div className="flex-1 p-6 overflow-auto space-y-5">
           {/* Configurable Parameter Section */}
-          <div className="p-4 bg-[#1A1A18] border border-white/10 rounded space-y-3">
+          <div className="p-4 bg-surface-2 border border-border rounded space-y-3">
             <div className="flex items-center justify-between">
               <span className="text-xs font-mono uppercase text-slate flex items-center gap-1.5">
                 <Clock className="w-4 h-4 text-ochre" />
@@ -135,8 +135,8 @@ Approval Bureau, All India Council for Technical Education`;
                     onClick={() => setResponsePeriodDays(days)}
                     className={`px-2.5 py-1 text-xs font-mono rounded border transition-colors ${
                       responsePeriodDays === days
-                        ? 'bg-ochre text-white border-ochre font-bold'
-                        : 'bg-black/30 text-slate border-white/10 hover:border-white/30'
+                        ? 'bg-ochre text-text border-ochre font-bold'
+                        : 'bg-black/30 text-slate border-border hover:border-border-strong'
                     }`}
                   >
                     {days} Days
@@ -145,10 +145,10 @@ Approval Bureau, All India Council for Technical Education`;
               </div>
             </div>
 
-            <div className="text-[11px] font-mono text-slate/80 bg-black/30 p-2.5 rounded border border-white/5 flex items-start gap-2">
+            <div className="text-[11px] font-mono text-slate/80 bg-black/30 p-2.5 rounded border border-border flex items-start gap-2">
               <Info className="w-4 h-4 text-slate flex-shrink-0 mt-0.5" />
               <div>
-                <span className="text-[#EDE7DA] font-semibold">Configurable statutory source:</span> {responsePeriodSource}
+                <span className="text-text font-semibold">Configurable statutory source:</span> {responsePeriodSource}
               </div>
             </div>
           </div>
@@ -156,7 +156,7 @@ Approval Bureau, All India Council for Technical Education`;
           {/* Language Toggle */}
           <div className="flex items-center justify-between text-xs font-mono">
             <span className="text-slate">Notice Dispatch Language:</span>
-            <div className="flex items-center gap-1 bg-black/40 border border-white/10 rounded p-0.5">
+            <div className="flex items-center gap-1 bg-surface-2 border border-border rounded p-0.5">
               {(['both', 'en', 'hi'] as const).map((lang) => (
                 <button
                   key={lang}
@@ -164,8 +164,8 @@ Approval Bureau, All India Council for Technical Education`;
                   onClick={() => setLanguage(lang)}
                   className={`px-3 py-1 rounded text-xs transition-colors ${
                     language === lang
-                      ? 'bg-white/20 text-white font-bold'
-                      : 'text-slate hover:text-white'
+                      ? 'bg-white/20 text-text font-bold'
+                      : 'text-slate hover:text-text'
                   }`}
                 >
                   {lang === 'both' ? 'Bilingual (EN + HI)' : lang === 'en' ? 'English Only' : 'Hindi Only'}
@@ -177,11 +177,11 @@ Approval Bureau, All India Council for Technical Education`;
           {/* Notice Preview */}
           <div className="space-y-4">
             {(language === 'both' || language === 'en') && (
-              <div className="p-4 bg-black/50 border border-white/10 rounded font-mono text-xs text-[#EDE7DA] space-y-2">
-                <div className="text-[10px] uppercase text-slate border-b border-white/10 pb-1 font-bold">
+              <div className="p-4 bg-black/50 border border-border rounded font-mono text-xs text-text space-y-2">
+                <div className="text-[10px] uppercase text-slate border-b border-border pb-1 font-bold">
                   English Draft Notice
                 </div>
-                <div className="text-white font-bold">{subjectEn}</div>
+                <div className="text-text font-bold">{subjectEn}</div>
                 <div className="text-slate/90 whitespace-pre-line text-[11.5px] leading-relaxed">
                   {bodyEn}
                 </div>
@@ -189,11 +189,11 @@ Approval Bureau, All India Council for Technical Education`;
             )}
 
             {(language === 'both' || language === 'hi') && (
-              <div className="p-4 bg-black/50 border border-white/10 rounded font-serif text-xs text-[#EDE7DA] space-y-2">
-                <div className="text-[10px] uppercase text-slate border-b border-white/10 pb-1 font-mono font-bold">
+              <div className="p-4 bg-black/50 border border-border rounded font-serif text-xs text-text space-y-2">
+                <div className="text-[10px] uppercase text-slate border-b border-border pb-1 font-mono font-bold">
                   हिंदी मसौदा सूचना (Hindi Draft Notice)
                 </div>
-                <div className="text-white font-bold font-serif">{subjectHi}</div>
+                <div className="text-text font-bold font-serif">{subjectHi}</div>
                 <div className="text-slate/90 whitespace-pre-line text-[12px] leading-relaxed">
                   {bodyHi}
                 </div>
@@ -212,10 +212,10 @@ Approval Bureau, All India Council for Technical Education`;
         </div>
 
         {/* Footer */}
-        <div className="px-6 py-4 bg-[#171715] border-t border-white/10 flex items-center justify-between">
+        <div className="px-6 py-4 bg-surface-2 border-t border-border flex items-center justify-between">
           <button
             onClick={onClose}
-            className="px-4 py-2 text-xs font-mono text-slate hover:text-white transition-colors"
+            className="px-4 py-2 text-xs font-mono text-slate hover:text-text transition-colors"
           >
             Cancel
           </button>

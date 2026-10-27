@@ -64,7 +64,7 @@ export const SectionEvidenceFinding: React.FC = () => {
               }`}
             >
               {activeStep >= 2 && (
-                <span className="absolute -top-3 left-2 bg-vermilion text-white font-mono text-[9px] px-1.5 py-0.2 uppercase font-semibold">
+                <span className="absolute -top-3 left-2 bg-vermilion text-text font-mono text-[9px] px-1.5 py-0.2 uppercase font-semibold">
                   OCR: Conf 0.94 · Page 1 · [120, 45, 140, 310]
                 </span>
               )}
@@ -87,7 +87,7 @@ export const SectionEvidenceFinding: React.FC = () => {
               }`}
             >
               {activeStep >= 2 && (
-                <span className="absolute -top-3 left-2 bg-ochre text-white font-mono text-[9px] px-1.5 py-0.2 uppercase font-semibold">
+                <span className="absolute -top-3 left-2 bg-ochre text-text font-mono text-[9px] px-1.5 py-0.2 uppercase font-semibold">
                   OCR: Conf 0.98 · Page 1 · [240, 45, 260, 220]
                 </span>
               )}

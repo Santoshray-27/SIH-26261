@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "preview": "vite preview",
-    "test": "vitest"
+    "test": "vitest",
+    "check:colors": "node scripts/check-colors.mjs",
+    "check:contrast": "node scripts/contrast-audit.mjs"
   },
   "dependencies": {
     "@fontsource/fraunces": "^5.1.1",

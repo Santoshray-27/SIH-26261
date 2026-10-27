@@ -58,7 +58,7 @@ export const SectionCoverageStatement: React.FC = () => {
                   cy="50"
                   r="40"
                   fill="none"
-                  stroke="#1F6B5C"
+                  stroke="var(--st-pass)"
                   strokeWidth="8"
                   strokeDasharray="251.2"
                   strokeDashoffset={251.2 * (1 - 9 / 11)}

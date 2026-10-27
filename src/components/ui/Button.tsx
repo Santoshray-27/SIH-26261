@@ -31,7 +31,7 @@ export const Button: React.FC<ButtonProps> = ({
   };
 
   const baseClasses =
-    'inline-flex items-center justify-center font-mono uppercase tracking-wider transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed select-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-ink';
+    'inline-flex items-center justify-center font-mono uppercase tracking-wider transition-colors duration-150 disabled:opacity-50 disabled:cursor-not-allowed select-none focus:outline-none focus:ring-2 focus:ring-offset-1 focus:ring-focus-ring';
 
   const sizeClasses = {
     sm: 'text-xs px-2.5 py-1 gap-1.5',
@@ -41,15 +41,15 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantClasses = {
     primary:
-      'bg-ink text-paper hover:bg-black dark:bg-[#EDE7DA] dark:text-[#0C0C0B] dark:hover:bg-white',
+      'bg-text text-bg hover:opacity-90',
     secondary:
-      'bg-bone text-ink hover:bg-[#D9D1C1] dark:bg-ink-surface dark:text-ink-text dark:hover:bg-[#252522]',
+      'bg-surface-2 text-text hover:bg-surface border border-border',
     outline:
-      'border border-hairline hover:border-ink hover:bg-bone/40 dark:hover:bg-ink-surface',
+      'border border-border hover:border-text hover:bg-surface-2 text-text',
     danger:
-      'bg-vermilion text-white hover:bg-[#b52d19] dark:hover:bg-[#e0452e]',
+      'bg-st-deficiency text-accent-contrast hover:opacity-90',
     ghost:
-      'hover:bg-bone/50 text-ink dark:text-ink-text dark:hover:bg-ink-surface',
+      'hover:bg-surface-2 text-text',
   }[variant];
 
   return (

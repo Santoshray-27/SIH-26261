@@ -221,19 +221,19 @@ export const DemoTourModal: React.FC<{
   };
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 w-full max-w-lg bg-[#141413] border-2 border-ochre rounded-lg shadow-2xl overflow-hidden font-sans select-none animate-in fade-in slide-in-from-bottom-4 duration-200">
+    <div className="fixed bottom-6 right-6 z-50 w-full max-w-lg bg-surface border-2 border-st-review rounded-lg shadow-2xl overflow-hidden font-sans select-none animate-in fade-in slide-in-from-bottom-4 duration-200 text-text">
       {/* Top Banner */}
-      <div className="px-4 py-2.5 bg-[#1F1B12] border-b border-ochre/30 flex items-center justify-between">
+      <div className="px-4 py-2.5 bg-st-review-bg border-b border-st-review/30 flex items-center justify-between">
         <div className="flex items-center gap-2">
-          <Compass className="w-4 h-4 text-ochre animate-spin-slow" />
-          <span className="font-mono text-xs font-bold text-ochre tracking-wider uppercase">
+          <Compass className="w-4 h-4 text-st-review animate-spin-slow" />
+          <span className="font-mono text-xs font-bold text-st-review tracking-wider uppercase">
             Pramāṇa Guided Tour · Step {currentStep.stepNumber} of 17 ({currentStep.solutionSection})
           </span>
         </div>
 
         <button
           onClick={onClose}
-          className="p-1 text-slate hover:text-white transition-colors"
+          className="p-1 text-text-muted hover:text-text transition-colors"
           title="Close Tour"
         >
           <X className="w-4 h-4" />
@@ -241,30 +241,30 @@ export const DemoTourModal: React.FC<{
       </div>
 
       {/* Step Content */}
-      <div className="p-5 space-y-3.5 bg-[#141413]">
+      <div className="p-5 space-y-3.5 bg-surface">
         <div className="flex items-baseline justify-between">
-          <h3 className="font-serif font-black text-base text-white">
+          <h3 className="font-serif font-black text-base text-text">
             {currentStep.titleEn}
           </h3>
-          <span className="font-mono text-[10px] text-ochre px-2 py-0.5 bg-ochre/10 border border-ochre/20 rounded">
+          <span className="font-mono text-[10px] text-st-review px-2 py-0.5 bg-st-review-bg border border-st-review/20 rounded">
             {currentStep.targetFocusLabel}
           </span>
         </div>
 
-        <p className="text-xs text-[#EDE7DA] leading-relaxed">
+        <p className="text-xs text-text leading-relaxed">
           {currentStep.descriptionEn}
         </p>
 
-        <p className="text-xs font-serif text-slate leading-relaxed border-t border-white/5 pt-2">
+        <p className="text-xs font-serif text-text-muted leading-relaxed border-t border-border pt-2">
           {currentStep.descriptionHi}
         </p>
 
         {/* Route info */}
-        <div className="flex items-center justify-between pt-1 text-[11px] font-mono text-slate">
-          <span>Active Route: <code className="text-white font-bold">{currentStep.route}</code></span>
+        <div className="flex items-center justify-between pt-1 text-[11px] font-mono text-text-muted">
+          <span>Active Route: <code className="text-text font-bold">{currentStep.route}</code></span>
           <button
             onClick={() => navigate(currentStep.route)}
-            className="text-ochre hover:underline flex items-center gap-1"
+            className="text-st-review hover:underline flex items-center gap-1"
           >
             <span>Jump to View</span>
             <ExternalLink className="w-3 h-3" />
@@ -273,11 +273,11 @@ export const DemoTourModal: React.FC<{
       </div>
 
       {/* Footer Nav Controls */}
-      <div className="px-5 py-3 bg-[#171715] border-t border-white/10 flex items-center justify-between">
+      <div className="px-5 py-3 bg-surface-2 border-t border-border flex items-center justify-between">
         <button
           onClick={handlePrev}
           disabled={currentStepIdx === 0}
-          className="px-3 py-1.5 bg-white/5 hover:bg-white/10 disabled:opacity-30 rounded text-xs font-mono text-slate hover:text-white transition-colors flex items-center gap-1"
+          className="px-3 py-1.5 bg-surface hover:bg-surface-2 disabled:opacity-30 rounded text-xs font-mono text-text-muted hover:text-text transition-colors flex items-center gap-1"
         >
           <ChevronLeft className="w-3.5 h-3.5" />
           <span>Previous</span>
@@ -291,8 +291,8 @@ export const DemoTourModal: React.FC<{
               onClick={() => handleGoToStep(idx)}
               className={`w-5 h-5 rounded text-[10px] font-mono transition-colors flex items-center justify-center ${
                 currentStepIdx === idx
-                  ? 'bg-ochre text-black font-bold'
-                  : 'bg-black/40 text-slate hover:text-white'
+                  ? 'bg-ochre text-text font-bold'
+                  : 'bg-surface-2 text-slate hover:text-text'
               }`}
               title={`Step ${s.stepNumber}: ${s.titleEn}`}
             >
@@ -304,7 +304,7 @@ export const DemoTourModal: React.FC<{
         <button
           onClick={handleNext}
           disabled={currentStepIdx === DEMO_TOUR_STEPS.length - 1}
-          className="px-3.5 py-1.5 bg-ochre hover:bg-ochre/90 disabled:opacity-30 text-black font-mono text-xs font-bold rounded transition-colors flex items-center gap-1"
+          className="px-3.5 py-1.5 bg-ochre hover:bg-ochre/90 disabled:opacity-30 text-text font-mono text-xs font-bold rounded transition-colors flex items-center gap-1"
         >
           <span>Next Step</span>
           <ChevronRight className="w-3.5 h-3.5" />

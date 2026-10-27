@@ -61,7 +61,7 @@ export const SectionThreeLayers: React.FC = () => {
           >
             <div className="flex items-center justify-between font-mono text-xs pb-3 border-b border-hairline mb-3">
               <span className="font-bold text-ochre uppercase">Layer 02 · Evidence Sufficiency Gate</span>
-              <span className="px-2 py-0.5 bg-ochre text-white text-[10px]">WEAKEST-SIGNAL ROUTING</span>
+              <span className="px-2 py-0.5 bg-ochre text-text text-[10px]">WEAKEST-SIGNAL ROUTING</span>
             </div>
             <p className="font-sans text-sm text-slate leading-relaxed">
               Workflow gate evaluating whether mandatory checks executed, critical fields meet confidence floors,
@@ -78,7 +78,7 @@ export const SectionThreeLayers: React.FC = () => {
           >
             <div className="flex items-center justify-between font-mono text-xs pb-3 border-b border-hairline mb-3">
               <span className="font-bold text-verdigris uppercase">Layer 01 · Check Result Engine</span>
-              <span className="px-2 py-0.5 bg-verdigris text-white text-[10px]">DETERMINISTIC & UNIT-TESTED</span>
+              <span className="px-2 py-0.5 bg-verdigris text-text text-[10px]">DETERMINISTIC & UNIT-TESTED</span>
             </div>
             <p className="font-sans text-sm text-slate leading-relaxed">
               What specific rules, comparisons, signature validators, or issuer adapters returned (PASS,

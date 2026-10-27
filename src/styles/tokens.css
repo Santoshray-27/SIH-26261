@@ -1,73 +1,124 @@
+/* Pramāṇa — Design System Tokens (Sandstone & Teal Single Light Theme) */
 :root {
-  /* Pramana Color Tokens (Design System) */
-  --ink: #0C0C0B;
-  --ink-dark: #0F0F0E;
-  --ink-surface: #171715;
-  --ink-text: #EDE7DA;
-  
-  --paper: #F3EEE5;
-  --bone: #E7E0D2;
-  
-  --vermilion: #D6361F;
-  --vermilion-light: #FDE8E5;
-  
-  --verdigris: #1F6B5C;
-  --verdigris-light: #E5F3F0;
-  
-  --ochre: #C48A12;
-  --ochre-light: #FDF5E3;
-  
-  --indigo: #1B2A49;
-  --indigo-light: #E7ECF7;
-  
-  --slate: #6B6B66;
-  --slate-light: #F0F0EE;
-  
-  --hairline: rgba(12, 12, 11, 0.14);
-  --hairline-contrast: rgba(12, 12, 11, 0.25);
-  --bg-color: var(--paper);
-  --text-color: var(--ink);
-  --surface-color: var(--bone);
+  /* Core Palette (NO pure black, NO pure white, lightest surface = #FFFCF5) */
+  --bg: #F3EDE0;                /* Sandstone background */
+  --bg-elevated: #FAF6EC;       /* Elevated page/card background */
+  --surface: #FBF8F0;           /* Clean card/table surface */
+  --surface-2: #ECE5D4;         /* Bone secondary surface */
 
-  /* Semantic Theme-Adaptive Tokens (Light Default) */
-  --theme-bg: #F3EEE5;
-  --theme-surface: #FFFFFF;
-  --theme-surface-subtle: #E7E0D2;
-  --theme-text: #0C0C0B;
-  --theme-text-muted: #6B6B66;
-}
+  /* Tinted Surfaces for Visual Hierarchy */
+  --tint-teal: #DCEAE5;
+  --tint-clay: #F2DFD0;
+  --tint-indigo: #E1E4F2;
+  --tint-ochre: #F3E7C6;
 
-.dark {
-  --bg-color: var(--ink-dark);
-  --text-color: var(--ink-text);
-  --surface-color: var(--ink-surface);
-  --hairline: rgba(237, 231, 218, 0.12);
-  --hairline-contrast: rgba(237, 231, 218, 0.28);
+  /* Typography & Readability */
+  --text: #1F2B3D;              /* Ink-navy primary text (high contrast >= 9:1) */
+  --text-muted: #4A5568;        /* Muted secondary text (contrast >= 4.5:1) */
+  --text-subtle: #5F6B7E;       /* Subtle helper text */
 
-  /* Semantic Theme-Adaptive Tokens (Dark Console) */
-  --theme-bg: #0F0F0E;
-  --theme-surface: #171715;
-  --theme-surface-subtle: #1f1f1d;
-  --theme-text: #EDE7DA;
-  --theme-text-muted: #8E8E88;
+  /* Borders & Focus Rings */
+  --border: #D8CFB9;            /* Hairline separator */
+  --border-strong: #8B8068;     /* High contrast division */
+  --control-border: #8B8068;    /* Form control / input border */
+  --focus-ring: #1C6B6F;        /* Accessible focus outline */
+
+  /* Brand Accents */
+  --accent: #B5432A;            /* Terracotta (primary actions) */
+  --accent-contrast: #FFFCF5;   /* High-contrast text on accent */
+  --accent-2: #1C6B6F;          /* Deep Teal (links & active navigation) */
+  --accent-2-contrast: #FFFCF5;
+
+  /* Status Tokens (Each with foreground, background tint, and border) */
+  --st-pass: #1B6F4F;
+  --st-pass-bg: #E1EFEA;
+  --st-pass-border: #1B6F4F;
+  --st-pass-fg: #1B6F4F;
+
+  --st-deficiency: #B3341C;
+  --st-deficiency-bg: #FAE2DD;
+  --st-deficiency-border: #B3341C;
+  --st-deficiency-fg: #B3341C;
+
+  --st-review: #8A5A00;
+  --st-review-bg: #F8EDD2;
+  --st-review-border: #8A5A00;
+  --st-review-fg: #8A5A00;
+
+  --st-structure: #3A4A9C;
+  --st-structure-bg: #E7EAF7;
+  --st-structure-border: #3A4A9C;
+  --st-structure-fg: #3A4A9C;
+
+  --st-unavailable: #566074;
+  --st-unavailable-bg: #EAECEF;
+  --st-unavailable-border: #566074;
+  --st-unavailable-fg: #566074;
+
+  /* Chrome measurements */
+  --chrome-h: 76px;
+
+  /* Legacy color aliases mapped strictly to Sandstone & Teal */
+  --ink: var(--text);
+  --paper: var(--bg);
+  --bone: var(--surface-2);
+  --vermilion: var(--st-deficiency);
+  --verdigris: var(--st-pass);
+  --ochre: var(--st-review);
+  --indigo: var(--st-structure);
+  --slate: var(--st-unavailable);
+  --hairline: var(--border);
+  --hairline-contrast: var(--border-strong);
 }
 
 /* Base Body Styles */
 body {
-  background-color: var(--bg-color);
-  color: var(--text-color);
+  background-color: var(--bg);
+  color: var(--text);
   font-family: 'Geist Sans', 'Noto Sans Devanagari', system-ui, sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
   letter-spacing: -0.01em;
-  transition: background-color 0.2s ease, color 0.2s ease;
+  min-height: 100dvh;
+}
+
+/* Scrollbars Styled to Match Sandstone & Teal */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) var(--bg-elevated);
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--bg-elevated);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--control-border);
 }
 
 /* Hairline utilities */
 .border-hairline {
-  border-color: var(--hairline);
+  border-color: var(--border);
 }
 
 .divide-hairline > * + * {
-  border-color: var(--hairline);
+  border-color: var(--border);
+}
+
+/* Selection */
+::selection {
+  background-color: var(--tint-ochre);
+  color: var(--text);
 }
 
 /* Diagonal hatch pattern for CHECK_NOT_RUN */
@@ -79,7 +130,7 @@ body {
     currentColor 4px,
     currentColor 5px
   );
-  opacity: 0.18;
+  opacity: 0.28;
 }
 
 /* Editorial grain overlay (subtle) */
@@ -91,7 +142,7 @@ body {
   height: 100vh;
   pointer-events: none;
   z-index: 9999;
-  opacity: 0.025;
+  opacity: 0.02;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
 }
 
@@ -105,3 +156,21 @@ body {
   }
 }
 
+/* Print Styles: Grayscale & Clear Document Representation */
+@media print {
+  header, aside, button, nav, .editorial-grain, [role="status"] {
+    display: none !important;
+  }
+  body, main {
+    background: #FFFFFF !important;
+    color: #000000 !important;
+  }
+  table {
+    border-collapse: collapse !important;
+    width: 100% !important;
+  }
+  th, td {
+    border: 1px solid #666666 !important;
+    padding: 6px 8px !important;
+  }
+}

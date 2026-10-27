@@ -123,20 +123,20 @@ export const AuditLedgerPage: React.FC = () => {
   });
 
   return (
-    <div className="min-h-screen bg-[#0F0F0E] text-[#EDE7DA] p-6 lg:p-10 space-y-6 font-sans select-none">
+    <div className="space-y-6 font-sans text-text">
       {/* Header */}
-      <div className="border-b border-white/10 pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="border-b border-border pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-ochre uppercase tracking-wider mb-1">
             <History className="w-4 h-4" />
             <span>Cryptographic Proof Ledger · §6</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-serif font-black tracking-tight text-white">
+          <h1 className="text-2xl md:text-4xl font-serif font-black tracking-tight text-text">
             Audit Event Hash-Chain
           </h1>
           <p className="text-xs font-mono text-slate mt-1 max-w-2xl">
             Every officer action, system check run, and document upload forms a linked SHA-256 hash-chain.
-            Terminology standard: <strong className="text-white">tamper-evident</strong>, never "immutable".
+            Terminology standard: <strong className="text-text">tamper-evident</strong>, never "immutable".
           </p>
         </div>
 
@@ -153,7 +153,7 @@ export const AuditLedgerPage: React.FC = () => {
           <button
             onClick={verifyChainInBrowser}
             disabled={isVerifying}
-            className="px-4 py-2 bg-verdigris hover:bg-verdigris/90 text-white rounded text-xs font-mono transition-colors flex items-center gap-2 font-bold shadow"
+            className="px-4 py-2 bg-verdigris hover:bg-verdigris/90 text-text rounded text-xs font-mono transition-colors flex items-center gap-2 font-bold shadow"
           >
             <ShieldCheck className={`w-4 h-4 ${isVerifying ? 'animate-spin' : ''}`} />
             <span>Verify Chain (Web Crypto)</span>
@@ -162,13 +162,13 @@ export const AuditLedgerPage: React.FC = () => {
       </div>
 
       {/* External Checkpoint Anchor Banner */}
-      <div className="p-4 bg-[#141413] border border-white/10 rounded-md flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
+      <div className="p-4 bg-surface border border-border rounded-md flex flex-col md:flex-row md:items-center justify-between gap-4 font-mono text-xs">
         <div className="space-y-1">
           <div className="text-[10px] uppercase text-slate flex items-center gap-1.5">
             <Lock className="w-3.5 h-3.5 text-ochre" />
             <span>Externally Published Gazette Checkpoint Anchor</span>
           </div>
-          <div className="text-white text-[11px] break-all select-all">
+          <div className="text-text text-[11px] break-all select-all">
             Root Fingerprint: {publishedCheckpointHash}
           </div>
         </div>
@@ -191,7 +191,7 @@ export const AuditLedgerPage: React.FC = () => {
       </div>
 
       {/* Filter and Search Bar */}
-      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-[#141413] border border-white/10 rounded text-xs font-mono">
+      <div className="flex flex-col sm:flex-row items-center justify-between gap-3 p-3 bg-surface border border-border rounded text-xs font-mono">
         <div className="flex items-center gap-2 w-full sm:w-auto">
           <Search className="w-4 h-4 text-slate flex-shrink-0" />
           <input
@@ -199,7 +199,7 @@ export const AuditLedgerPage: React.FC = () => {
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
             placeholder="Search by event ID, actor, or case ID..."
-            className="bg-transparent text-white outline-none w-full sm:w-64 placeholder-slate text-xs"
+            className="bg-transparent text-text outline-none w-full sm:w-64 placeholder-slate text-xs"
           />
         </div>
 
@@ -208,7 +208,7 @@ export const AuditLedgerPage: React.FC = () => {
           <select
             value={filterType}
             onChange={(e) => setFilterType(e.target.value)}
-            className="bg-[#1A1A18] border border-white/15 rounded px-2.5 py-1 text-white outline-none"
+            className="bg-surface-2 border border-border rounded px-2.5 py-1 text-text outline-none"
           >
             <option value="ALL">All Event Types</option>
             <option value="APPLICATION_SUBMITTED">APPLICATION_SUBMITTED</option>
@@ -228,14 +228,14 @@ export const AuditLedgerPage: React.FC = () => {
             className={`p-4 rounded border transition-all relative ${
               ev.eventHash === 'TAMPERED_HASH_PAYLOAD'
                 ? 'bg-vermilion/10 border-vermilion'
-                : 'bg-[#141413] border-white/10'
+                : 'bg-surface border-border'
             }`}
           >
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-white/5 pb-2.5 font-mono text-xs">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-2 border-b border-border pb-2.5 font-mono text-xs">
               <div className="flex items-center gap-3">
                 <span className="text-ochre font-bold">#{idx + 1}</span>
-                <span className="text-white font-bold">{ev.id}</span>
-                <span className="px-2 py-0.5 bg-white/10 rounded text-[10px] uppercase text-[#EDE7DA]">
+                <span className="text-text font-bold">{ev.id}</span>
+                <span className="px-2 py-0.5 bg-surface-2 rounded text-[10px] uppercase text-text">
                   {ev.eventType}
                 </span>
               </div>
@@ -250,15 +250,15 @@ export const AuditLedgerPage: React.FC = () => {
               {/* Left: Payload details */}
               <div className="md:col-span-7 space-y-1">
                 <div className="text-[10px] uppercase text-slate">
-                  Target Entity: <span className="text-white font-bold">{ev.targetEntityId}</span>
+                  Target Entity: <span className="text-text font-bold">{ev.targetEntityId}</span>
                 </div>
-                <div className="p-2.5 bg-black/40 border border-white/5 rounded text-[11px] text-slate/90 overflow-x-auto">
+                <div className="p-2.5 bg-surface-2 border border-border rounded text-[11px] text-slate/90 overflow-x-auto">
                   {JSON.stringify(ev.payload, null, 2)}
                 </div>
               </div>
 
               {/* Right: Previous hash -> Current hash */}
-              <div className="md:col-span-5 space-y-2 bg-[#1A1A18] p-3 rounded border border-white/5">
+              <div className="md:col-span-5 space-y-2 bg-surface-2 p-3 rounded border border-border">
                 <div>
                   <span className="text-[10px] text-slate uppercase block">Previous Hash (H_{'{n-1}'}):</span>
                   <div className="text-[10.5px] text-slate font-mono break-all select-all">

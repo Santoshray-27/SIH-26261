@@ -1,167 +1,130 @@
-import React, { useEffect, useState, useMemo } from 'react';
+import React, { useState, useMemo, useEffect } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
+import { useAppStore } from '../../store/useAppStore';
+import { useI18n } from '../../i18n/useI18n';
 import { api } from '../../services/mockApi';
-import {
-  Application,
-  SufficiencyAssessment,
-  AlertItem,
-  LifecycleState,
-} from '../../types/domain';
+import { Application, LifecycleState, SufficiencyAssessment } from '../../types/domain';
+import { LifecycleStrip } from '../../features/officer/components/LifecycleStrip';
+import { CommandPalette } from '../../features/officer/components/CommandPalette';
 import { StatusPill } from '../../components/ui/StatusPill';
 import { Button } from '../../components/ui/Button';
 import { Kbd } from '../../components/ui/Kbd';
-import { useI18n } from '../../i18n/useI18n';
-import { useAppStore } from '../../store/useAppStore';
-
-import { LifecycleStrip } from '../../features/officer/components/LifecycleStrip';
-import { AlertsRail } from '../../features/officer/components/AlertsRail';
-import { CoverageMiniBar } from '../../features/officer/components/CoverageMiniBar';
-import { CommandPalette } from '../../features/officer/components/CommandPalette';
-
 import {
   Search,
   Filter,
+  AlertTriangle,
   ArrowRight,
+  ShieldAlert,
+  ChevronDown,
   Command,
 } from 'lucide-react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export const OfficerDashboardPage: React.FC = () => {
-  const { t, language } = useI18n();
-  const { currentRole, addToast } = useAppStore();
+  const { addToast } = useAppStore();
+  const { language } = useI18n();
   const navigate = useNavigate();
 
   const [applications, setApplications] = useState<Application[]>([]);
   const [assessments, setAssessments] = useState<Record<string, SufficiencyAssessment>>({});
-  const [alerts, setAlerts] = useState<AlertItem[]>([]);
-
-  // Filters & State selection
   const [selectedState, setSelectedState] = useState<LifecycleState | 'ALL'>('ALL');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState<string>('');
   const [selectedCategory, setSelectedCategory] = useState<string>('ALL');
   const [selectedRowIndex, setSelectedRowIndex] = useState<number>(0);
-  const [commandPaletteOpen, setCommandPaletteOpen] = useState(false);
+  const [alertsRailExpanded, setAlertsRailExpanded] = useState<boolean>(false);
+  const [commandPaletteOpen, setCommandPaletteOpen] = useState<boolean>(false);
 
   useEffect(() => {
-    Promise.all([
-      api.getApplications(),
-      api.getAllSufficiencyAssessments(),
-      api.getAlerts(),
-    ]).then(([apps, assess, alts]) => {
+    async function loadData() {
+      const [apps, assessMap] = await Promise.all([
+        api.getApplications(),
+        api.getAllSufficiencyAssessments(),
+      ]);
       setApplications(apps);
-      setAssessments(assess);
-      setAlerts(alts);
-    });
+      setAssessments(assessMap);
+    }
+    loadData();
   }, []);
 
-  // Filtered dataset
-  const filteredApps = useMemo(() => {
-    return applications.filter((app) => {
-      const matchesState = selectedState === 'ALL' || app.currentState === selectedState;
-      const matchesCategory =
-        selectedCategory === 'ALL' || app.category === selectedCategory;
-      const matchesQuery =
-        app.institutionName.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        app.id.toLowerCase().includes(searchQuery.toLowerCase()) ||
-        app.institutionId.toLowerCase().includes(searchQuery.toLowerCase());
-      return matchesState && matchesCategory && matchesQuery;
-    });
-  }, [applications, selectedState, selectedCategory, searchQuery]);
-
-  // Derived state machine counts (§6/§7)
   const stateCounts = useMemo(() => {
-    const counts: Record<LifecycleState, number> = {
-      DRAFT: 0,
-      SUBMITTED: 0,
-      PROCESSING: 0,
-      EVIDENCE_REVIEW: 0,
-      READY_FOR_OFFICER_REVIEW: 0,
-      UNDER_OFFICER_REVIEW: 0,
-      NEEDS_CLARIFICATION: 0,
-      RESUBMITTED: 0,
-      ESCALATED: 0,
-      DECISION_RECORDED: 0,
-      CLOSED: 0,
-      WITHDRAWN: 0,
-      PROCESSING_FAILED: 0,
-      EVIDENCE_INCOMPLETE: 0,
-    };
-    applications.forEach((app) => {
-      if (counts[app.currentState] !== undefined) {
-        counts[app.currentState]++;
-      }
-    });
+    const counts = {} as Record<LifecycleState, number>;
+    for (const app of applications) {
+      counts[app.currentState] = (counts[app.currentState] || 0) + 1;
+    }
     return counts;
   }, [applications]);
 
-  // Derived summary metrics from real synthetic data (NO invented statistics)
   const summaryMetrics = useMemo(() => {
-    const total = applications.length;
-    const readyForReview = applications.filter(
-      (a) => a.currentState === 'READY_FOR_OFFICER_REVIEW' || a.currentState === 'UNDER_OFFICER_REVIEW'
-    ).length;
-    const escalated = applications.filter((a) => a.currentState === 'ESCALATED').length;
-    const incomplete = applications.filter(
-      (a) => a.currentState === 'EVIDENCE_INCOMPLETE' || a.currentState === 'PROCESSING'
-    ).length;
-    const decided = applications.filter(
-      (a) => a.currentState === 'DECISION_RECORDED' || a.currentState === 'CLOSED'
-    ).length;
-    return { total, readyForReview, escalated, incomplete, decided };
+    return {
+      total: applications.length,
+      readyForReview: applications.filter((a) => a.currentState === 'READY_FOR_OFFICER_REVIEW').length,
+      escalated: applications.filter((a) => a.currentState === 'ESCALATED').length,
+      incomplete: applications.filter((a) => a.currentState === 'EVIDENCE_INCOMPLETE').length,
+      decided: applications.filter((a) => a.currentState === 'DECISION_RECORDED').length,
+    };
   }, [applications]);
 
-  // Keyboard navigation for rows (J/K or Up/Down, Enter to open)
+  const filteredApps = useMemo(() => {
+    return applications.filter((app) => {
+      const matchState = selectedState === 'ALL' || app.currentState === selectedState;
+      const matchCategory = selectedCategory === 'ALL' || app.category === selectedCategory;
+      const matchSearch =
+        app.institutionName.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        app.id.toLowerCase().includes(searchQuery.toLowerCase());
+      return matchState && matchCategory && matchSearch;
+    });
+  }, [applications, selectedState, selectedCategory, searchQuery]);
+
+  // Keyboard navigation
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (commandPaletteOpen) return;
+      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) return;
+
       if (e.key === 'j' || e.key === 'ArrowDown') {
         e.preventDefault();
-        setSelectedRowIndex((prev) => Math.min(filteredApps.length - 1, prev + 1));
+        setSelectedRowIndex((prev) => Math.min(prev + 1, filteredApps.length - 1));
       } else if (e.key === 'k' || e.key === 'ArrowUp') {
         e.preventDefault();
-        setSelectedRowIndex((prev) => Math.max(0, prev - 1));
+        setSelectedRowIndex((prev) => Math.max(prev - 1, 0));
       } else if (e.key === 'Enter') {
-        const target = filteredApps[selectedRowIndex];
-        if (target) {
-          navigate(`/officer/case/${target.id}`);
-        }
-      } else if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        const current = filteredApps[selectedRowIndex];
+        if (current) navigate(`/officer/case/${current.id}`);
+      } else if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
         e.preventDefault();
         setCommandPaletteOpen(true);
       }
     };
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [filteredApps, selectedRowIndex, commandPaletteOpen, navigate]);
+  }, [filteredApps, selectedRowIndex, navigate]);
 
   return (
-    <div className="space-y-6 text-paper">
-      {/* Editorial Header & Top Ledger Bar */}
-      <div className="border-b border-hairline pb-4 flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+    <div className="space-y-6 text-text font-sans">
+      {/* Editorial Header */}
+      <div className="border-b border-border pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-widest text-slate mb-1">
+          <div className="flex items-center gap-2 font-mono text-[11px] uppercase tracking-wider text-text-muted mb-1">
             <span>Regulatory Workstation</span>
             <span>·</span>
             <span>AICTE Approval Process Handbook 2026-27</span>
           </div>
-          <h1 className="font-display font-black text-3xl md:text-5xl tracking-tight text-paper">
+          <h1 className="font-display font-black text-2xl md:text-4xl tracking-tight text-text">
             Officer Verification Ledger
           </h1>
-          <p className="font-mono text-xs text-slate mt-1 max-w-2xl">
-            Live regulatory triage workstation in dark console theme. All counts derived strictly
-            from verifiable synthetic seed cases. Evidence Sufficiency Gate enforced.
+          <p className="font-sans text-sm text-text-muted mt-1 max-w-2xl">
+            Deterministic triage ledger. Evaluates evidence sufficiency and surfaces weakest limiting signals without automated verdict generation.
           </p>
         </div>
 
-        {/* Action Controls & Command Palette trigger */}
+        {/* Action Controls */}
         <div className="flex items-center gap-3 shrink-0">
           <button
             onClick={() => setCommandPaletteOpen(true)}
-            className="px-3 py-2 border border-hairline bg-ink-surface hover:border-paper font-mono text-xs text-slate hover:text-paper flex items-center gap-2 transition-colors rounded-xs"
+            className="px-3 py-2 border border-border bg-surface hover:bg-surface-2 font-mono text-xs text-text-muted hover:text-text flex items-center gap-2 transition-colors rounded-xs shadow-subtle"
             title="Open Command Palette (Ctrl/Cmd+K)"
           >
             <Command size={14} />
-            <span>Search or Jump...</span>
+            <span>Search...</span>
             <Kbd>⌘K</Kbd>
           </button>
 
@@ -178,242 +141,298 @@ export const OfficerDashboardPage: React.FC = () => {
         </div>
       </div>
 
-      {/* Lifecycle State Machine Strip (§6 / §7) */}
+      {/* Row of 4 Summary Metric Cards */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4">
+        <div className="p-4 bg-surface border border-border rounded-xs shadow-subtle">
+          <span className="text-xs text-text-muted font-medium uppercase tracking-wider block">Total Applications</span>
+          <p className="text-3xl font-display font-black text-text mt-1">{summaryMetrics.total}</p>
+          <span className="text-[12px] text-text-muted">Dossiers in queue</span>
+        </div>
+
+        <div className="p-4 bg-tint-teal border border-border rounded-xs shadow-subtle">
+          <span className="text-xs text-accent-2 font-bold uppercase tracking-wider block">Ready for Review</span>
+          <p className="text-3xl font-display font-black text-accent-2 mt-1">{summaryMetrics.readyForReview}</p>
+          <span className="text-[12px] text-text-muted">Sufficiency passed</span>
+        </div>
+
+        <div className="p-4 bg-tint-clay border border-border rounded-xs shadow-subtle">
+          <span className="text-xs text-st-deficiency font-bold uppercase tracking-wider block">Escalated to Vigilance</span>
+          <p className="text-3xl font-display font-black text-st-deficiency mt-1">{summaryMetrics.escalated}</p>
+          <span className="text-[12px] text-text-muted">Integrity alerts flagged</span>
+        </div>
+
+        <div className="p-4 bg-tint-ochre border border-border rounded-xs shadow-subtle">
+          <span className="text-xs text-st-review font-bold uppercase tracking-wider block">Evidence Incomplete</span>
+          <p className="text-3xl font-display font-black text-st-review mt-1">{summaryMetrics.incomplete}</p>
+          <span className="text-[12px] text-text-muted">Mandatory checks missing</span>
+        </div>
+      </div>
+
+      {/* Lifecycle State Stepper */}
       <LifecycleStrip
         stateCounts={stateCounts}
         selectedState={selectedState}
-        onSelectState={(state: LifecycleState | 'ALL') => {
+        onSelectState={(state) => {
           setSelectedState(state);
           setSelectedRowIndex(0);
         }}
       />
 
-      {/* Main Ledger Layout: Left Typographic Summary + Center Table + Right Alerts Rail */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
-        {/* Left Column: Big Typographic Summary (Derived from Seed Data Only) */}
-        <div className="lg:col-span-3 space-y-4 font-mono text-xs">
-          <div className="border border-hairline bg-ink-surface p-5 space-y-4">
-            <div className="text-[10px] text-slate uppercase tracking-widest border-b border-hairline/60 pb-2 flex justify-between">
-              <span>Ledger Summary</span>
-              <span>8 Seed Cases</span>
+      {/* Collapsible Alerts Section (Collapsible bar on mobile/desktop, auto-rail at 2xl) */}
+      <div className="border border-border bg-surface rounded-xs overflow-hidden shadow-subtle">
+        <button
+          onClick={() => setAlertsRailExpanded(!alertsRailExpanded)}
+          className="w-full px-4 py-3 bg-bg-elevated flex items-center justify-between text-left font-sans text-sm font-semibold hover:bg-surface-2 transition-colors"
+        >
+          <div className="flex items-center gap-2">
+            <AlertTriangle size={16} className="text-st-review" />
+            <span>Active Vigilance Alerts & Expired Credentials ({applications.filter(a => a.currentState === 'ESCALATED').length})</span>
+          </div>
+          <ChevronDown
+            size={16}
+            className={`transition-transform duration-200 ${alertsRailExpanded ? 'rotate-180' : ''}`}
+          />
+        </button>
+
+        {alertsRailExpanded && (
+          <div className="p-4 grid grid-cols-1 md:grid-cols-3 gap-3 border-t border-border font-sans text-xs bg-surface">
+            <div className="p-3 bg-st-deficiency-bg border border-st-deficiency rounded-xs space-y-1">
+              <div className="font-bold text-st-deficiency flex items-center gap-1.5">
+                <ShieldAlert size={14} />
+                <span>Byte-Identical Duplicate Collision</span>
+              </div>
+              <p className="text-text-muted">Sri Vidya Institute shares SHA-256 land deed with Thar Institute (APP-8808).</p>
             </div>
 
-            <div>
-              <span className="text-[10px] text-slate uppercase block">Total Applications</span>
-              <p className="text-4xl font-display font-black text-paper mt-0.5">
-                {summaryMetrics.total}
-              </p>
-              <span className="text-[10px] text-slate">Dossiers in queue</span>
+            <div className="p-3 bg-st-review-bg border border-st-review rounded-xs space-y-1">
+              <div className="font-bold text-st-review flex items-center gap-1.5">
+                <AlertTriangle size={14} />
+                <span>Expired Accreditation</span>
+              </div>
+              <p className="text-text-muted">NBA accreditation expired on 2024-06-30. Affidavit claims current status.</p>
             </div>
 
-            <div className="pt-2 border-t border-hairline/60 space-y-3">
-              <div className="flex justify-between items-baseline">
-                <span className="text-slate">Active in Review</span>
-                <span className="font-bold text-lg text-paper">{summaryMetrics.readyForReview}</span>
+            <div className="p-3 bg-st-unavailable-bg border border-st-unavailable rounded-xs space-y-1">
+              <div className="font-bold text-st-unavailable flex items-center gap-1.5">
+                <AlertTriangle size={14} />
+                <span>External Source Unavailable</span>
               </div>
-              <div className="flex justify-between items-baseline">
-                <span className="text-slate">Escalated to Vigilance</span>
-                <span className="font-bold text-lg text-vermilion">{summaryMetrics.escalated}</span>
-              </div>
-              <div className="flex justify-between items-baseline">
-                <span className="text-slate">Evidence Incomplete</span>
-                <span className="font-bold text-lg text-ochre">{summaryMetrics.incomplete}</span>
-              </div>
-              <div className="flex justify-between items-baseline">
-                <span className="text-slate">Decisions Finalized</span>
-                <span className="font-bold text-lg text-verdigris">{summaryMetrics.decided}</span>
-              </div>
-            </div>
-
-            <div className="pt-3 border-t border-hairline/60 text-[10px] text-slate leading-tight font-sans">
-              <strong>Role Mode:</strong> Currently operating as{' '}
-              <span className="text-paper font-mono uppercase font-bold">
-                {t.roles[currentRole]}
-              </span>
-              . {currentRole === 'auditor' && 'Mutating actions will trigger 403 status.'}
+              <p className="text-text-muted">Telangana Land Registry returned 503 gateway timeout. Verification pending.</p>
             </div>
           </div>
+        )}
+      </div>
 
-          {/* Quick Keyboard Reference */}
-          <div className="p-3 border border-hairline/60 bg-ink-dark text-[11px] text-slate space-y-1">
-            <div className="font-bold uppercase text-[10px] text-paper mb-1 flex items-center gap-1">
-              <span>Navigation Keys</span>
-            </div>
-            <div className="flex justify-between">
-              <span>Next row:</span>
-              <div className="flex gap-1"><Kbd>J</Kbd> / <Kbd>↓</Kbd></div>
-            </div>
-            <div className="flex justify-between">
-              <span>Prev row:</span>
-              <div className="flex gap-1"><Kbd>K</Kbd> / <Kbd>↑</Kbd></div>
-            </div>
-            <div className="flex justify-between">
-              <span>Open dossier:</span>
-              <Kbd>Enter</Kbd>
-            </div>
-          </div>
+      {/* Filter and Search Bar */}
+      <div className="flex flex-wrap items-center justify-between gap-3 p-3.5 border border-border bg-surface rounded-xs shadow-subtle font-sans text-sm">
+        <div className="flex items-center gap-2 flex-1 min-w-[240px]">
+          <Search size={16} className="text-text-muted" />
+          <input
+            type="text"
+            placeholder="Search by institution name or application ID..."
+            value={searchQuery}
+            onChange={(e) => {
+              setSearchQuery(e.target.value);
+              setSelectedRowIndex(0);
+            }}
+            className="w-full bg-transparent text-text placeholder-text-muted text-sm focus:outline-none"
+          />
         </div>
 
-        {/* Center Main: Case Table with Limiting Signal and Coverage Mini-bar */}
-        <div className="lg:col-span-6 space-y-4">
-          {/* Filter Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 p-3 border border-hairline bg-ink-surface font-mono text-xs">
-            <div className="flex items-center gap-2 flex-1 min-w-[200px]">
-              <Search size={14} className="text-slate" />
-              <input
-                type="text"
-                placeholder="Filter by institution, ID..."
-                value={searchQuery}
-                onChange={(e) => setSearchQuery(e.target.value)}
-                className="w-full bg-transparent text-paper placeholder:text-slate/60 focus:outline-none text-xs"
-              />
-            </div>
-
-            <div className="flex items-center gap-3">
-              <div className="flex items-center gap-1.5 text-slate">
-                <Filter size={13} />
-                <select
-                  value={selectedCategory}
-                  onChange={(e) => setSelectedCategory(e.target.value)}
-                  className="bg-ink-dark border border-hairline/60 text-paper text-xs px-2 py-1 rounded-xs cursor-pointer focus:outline-none"
-                  aria-label="Filter by Category"
-                >
-                  <option value="ALL">All Categories</option>
-                  <option value="EXTENSION_OF_APPROVAL">Extension of Approval</option>
-                  <option value="NEW_INSTITUTION">New Institution</option>
-                  <option value="INTAKE_INCREASE">Intake Increase</option>
-                  <option value="CLOSURE_OR_MERGER">Closure / Merger</option>
-                </select>
-              </div>
-
-              <span className="text-slate text-[11px]">
-                Showing {filteredApps.length} of {applications.length}
-              </span>
-            </div>
+        <div className="flex items-center gap-3">
+          <div className="flex items-center gap-1.5 text-xs text-text-muted">
+            <Filter size={14} />
+            <span>Category:</span>
+            <select
+              value={selectedCategory}
+              onChange={(e) => {
+                setSelectedCategory(e.target.value);
+                setSelectedRowIndex(0);
+              }}
+              className="bg-bg-elevated border border-border text-text text-xs px-2.5 py-1 rounded-xs cursor-pointer focus:outline-none"
+            >
+              <option value="ALL">All Categories</option>
+              <option value="ENGINEERING_UG">Engineering UG</option>
+              <option value="MANAGEMENT_PG">Management PG</option>
+              <option value="PHARMACY_UG">Pharmacy UG</option>
+              <option value="POLYTECHNIC_DIPLOMA">Polytechnic Diploma</option>
+            </select>
           </div>
 
-          {/* Main Case Ledger Table */}
-          <div className="border border-hairline bg-ink-surface overflow-x-auto">
-            <table className="w-full text-left font-mono text-xs">
-              <thead className="bg-ink-dark text-slate uppercase text-[10px] tracking-wider border-b border-hairline">
-                <tr>
-                  <th className="p-3">Institution & ID</th>
-                  <th className="p-3">State Chip</th>
-                  <th className="p-3">Sufficiency</th>
-                  <th className="p-3">Limiting Signal (§3.4)</th>
-                  <th className="p-3">Coverage</th>
-                  <th className="p-3 text-right">Action</th>
-                </tr>
-              </thead>
-              <tbody className="divide-y divide-hairline">
-                <AnimatePresence>
-                  {filteredApps.map((app, index) => {
-                    const isSelected = index === selectedRowIndex;
-                    const assess = assessments[app.id];
-
-                    return (
-                      <motion.tr
-                        key={app.id}
-                        initial={{ opacity: 0, y: 4 }}
-                        animate={{ opacity: 1, y: 0 }}
-                        exit={{ opacity: 0 }}
-                        transition={{ duration: 0.15, delay: index * 0.03 }}
-                        onClick={() => setSelectedRowIndex(index)}
-                        className={`transition-colors cursor-pointer ${
-                          isSelected
-                            ? 'bg-paper/10 border-l-4 border-l-paper'
-                            : 'hover:bg-ink-dark/60'
-                        }`}
-                      >
-                        <td className="p-3">
-                          <Link
-                            to={`/officer/case/${app.id}`}
-                            className="font-bold text-paper hover:underline block"
-                          >
-                            {language === 'hi' && app.institutionNameHi
-                              ? app.institutionNameHi
-                              : app.institutionName}
-                          </Link>
-                          <div className="flex items-center gap-2 mt-0.5 text-[10px] text-slate">
-                            <span>{app.id}</span>
-                            <span>·</span>
-                            <span>{app.category.replace(/_/g, ' ')}</span>
-                          </div>
-                        </td>
-
-                        <td className="p-3">
-                          <span
-                            className={`inline-block px-2 py-0.5 text-[10px] font-mono uppercase border rounded-xs ${
-                              app.currentState === 'ESCALATED'
-                                ? 'bg-vermilion/20 border-vermilion text-vermilion font-bold'
-                                : app.currentState === 'EVIDENCE_INCOMPLETE'
-                                ? 'bg-ochre/20 border-ochre text-ochre font-bold'
-                                : 'bg-ink-dark border-hairline text-slate'
-                            }`}
-                          >
-                            {app.currentState.replace(/_/g, ' ')}
-                          </span>
-                        </td>
-
-                        <td className="p-3">
-                          {assess ? (
-                            <StatusPill status={assess.sufficiencyStatus as any} size="sm" />
-                          ) : (
-                            <span className="text-slate">Pending</span>
-                          )}
-                        </td>
-
-                        <td className="p-3 max-w-xs">
-                          {assess ? (
-                            <div className="text-[11px] text-slate truncate font-sans" title={assess.limitingSignal}>
-                              <span className="font-bold text-paper/90">
-                                {assess.limitingSignal}
-                              </span>
-                            </div>
-                          ) : (
-                            <span className="text-slate text-[10px]">Calculating...</span>
-                          )}
-                        </td>
-
-                        <td className="p-3">
-                          {assess ? (
-                            <CoverageMiniBar ratioStr={assess.mandatoryChecksRunRatio} />
-                          ) : (
-                            <span className="text-slate text-[10px]">N/A</span>
-                          )}
-                        </td>
-
-                        <td className="p-3 text-right">
-                          <Link
-                            to={`/officer/case/${app.id}`}
-                            className="inline-flex items-center gap-1 font-mono text-[11px] uppercase tracking-wider text-slate hover:text-paper font-semibold"
-                          >
-                            <span>Inspect</span>
-                            <ArrowRight size={11} />
-                          </Link>
-                        </td>
-                      </motion.tr>
-                    );
-                  })}
-                </AnimatePresence>
-              </tbody>
-            </table>
-
-            {filteredApps.length === 0 && (
-              <div className="p-12 text-center text-slate font-mono text-xs">
-                No institutional dossiers match the selected state or filter query.
-              </div>
-            )}
-          </div>
-        </div>
-
-        {/* Right Column: Alerts Rail */}
-        <div className="lg:col-span-3 space-y-4">
-          <AlertsRail alerts={alerts} />
+          <span className="text-xs text-text-muted font-mono">
+            Showing {filteredApps.length} of {applications.length}
+          </span>
         </div>
       </div>
 
-      {/* Command Palette Modal */}
+      {/* Main Case Ledger Table (Desktop) & Stacked Cards (Mobile) */}
+      <div className="border border-border bg-surface rounded-xs overflow-hidden shadow-subtle">
+        {/* Mobile View: Stacked Cards */}
+        <div className="md:hidden divide-y divide-border">
+          {filteredApps.map((app) => {
+            const assess = assessments[app.id];
+            return (
+              <div key={app.id} className="p-4 space-y-2.5">
+                <div className="flex items-start justify-between gap-2">
+                  <div>
+                    <Link to={`/officer/case/${app.id}`} className="font-bold text-accent-2 text-base hover:underline">
+                      {language === 'hi' && app.institutionNameHi ? app.institutionNameHi : app.institutionName}
+                    </Link>
+                    <div className="text-xs text-text-muted font-mono">{app.id} · {app.category.replace(/_/g, ' ')}</div>
+                  </div>
+                  <span className="px-2 py-0.5 bg-surface-2 border border-border text-[11px] font-mono rounded-xs">
+                    {app.currentState.replace(/_/g, ' ')}
+                  </span>
+                </div>
+
+                <div className="flex items-center gap-2">
+                  {assess && <StatusPill status={assess.sufficiencyStatus as any} size="sm" />}
+                  <span className="text-xs text-text-muted font-mono">
+                    Coverage: {assess?.mandatoryChecksCompleted ?? 0}/{assess?.mandatoryChecksTotal ?? 11}
+                  </span>
+                </div>
+
+                {assess && (
+                  <div className="text-xs text-text-muted bg-bg-elevated p-2 rounded-xs border border-border font-sans">
+                    <span className="font-semibold text-text">Limiting signal: </span>
+                    {assess.limitingSignal}
+                  </div>
+                )}
+
+                <Link
+                  to={`/officer/case/${app.id}`}
+                  className="inline-flex items-center gap-1.5 text-xs text-accent-2 font-bold hover:underline pt-1"
+                >
+                  <span>Open Dossier</span>
+                  <ArrowRight size={13} />
+                </Link>
+              </div>
+            );
+          })}
+        </div>
+
+        {/* Desktop View: Formatted Table */}
+        <div className="hidden md:block overflow-x-auto">
+          <table className="w-full text-left font-sans text-sm">
+            <thead className="bg-bg-elevated text-text-muted font-mono uppercase text-xs tracking-wider border-b border-border">
+              <tr>
+                <th className="p-3.5 min-w-[280px]">Institution & Application ID</th>
+                <th className="p-3.5 min-w-[150px]">Lifecycle State</th>
+                <th className="p-3.5 min-w-[170px]">Sufficiency Gate</th>
+                <th className="p-3.5 min-w-[280px]">Limiting Signal (§3.4)</th>
+                <th className="p-3.5 min-w-[120px]">Check Coverage</th>
+                <th className="p-3.5 text-right min-w-[110px]">Action</th>
+              </tr>
+            </thead>
+            <tbody className="divide-y divide-border">
+              <AnimatePresence>
+                {filteredApps.map((app, index) => {
+                  const isSelected = index === selectedRowIndex;
+                  const assess = assessments[app.id];
+
+                  return (
+                    <motion.tr
+                      key={app.id}
+                      initial={{ opacity: 0, y: 3 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={{ opacity: 0 }}
+                      transition={{ duration: 0.12 }}
+                      onClick={() => setSelectedRowIndex(index)}
+                      className={`transition-colors cursor-pointer ${
+                        isSelected
+                          ? 'bg-tint-teal/40 border-l-4 border-l-accent-2'
+                          : 'hover:bg-bg-elevated/60'
+                      }`}
+                    >
+                      <td className="p-3.5">
+                        <Link
+                          to={`/officer/case/${app.id}`}
+                          className="font-bold text-text hover:text-accent-2 block leading-snug"
+                        >
+                          {language === 'hi' && app.institutionNameHi
+                            ? app.institutionNameHi
+                            : app.institutionName}
+                        </Link>
+                        <div className="flex items-center gap-2 mt-0.5 text-xs text-text-muted font-mono">
+                          <span>{app.id}</span>
+                          <span>·</span>
+                          <span>{app.category.replace(/_/g, ' ')}</span>
+                        </div>
+                      </td>
+
+                      <td className="p-3.5">
+                        <span
+                          className={`inline-block px-2.5 py-1 text-xs font-mono rounded-xs border ${
+                            app.currentState === 'ESCALATED'
+                              ? 'bg-st-deficiency-bg border-st-deficiency text-st-deficiency font-bold'
+                              : app.currentState === 'EVIDENCE_INCOMPLETE'
+                              ? 'bg-st-review-bg border-st-review text-st-review font-bold'
+                              : 'bg-surface-2 border-border text-text-muted'
+                          }`}
+                        >
+                          {app.currentState.replace(/_/g, ' ')}
+                        </span>
+                      </td>
+
+                      <td className="p-3.5">
+                        {assess ? (
+                          <StatusPill status={assess.sufficiencyStatus as any} size="sm" />
+                        ) : (
+                          <span className="text-text-muted">Pending</span>
+                        )}
+                      </td>
+
+                      <td className="p-3.5 max-w-sm">
+                        {assess ? (
+                          <div className="text-xs text-text-muted font-sans line-clamp-2" title={assess.limitingSignal}>
+                            <span className="font-semibold text-text">
+                              {assess.limitingSignal}
+                            </span>
+                          </div>
+                        ) : (
+                          <span className="text-xs text-text-muted">—</span>
+                        )}
+                      </td>
+
+                      <td className="p-3.5">
+                        {assess && (
+                          <div className="space-y-1">
+                            <div className="flex justify-between text-[11px] font-mono text-text-muted">
+                              <span>{assess.mandatoryChecksCompleted}/{assess.mandatoryChecksTotal || 11} mandatory</span>
+                            </div>
+                            <div className="h-1.5 w-24 bg-surface-2 border border-border rounded-xs overflow-hidden flex">
+                              <div
+                                className="h-full bg-accent-2"
+                                style={{
+                                  width: `${(assess.mandatoryChecksCompleted / (assess.mandatoryChecksTotal || 11)) * 100}%`,
+                                }}
+                              />
+                              {(assess.mandatoryChecksTotal - assess.mandatoryChecksCompleted) > 0 && (
+                                <div className="h-full flex-1 hatch-pattern bg-text-muted" />
+                              )}
+                            </div>
+                          </div>
+                        )}
+                      </td>
+
+                      <td className="p-3.5 text-right">
+                        <Link
+                          to={`/officer/case/${app.id}`}
+                          className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-surface-2 hover:bg-surface border border-border text-text text-xs rounded-xs font-medium transition-colors"
+                        >
+                          <span>Review</span>
+                          <ArrowRight size={13} />
+                        </Link>
+                      </td>
+                    </motion.tr>
+                  );
+                })}
+              </AnimatePresence>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
       <CommandPalette
         isOpen={commandPaletteOpen}
         onClose={() => setCommandPaletteOpen(false)}

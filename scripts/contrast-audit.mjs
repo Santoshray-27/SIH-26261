@@ -1,128 +1,122 @@
 import fs from 'fs';
-import path from 'path';
 
-// WCAG relative luminance calculation
-function sRGBtoLin(colorChannel) {
-  const c = colorChannel / 255;
-  return c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4);
+// WCAG 2.1 relative luminance calculation
+function sRGBtoLin(c) {
+  const norm = c / 255;
+  return norm <= 0.03928 ? norm / 12.92 : Math.pow((norm + 0.055) / 1.055, 2.4);
 }
 
 function hexToRgb(hex) {
   let clean = hex.replace('#', '').trim();
   if (clean.length === 3) {
-    clean = clean.split('').map(c => c + c).join('');
+    clean = clean.split('').map(ch => ch + ch).join('');
   }
-  const num = parseInt(clean, 16);
-  return {
-    r: (num >> 16) & 255,
-    g: (num >> 8) & 255,
-    b: num & 255,
-  };
+  const n = parseInt(clean, 16);
+  return { r: (n >> 16) & 255, g: (n >> 8) & 255, b: n & 255 };
 }
 
 function luminance(hex) {
-  const rgb = hexToRgb(hex);
-  return (
-    0.2126 * sRGBtoLin(rgb.r) +
-    0.7152 * sRGBtoLin(rgb.g) +
-    0.0722 * sRGBtoLin(rgb.b)
-  );
+  const { r, g, b } = hexToRgb(hex);
+  return 0.2126 * sRGBtoLin(r) + 0.7152 * sRGBtoLin(g) + 0.0722 * sRGBtoLin(b);
 }
 
-function contrastRatio(hex1, hex2) {
-  const lum1 = luminance(hex1);
-  const lum2 = luminance(hex2);
-  const brightest = Math.max(lum1, lum2);
-  const darkest = Math.min(lum1, lum2);
-  return (brightest + 0.05) / (darkest + 0.05);
+function contrast(hex1, hex2) {
+  const l1 = luminance(hex1);
+  const l2 = luminance(hex2);
+  const b = Math.max(l1, l2);
+  const d = Math.min(l1, l2);
+  return (b + 0.05) / (d + 0.05);
 }
 
-// Key token values defined in the system
-const tokens = {
-  light: {
-    bg: '#F3EEE5',            // Paper background
-    surface: '#FFFFFF',       // Card/table surface
-    surface2: '#E7E0D2',      // Bone accent surface
-    text: '#0C0C0B',          // Ink primary text
-    textMuted: '#52524E',     // Muted text (AA: >=4.5:1 on #F3EEE5 and #FFFFFF)
-    textSubtle: '#6B6B66',    // Subtle/secondary text
-    border: 'rgba(12, 12, 11, 0.14)',
-    accentVermilion: '#C42E18', // Primary vermilion deficiency accent
-    accentVerdigris: '#195B4E', // Pass verdigris
-    accentOchre: '#8C5E03',     // Review ochre (high contrast)
-    accentIndigo: '#14213D',    // Structure indigo
-    accentSlate: '#4E4E4A',     // Unavailable slate
-  },
-  dark: {
-    bg: '#0F0F0E',            // Dark ink background
-    surface: '#171715',       // Dark ink surface
-    surface2: '#222220',      // Elevated surface
-    text: '#EDE7DA',          // Light text
-    textMuted: '#A8A8A2',     // Muted text (AA: >=4.5:1 on #0F0F0E and #171715)
-    textSubtle: '#888882',
-    border: 'rgba(237, 231, 218, 0.12)',
-    accentVermilion: '#F25C46', // Vermilion in dark mode
-    accentVerdigris: '#2EB89E', // Verdigris in dark mode
-    accentOchre: '#E5A622',     // Ochre in dark mode
-    accentIndigo: '#8EA4D2',    // Indigo in dark mode
-    accentSlate: '#A2A29C',     // Slate in dark mode
-  }
+const PALETTE = {
+  bg: '#F3EDE0',
+  bgElevated: '#FAF6EC',
+  surface: '#FBF8F0',
+  surface2: '#ECE5D4',
+  tintTeal: '#DCEAE5',
+  tintClay: '#F2DFD0',
+  tintIndigo: '#E1E4F2',
+  tintOchre: '#F3E7C6',
+  text: '#1F2B3D',
+  textMuted: '#4A5568',
+  textSubtle: '#5F6B7E',
+  accent: '#B5432A',
+  accent2: '#1C6B6F',
+  accentContrast: '#FFFCF5',
+  borderControl: '#8B8068',
+  focusRing: '#1C6B6F',
+  stPass: '#1B6F4F',
+  stPassBg: '#E1EFEA',
+  stDeficiency: '#B3341C',
+  stDeficiencyBg: '#FAE2DD',
+  stReview: '#8A5A00',
+  stReviewBg: '#F8EDD2',
+  stStructure: '#3A4A9C',
+  stStructureBg: '#E7EAF7',
+  stUnavailable: '#566074',
+  stUnavailableBg: '#EAECEF',
 };
 
 const checks = [
-  // Light Theme Checks
-  { name: 'Light: Text on Paper BG', fg: tokens.light.text, bg: tokens.light.bg, target: 4.5 },
-  { name: 'Light: Text on White Surface', fg: tokens.light.text, bg: tokens.light.surface, target: 4.5 },
-  { name: 'Light: Muted Text on Paper BG', fg: tokens.light.textMuted, bg: tokens.light.bg, target: 4.5 },
-  { name: 'Light: Muted Text on Surface', fg: tokens.light.textMuted, bg: tokens.light.surface, target: 4.5 },
-  { name: 'Light: Vermilion Accent on Paper', fg: tokens.light.accentVermilion, bg: tokens.light.bg, target: 4.5 },
-  { name: 'Light: Verdigris Accent on Paper', fg: tokens.light.accentVerdigris, bg: tokens.light.bg, target: 4.5 },
-  { name: 'Light: Ochre Accent on Paper', fg: tokens.light.accentOchre, bg: tokens.light.bg, target: 4.5 },
-  { name: 'Light: Indigo Accent on Paper', fg: tokens.light.accentIndigo, bg: tokens.light.bg, target: 4.5 },
+  // Primary Text on all surfaces & tints
+  { name: 'Text on Sandstone BG', fg: PALETTE.text, bg: PALETTE.bg, min: 4.5 },
+  { name: 'Text on Surface', fg: PALETTE.text, bg: PALETTE.surface, min: 4.5 },
+  { name: 'Text on Surface 2 (Bone)', fg: PALETTE.text, bg: PALETTE.surface2, min: 4.5 },
+  { name: 'Text on Tint Teal', fg: PALETTE.text, bg: PALETTE.tintTeal, min: 4.5 },
+  { name: 'Text on Tint Clay', fg: PALETTE.text, bg: PALETTE.tintClay, min: 4.5 },
+  { name: 'Text on Tint Indigo', fg: PALETTE.text, bg: PALETTE.tintIndigo, min: 4.5 },
+  { name: 'Text on Tint Ochre', fg: PALETTE.text, bg: PALETTE.tintOchre, min: 4.5 },
 
-  // Dark Theme Checks
-  { name: 'Dark: Text on Ink Dark BG', fg: tokens.dark.text, bg: tokens.dark.bg, target: 4.5 },
-  { name: 'Dark: Text on Ink Surface', fg: tokens.dark.text, bg: tokens.dark.surface, target: 4.5 },
-  { name: 'Dark: Muted Text on Ink Dark BG', fg: tokens.dark.textMuted, bg: tokens.dark.bg, target: 4.5 },
-  { name: 'Dark: Muted Text on Surface', fg: tokens.dark.textMuted, bg: tokens.dark.surface, target: 4.5 },
-  { name: 'Dark: Vermilion Accent on BG', fg: tokens.dark.accentVermilion, bg: tokens.dark.bg, target: 4.5 },
-  { name: 'Dark: Verdigris Accent on BG', fg: tokens.dark.accentVerdigris, bg: tokens.dark.bg, target: 4.5 },
-  { name: 'Dark: Ochre Accent on BG', fg: tokens.dark.accentOchre, bg: tokens.dark.bg, target: 4.5 },
-  { name: 'Dark: Indigo Accent on BG', fg: tokens.dark.accentIndigo, bg: tokens.dark.bg, target: 4.5 },
+  // Muted Text on surfaces
+  { name: 'Muted Text on BG', fg: PALETTE.textMuted, bg: PALETTE.bg, min: 4.5 },
+  { name: 'Muted Text on Surface', fg: PALETTE.textMuted, bg: PALETTE.surface, min: 4.5 },
+  { name: 'Muted Text on Surface 2', fg: PALETTE.textMuted, bg: PALETTE.surface2, min: 4.5 },
+
+  // Button Contrast
+  { name: 'Accent Button Text (White on Terracotta)', fg: PALETTE.accentContrast, bg: PALETTE.accent, min: 4.5 },
+  { name: 'Teal Link/Nav on BG', fg: PALETTE.accent2, bg: PALETTE.bg, min: 4.5 },
+
+  // Status Badge Contrast (fg on tinted bg)
+  { name: 'Status Pass: FG on Tint BG', fg: PALETTE.stPass, bg: PALETTE.stPassBg, min: 4.5 },
+  { name: 'Status Deficiency: FG on Tint BG', fg: PALETTE.stDeficiency, bg: PALETTE.stDeficiencyBg, min: 4.5 },
+  { name: 'Status Review: FG on Tint BG', fg: PALETTE.stReview, bg: PALETTE.stReviewBg, min: 4.5 },
+  { name: 'Status Structure: FG on Tint BG', fg: PALETTE.stStructure, bg: PALETTE.stStructureBg, min: 4.5 },
+  { name: 'Status Unavailable: FG on Tint BG', fg: PALETTE.stUnavailable, bg: PALETTE.stUnavailableBg, min: 4.5 },
+
+  // Non-text UI Contrast (>= 3.0:1)
+  { name: 'Control Border on Surface', fg: PALETTE.borderControl, bg: PALETTE.surface, min: 3.0 },
+  { name: 'Focus Ring on BG', fg: PALETTE.focusRing, bg: PALETTE.bg, min: 3.0 },
 ];
 
 console.log('========================================================================');
-console.log(' PRAMĀṆA — WCAG AA TOKEN CONTRAST RATIO AUDIT');
+console.log(' PRAMĀṆA — SANDSTONE & TEAL WCAG AA CONTRAST AUDIT');
 console.log('========================================================================');
 console.log(
-  'Pair Name'.padEnd(38) +
-  'FG / BG'.padEnd(20) +
-  'Ratio'.padEnd(10) +
-  'Min'.padEnd(8) +
-  'Status'
+  'Token Pair Name'.padEnd(42) +
+  'Ratio'.padEnd(12) +
+  'Target'.padEnd(10) +
+  'Result'
 );
 console.log('------------------------------------------------------------------------');
 
-let allPassed = true;
-for (const item of checks) {
-  const ratio = contrastRatio(item.fg, item.bg);
-  const passed = ratio >= item.target;
-  if (!passed) allPassed = false;
-  const statusStr = passed ? 'PASS (AA)' : 'FAIL';
+let pass = true;
+for (const c of checks) {
+  const r = contrast(c.fg, c.bg);
+  const ok = r >= c.min;
+  if (!ok) pass = false;
   console.log(
-    item.name.padEnd(38) +
-    `${item.fg}/${item.bg}`.padEnd(20) +
-    ratio.toFixed(2).padEnd(10) +
-    `${item.target}:1`.padEnd(8) +
-    statusStr
+    c.name.padEnd(42) +
+    r.toFixed(2).padEnd(12) +
+    `${c.min}:1`.padEnd(10) +
+    (ok ? 'PASS' : 'FAIL')
   );
 }
 
 console.log('========================================================================');
-if (!allPassed) {
-  console.error('Contrast audit failed! Please adjust token definitions.');
+if (!pass) {
+  console.error('Contrast audit failed! Adjust token values.');
   process.exit(1);
 } else {
-  console.log('All token pairs satisfy WCAG AA contrast requirements.');
+  console.log('ALL token pairs satisfy WCAG AA contrast standards!');
   process.exit(0);
 }

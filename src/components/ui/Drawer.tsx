@@ -31,23 +31,23 @@ export const Drawer: React.FC<DrawerProps> = ({
   return (
     <div className="fixed inset-0 z-50 overflow-hidden">
       <div
-        className="absolute inset-0 bg-ink/40 dark:bg-black/60 backdrop-blur-xs transition-opacity"
+        className="absolute inset-0 bg-text/40 backdrop-blur-xs transition-opacity"
         onClick={onClose}
       />
-      <div className="fixed inset-y-0 right-0 flex pl-10 max-w-full">
+      <div className="fixed inset-y-0 right-0 flex pl-6 sm:pl-10 max-w-full">
         <div
-          className={`w-screen ${width} bg-paper dark:bg-ink-surface border-l border-hairline shadow-floating flex flex-col`}
+          className={`w-screen ${width} bg-surface border-l border-border shadow-floating flex flex-col text-text`}
         >
-          <div className="p-5 border-b border-hairline flex items-center justify-between bg-bone/30 dark:bg-ink-dark/30">
+          <div className="p-5 border-b border-border flex items-center justify-between bg-surface-2">
             <div>
-              <h2 className="font-display font-bold text-xl tracking-tight">{title}</h2>
+              <h2 className="font-display font-bold text-xl tracking-tight text-text">{title}</h2>
               {subtitle && (
-                <p className="font-mono text-xs text-slate mt-0.5">{subtitle}</p>
+                <p className="font-mono text-xs text-text-muted mt-0.5">{subtitle}</p>
               )}
             </div>
             <button
               onClick={onClose}
-              className="p-1.5 rounded hover:bg-bone dark:hover:bg-ink-dark transition-colors"
+              className="p-1.5 rounded hover:bg-surface text-text transition-colors"
               aria-label="Close drawer"
             >
               <X size={18} strokeWidth={1.25} />

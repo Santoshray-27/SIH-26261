@@ -73,11 +73,12 @@ export const FloorplanMeasureTool: React.FC = () => {
       img.src = customImage;
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
     } else {
-      // Blueprint grid background
-      ctx.fillStyle = '#0E1726';
+      // Dynamic theme-aware blueprint background read from computed style
+      const computed = getComputedStyle(canvas);
+      ctx.fillStyle = computed.getPropertyValue('--surface-2').trim() || 'rgb(236, 229, 212)';
       ctx.fillRect(0, 0, canvas.width, canvas.height);
 
-      ctx.strokeStyle = 'rgba(255, 255, 255, 0.05)';
+      ctx.strokeStyle = computed.getPropertyValue('--border').trim() || 'rgba(28, 43, 61, 0.1)';
       ctx.lineWidth = 1;
       for (let x = 0; x < canvas.width; x += 25) {
         ctx.beginPath();
@@ -92,20 +93,24 @@ export const FloorplanMeasureTool: React.FC = () => {
         ctx.stroke();
       }
 
-      // Simulated blueprint architectural walls
-      ctx.strokeStyle = '#3B82F6';
+      // Simulated architectural blueprint walls
+      ctx.strokeStyle = computed.getPropertyValue('--text-muted').trim() || 'rgb(74, 85, 104)';
       ctx.lineWidth = 2;
       ctx.strokeRect(60, 60, 360, 260); // outer wall
 
       ctx.font = '11px JetBrains Mono, monospace';
-      ctx.fillStyle = '#94A3B8';
+      ctx.fillStyle = computed.getPropertyValue('--text-muted').trim() || 'rgb(74, 85, 104)';
       ctx.fillText('LABORATORY WING - BLOCK B (AICTE APPROVED FLOORPLAN)', 70, 50);
       ctx.fillText('SCALE BAR REF', 50, 365);
     }
 
+    const reviewColor = getComputedStyle(canvas).getPropertyValue('--st-review').trim() || 'rgb(138, 90, 0)';
+    const passColor = getComputedStyle(canvas).getPropertyValue('--st-pass').trim() || 'rgb(27, 111, 79)';
+    const textColor = getComputedStyle(canvas).getPropertyValue('--text').trim() || 'rgb(31, 43, 61)';
+
     // Render Scale Bar Line & Points
     if (scalePoints.length > 0) {
-      ctx.strokeStyle = '#F59E0B'; // ochre
+      ctx.strokeStyle = reviewColor;
       ctx.lineWidth = 3;
       ctx.beginPath();
       ctx.moveTo(scalePoints[0].x, scalePoints[0].y);
@@ -116,20 +121,20 @@ export const FloorplanMeasureTool: React.FC = () => {
 
       // Tick markers at scale bar ends
       scalePoints.forEach((pt, i) => {
-        ctx.fillStyle = '#F59E0B';
+        ctx.fillStyle = reviewColor;
         ctx.beginPath();
         ctx.arc(pt.x, pt.y, 5, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.font = '10px JetBrains Mono, monospace';
-        ctx.fillStyle = '#FDE68A';
+        ctx.fillStyle = textColor;
         ctx.fillText(`P${i + 1}`, pt.x - 8, pt.y - 10);
       });
 
       if (scalePoints.length === 2) {
         const midX = (scalePoints[0].x + scalePoints[1].x) / 2;
         const midY = (scalePoints[0].y + scalePoints[1].y) / 2;
-        ctx.fillStyle = '#FDE68A';
+        ctx.fillStyle = textColor;
         ctx.font = '11px JetBrains Mono, monospace';
         ctx.fillText(`${statedScaleLength}m (${Math.round(euclideanDistance(scalePoints[0], scalePoints[1]))}px)`, midX - 25, midY - 8);
       }
@@ -144,23 +149,23 @@ export const FloorplanMeasureTool: React.FC = () => {
       }
       if (polygonPoints.length >= 3) {
         ctx.closePath();
-        ctx.fillStyle = 'rgba(31, 107, 92, 0.25)'; // verdigris translucent
+        ctx.fillStyle = 'rgba(31, 107, 92, 0.22)';
         ctx.fill();
       }
 
-      ctx.strokeStyle = '#1F6B5C';
+      ctx.strokeStyle = passColor;
       ctx.lineWidth = 2;
       ctx.stroke();
 
       // Polygon vertices
       polygonPoints.forEach((pt, i) => {
-        ctx.fillStyle = '#2DD4BF';
+        ctx.fillStyle = passColor;
         ctx.beginPath();
         ctx.arc(pt.x, pt.y, 4, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.font = '9px JetBrains Mono, monospace';
-        ctx.fillStyle = '#EDE7DA';
+        ctx.fillStyle = textColor;
         ctx.fillText(`V${i + 1}`, pt.x + 6, pt.y + 4);
       });
     }
@@ -198,14 +203,14 @@ export const FloorplanMeasureTool: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#141413] border border-white/10 rounded-md overflow-hidden">
+    <div className="bg-surface border border-border rounded-md overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-3.5 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+      <div className="px-5 py-3.5 bg-surface-2 border-b border-border flex items-center justify-between">
         <div>
           <div className="text-[10px] uppercase font-mono tracking-wider text-slate">
             CANVAS GEOMETRY ENGINE · §6
           </div>
-          <h3 className="text-sm font-serif font-bold text-[#EDE7DA] mt-0.5">
+          <h3 className="text-sm font-serif font-bold text-text mt-0.5">
             Architectural Floor-Plan Area Measurement
           </h3>
         </div>
@@ -219,15 +224,15 @@ export const FloorplanMeasureTool: React.FC = () => {
 
       <div className="p-6 space-y-6">
         {/* Controls Toolbar */}
-        <div className="flex flex-wrap items-center justify-between gap-4 p-3 bg-[#181816] border border-white/10 rounded text-xs font-mono">
+        <div className="flex flex-wrap items-center justify-between gap-4 p-3 bg-surface-2 border border-border rounded text-xs font-mono">
           <div className="flex items-center gap-2">
             <span className="text-slate uppercase text-[10px]">Active Cursor Mode:</span>
             <button
               onClick={() => setMode('SCALE')}
               className={`px-3 py-1.5 rounded transition-colors flex items-center gap-1.5 ${
                 mode === 'SCALE'
-                  ? 'bg-ochre text-white font-bold'
-                  : 'bg-black/30 text-slate hover:text-white'
+                  ? 'bg-ochre text-text font-bold'
+                  : 'bg-black/30 text-slate hover:text-text'
               }`}
             >
               <Ruler className="w-3.5 h-3.5" />
@@ -238,8 +243,8 @@ export const FloorplanMeasureTool: React.FC = () => {
               onClick={() => setMode('POLYGON')}
               className={`px-3 py-1.5 rounded transition-colors flex items-center gap-1.5 ${
                 mode === 'POLYGON'
-                  ? 'bg-verdigris text-white font-bold'
-                  : 'bg-black/30 text-slate hover:text-white'
+                  ? 'bg-verdigris text-text font-bold'
+                  : 'bg-black/30 text-slate hover:text-text'
               }`}
             >
               <Maximize2 className="w-3.5 h-3.5" />
@@ -256,7 +261,7 @@ export const FloorplanMeasureTool: React.FC = () => {
               <Trash2 className="w-4 h-4" />
             </button>
 
-            <label className="px-3 py-1.5 bg-black/40 border border-white/10 hover:border-white/30 text-slate hover:text-white rounded cursor-pointer transition-colors flex items-center gap-1.5 text-[11px]">
+            <label className="px-3 py-1.5 bg-surface-2 border border-border hover:border-border-strong text-slate hover:text-text rounded cursor-pointer transition-colors flex items-center gap-1.5 text-[11px]">
               <Upload className="w-3.5 h-3.5" />
               <span>Upload Custom Plan</span>
               <input
@@ -273,7 +278,7 @@ export const FloorplanMeasureTool: React.FC = () => {
         <div className="grid grid-cols-12 gap-6">
           {/* Canvas area (8 cols) */}
           <div className="col-span-12 lg:col-span-8 space-y-2">
-            <div className="border border-white/15 rounded bg-black relative overflow-hidden flex justify-center">
+            <div className="border border-border rounded bg-black relative overflow-hidden flex justify-center">
               <canvas
                 ref={canvasRef}
                 width={560}
@@ -291,7 +296,7 @@ export const FloorplanMeasureTool: React.FC = () => {
           {/* Derivation Parameters & Shoelace Formula Results (4 cols) */}
           <div className="col-span-12 lg:col-span-4 space-y-4">
             {/* Calibration Params */}
-            <div className="p-4 bg-[#181816] border border-white/10 rounded space-y-3 font-mono text-xs">
+            <div className="p-4 bg-surface-2 border border-border rounded space-y-3 font-mono text-xs">
               <div className="text-[10px] uppercase text-slate font-bold">
                 Scale Calibration Parameter
               </div>
@@ -305,7 +310,7 @@ export const FloorplanMeasureTool: React.FC = () => {
                   max={100}
                   value={statedScaleLength}
                   onChange={(e) => setStatedScaleLength(Number(e.target.value))}
-                  className="w-full bg-[#141413] border border-white/15 rounded p-2 text-white font-bold"
+                  className="w-full bg-surface border border-border rounded p-2 text-text font-bold"
                 />
               </div>
               <div className="text-[10px] text-slate">
@@ -314,14 +319,14 @@ export const FloorplanMeasureTool: React.FC = () => {
             </div>
 
             {/* Shoelace Calculation Box */}
-            <div className="p-4 bg-[#181816] border border-white/10 rounded space-y-3 font-mono text-xs">
+            <div className="p-4 bg-surface-2 border border-border rounded space-y-3 font-mono text-xs">
               <div className="text-[10px] uppercase text-slate font-bold">
                 Shoelace Formula Output
               </div>
 
               <div className="flex justify-between items-baseline">
                 <span className="text-slate">Computed Area:</span>
-                <span className="text-lg font-serif font-bold text-white">
+                <span className="text-lg font-serif font-bold text-text">
                   {computedAreaSqm.toFixed(2)} sq.m.
                 </span>
               </div>
@@ -334,11 +339,11 @@ export const FloorplanMeasureTool: React.FC = () => {
                   type="number"
                   value={declaredAreaSqm}
                   onChange={(e) => setDeclaredAreaSqm(Number(e.target.value))}
-                  className="w-full bg-[#141413] border border-white/15 rounded p-2 text-white font-bold"
+                  className="w-full bg-surface border border-border rounded p-2 text-text font-bold"
                 />
               </div>
 
-              <div className="pt-2 border-t border-white/5 space-y-1 text-[11px]">
+              <div className="pt-2 border-t border-border space-y-1 text-[11px]">
                 <div className="flex justify-between">
                   <span className="text-slate">Area Delta:</span>
                   <span className={toleranceEval.deltaSqm < 0 ? 'text-vermilion' : 'text-verdigris'}>
@@ -355,7 +360,7 @@ export const FloorplanMeasureTool: React.FC = () => {
                       step={0.5}
                       value={tolerancePercent}
                       onChange={(e) => setTolerancePercent(Number(e.target.value))}
-                      className="w-14 bg-[#141413] border border-white/10 rounded px-1.5 py-0.5 text-right text-white font-mono text-[11px]"
+                      className="w-14 bg-surface border border-border rounded px-1.5 py-0.5 text-right text-text font-mono text-[11px]"
                     />
                     <span className="text-slate">%</span>
                   </div>

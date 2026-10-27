@@ -47,14 +47,14 @@ export const CorrectValueDrawer: React.FC<CorrectValueDrawerProps> = ({
   return (
     <Drawer isOpen={isOpen} onClose={onClose} title="Correct Extracted Field Value">
       <form onSubmit={handleSubmit} className="space-y-6">
-        <div className="p-3.5 bg-black/40 border border-white/10 rounded text-xs space-y-1">
+        <div className="p-3.5 bg-surface-2 border border-border rounded text-xs space-y-1">
           <div className="text-[10px] font-mono uppercase text-slate">Field Name</div>
-          <div className="font-mono text-white font-bold text-sm">{field.fieldName}</div>
+          <div className="font-mono text-text font-bold text-sm">{field.fieldName}</div>
           <div className="text-[11px] text-slate">Document: {field.documentId} · Page {field.page || 1}</div>
         </div>
 
         {/* Audit preservation rule note */}
-        <div className="p-3 bg-[#1B2A49]/30 border border-[#1B2A49] rounded text-[11px] text-slate flex items-start gap-2">
+        <div className="p-3 bg-st-structure/30 border border-st-structure rounded text-[11px] text-slate flex items-start gap-2">
           <ShieldCheck className="w-4 h-4 text-verdigris flex-shrink-0 mt-0.5" />
           <span>
             <strong>Immutable Provenance Rule:</strong> Pramāṇa never overwrites values in place.
@@ -68,34 +68,34 @@ export const CorrectValueDrawer: React.FC<CorrectValueDrawerProps> = ({
             <label className="block text-xs font-mono uppercase text-slate mb-1">
               Raw Extracted Value (Preserved in ledger):
             </label>
-            <div className="p-3 bg-[#1A1A18] border border-white/10 rounded font-mono text-xs text-slate break-all select-all">
+            <div className="p-3 bg-surface-2 border border-border rounded font-mono text-xs text-slate break-all select-all">
               {field.rawValue}
             </div>
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase text-[#EDE7DA] mb-1">
+            <label className="block text-xs font-mono uppercase text-text mb-1">
               Superseding Corrected Value (New):
             </label>
             <input
               type="text"
               value={correctedValue}
               onChange={(e) => setCorrectedValue(e.target.value)}
-              className="w-full bg-[#1A1A18] border border-white/20 rounded p-3 text-xs text-white font-mono focus:border-verdigris outline-none"
+              className="w-full bg-surface-2 border border-border rounded p-3 text-xs text-text font-mono focus:border-verdigris outline-none"
               placeholder="Enter corrected value as read from document..."
               required
             />
           </div>
 
           <div>
-            <label className="block text-xs font-mono uppercase text-[#EDE7DA] mb-1">
+            <label className="block text-xs font-mono uppercase text-text mb-1">
               Correction Reason & Justification (Mandatory):
             </label>
             <textarea
               value={reason}
               onChange={(e) => setReason(e.target.value)}
               rows={3}
-              className="w-full bg-[#1A1A18] border border-white/20 rounded p-3 text-xs text-white font-mono focus:border-verdigris outline-none"
+              className="w-full bg-surface-2 border border-border rounded p-3 text-xs text-text font-mono focus:border-verdigris outline-none"
               placeholder="e.g. OCR misread ligature 'fl' as 'fi'; verified against original high-resolution scan page 1."
               required
             />
@@ -104,22 +104,22 @@ export const CorrectValueDrawer: React.FC<CorrectValueDrawerProps> = ({
 
         {/* Previous Correction History if any */}
         {field.correctionProvenance && (
-          <div className="p-3 bg-black/30 border border-white/5 rounded text-[11px] font-mono text-slate space-y-1">
+          <div className="p-3 bg-black/30 border border-border rounded text-[11px] font-mono text-slate space-y-1">
             <div className="text-ochre flex items-center gap-1">
               <History className="w-3.5 h-3.5" />
               <span>Prior Correction Record</span>
             </div>
             <div>Officer: {field.correctionProvenance.officerId}</div>
             <div>Timestamp: {new Date(field.correctionProvenance.timestamp).toLocaleString()}</div>
-            <div className="text-white/80 italic">"{field.correctionReason}"</div>
+            <div className="text-text/80 italic">"{field.correctionReason}"</div>
           </div>
         )}
 
-        <div className="pt-4 border-t border-white/10 flex items-center justify-end gap-3">
+        <div className="pt-4 border-t border-border flex items-center justify-end gap-3">
           <button
             type="button"
             onClick={onClose}
-            className="px-4 py-2 text-xs font-mono text-slate hover:text-white transition-colors"
+            className="px-4 py-2 text-xs font-mono text-slate hover:text-text transition-colors"
           >
             Cancel
           </button>

@@ -44,41 +44,42 @@ export const RuleGovernancePage: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0F0F0E] text-[#EDE7DA] p-6 lg:p-10 space-y-6 font-sans select-none">
+    <div className="space-y-6 text-text font-sans">
       {/* Editorial Header */}
-      <div className="border-b border-white/10 pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+      <div className="border-b border-border pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-ochre uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 font-mono text-xs text-st-review uppercase tracking-wider mb-1">
             <Scale className="w-4 h-4" />
             <span>Statutory Rulebook & Readiness Governance · §5</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-serif font-black tracking-tight text-white">
+          <h1 className="text-2xl md:text-4xl font-display font-black tracking-tight text-text">
             Governed Rule Packs & Readiness Profiles
           </h1>
-          <p className="text-xs font-mono text-slate mt-1 max-w-2xl">
+          <p className="text-sm font-sans text-text-muted mt-1 max-w-2xl">
             Rules progress through a multi-stage statutory lifecycle. Ambiguous or discretion-heavy clauses
-            yield <code className="text-ochre">MANUAL_REVIEW_REQUIRED</code> rather than false certainty.
+            yield <code className="text-st-review font-semibold">MANUAL_REVIEW_REQUIRED</code> rather than false certainty.
           </p>
         </div>
 
-        {/* View Toggle */}
-        <div className="flex items-center gap-2 font-mono text-xs">
+        {/* Tab Controls */}
+        <div className="flex items-center gap-2 font-sans text-xs shrink-0">
           <button
             onClick={() => setActiveBoardTab('BOARD')}
-            className={`px-3 py-1.5 rounded transition-colors ${
+            className={`px-3.5 py-2 rounded-xs transition-colors border font-medium ${
               activeBoardTab === 'BOARD'
-                ? 'bg-paper text-ink font-bold'
-                : 'bg-white/5 text-slate hover:text-white'
+                ? 'bg-tint-teal text-accent-2 border-accent-2 font-bold shadow-subtle'
+                : 'bg-surface border-border text-text-muted hover:text-text hover:bg-surface-2'
             }`}
           >
             Rule Lifecycle Board
           </button>
           <button
             onClick={() => setActiveBoardTab('PROFILE')}
-            className={`px-3 py-1.5 rounded transition-colors flex items-center gap-1.5 ${
+            title={isSenior ? 'Edit Readiness Profile' : 'Senior officer only'}
+            className={`px-3.5 py-2 rounded-xs transition-colors flex items-center gap-1.5 border font-medium ${
               activeBoardTab === 'PROFILE'
-                ? 'bg-paper text-ink font-bold'
-                : 'bg-white/5 text-slate hover:text-white'
+                ? 'bg-tint-teal text-accent-2 border-accent-2 font-bold shadow-subtle'
+                : 'bg-surface border-border text-text-muted hover:text-text hover:bg-surface-2'
             }`}
           >
             <Lock className="w-3.5 h-3.5" />
@@ -90,47 +91,50 @@ export const RuleGovernancePage: React.FC = () => {
       {activeBoardTab === 'BOARD' ? (
         <div className="space-y-6">
           {/* 5-Column Lifecycle Board: DRAFT -> SOURCE_VERIFIED -> REVIEWED -> ACTIVE -> RETIRED */}
-          <div className="grid grid-cols-1 md:grid-cols-5 gap-3">
+          <div className="grid grid-cols-1 md:grid-cols-5 gap-3.5">
             {stages.map((stage) => {
               const stageRules = rules.filter((r) => r.lifecycleState === stage);
               return (
-                <div key={stage} className="bg-[#141413] border border-white/10 rounded-md p-3 space-y-3">
-                  <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                    <span className="font-mono text-[10px] uppercase font-bold text-slate">
+                <div key={stage} className="bg-surface border border-border rounded-xs p-3.5 space-y-3 shadow-subtle flex flex-col">
+                  <div className="flex items-center justify-between border-b border-border pb-2 bg-bg-elevated -mx-3.5 -mt-3.5 p-3 rounded-t-xs">
+                    <span className="font-mono text-[11px] uppercase font-bold text-text">
                       {stage.replace('_', ' ')}
                     </span>
-                    <span className="px-1.5 py-0.5 bg-black/40 text-slate rounded font-mono text-[10px]">
+                    <span className="px-2 py-0.5 bg-surface-2 text-text rounded-xs font-mono text-[11px] font-bold border border-border">
                       {stageRules.length}
                     </span>
                   </div>
 
-                  <div className="space-y-2">
-                    {stageRules.map((rule) => (
-                      <button
-                        key={rule.id}
-                        type="button"
-                        onClick={() => setSelectedRule(rule)}
-                        className={`w-full text-left p-3 rounded border text-xs font-mono transition-all ${
-                          selectedRule?.id === rule.id
-                            ? 'bg-[#1F2A38] border-[#385B88]'
-                            : 'bg-[#181816] border-white/5 hover:border-white/15'
-                        }`}
-                      >
-                        <div className="text-[10px] text-ochre font-bold mb-1">{rule.id}</div>
-                        <div className="text-white font-serif font-bold text-xs line-clamp-2">
-                          {rule.name}
-                        </div>
-                        <div className="flex items-center justify-between text-[10px] text-slate mt-2">
-                          <span className="uppercase text-[9px] px-1 bg-white/5 rounded">
-                            {rule.ruleType}
-                          </span>
-                          <span>{rule.effectiveDate}</span>
-                        </div>
-                      </button>
-                    ))}
+                  <div className="space-y-2 flex-1">
+                    {stageRules.map((rule) => {
+                      const isSelected = selectedRule?.id === rule.id;
+                      return (
+                        <button
+                          key={rule.id}
+                          type="button"
+                          onClick={() => setSelectedRule(rule)}
+                          className={`w-full text-left p-3 rounded-xs border text-xs font-sans transition-all ${
+                            isSelected
+                              ? 'bg-tint-teal border-2 border-accent-2 shadow-subtle'
+                              : 'bg-bg-elevated border-border hover:border-border-strong hover:bg-surface-2'
+                          }`}
+                        >
+                          <div className="text-[11px] text-accent-2 font-mono font-bold mb-1">{rule.id}</div>
+                          <div className="text-text font-bold text-xs line-clamp-2 leading-snug">
+                            {rule.name}
+                          </div>
+                          <div className="flex items-center justify-between text-[11px] text-text-muted mt-2 font-mono">
+                            <span className="uppercase text-[10px] px-1.5 py-0.5 bg-surface-2 border border-border rounded-xs">
+                              {rule.ruleType}
+                            </span>
+                            <span>{rule.effectiveDate}</span>
+                          </div>
+                        </button>
+                      );
+                    })}
 
                     {stageRules.length === 0 && (
-                      <div className="p-4 text-center text-slate/40 text-[10px] font-mono italic">
+                      <div className="py-6 text-center text-text-muted text-xs font-sans italic border border-dashed border-border rounded-xs">
                         No rules in this stage
                       </div>
                     )}
@@ -142,143 +146,84 @@ export const RuleGovernancePage: React.FC = () => {
 
           {/* Detailed Selected Rule Inspector */}
           {selectedRule && (
-            <div className="p-6 bg-[#141413] border border-white/10 rounded-md space-y-4">
-              <div className="flex items-center justify-between border-b border-white/10 pb-3">
+            <div className="p-6 bg-surface border border-border rounded-xs space-y-4 shadow-subtle font-sans">
+              <div className="flex items-center justify-between border-b border-border pb-3">
                 <div>
                   <div className="flex items-center gap-2">
-                    <span className="font-mono text-xs text-ochre font-bold">{selectedRule.id}</span>
-                    <span className="text-slate font-mono text-[10px]">v{selectedRule.version}</span>
-                    <span className="px-2 py-0.5 bg-white/10 text-white font-mono text-[10px] rounded uppercase font-bold">
+                    <span className="font-mono text-xs text-accent-2 font-bold">{selectedRule.id}</span>
+                    <span className="text-text-muted font-mono text-[11px]">v{selectedRule.version}</span>
+                    <span className="px-2 py-0.5 bg-tint-teal text-accent-2 border border-accent-2 font-mono text-[10px] rounded-xs uppercase font-bold">
                       {selectedRule.lifecycleState}
                     </span>
                   </div>
-                  <h3 className="text-base font-serif font-bold text-white mt-1">
+                  <h3 className="text-lg font-bold text-text mt-1">
                     {selectedRule.name}
                   </h3>
                 </div>
 
-                <div className="text-right font-mono text-xs text-slate">
+                <div className="text-right font-mono text-xs text-text-muted">
                   <span>Type: </span>
-                  <span className="text-white font-bold uppercase">{selectedRule.ruleType}</span>
+                  <span className="text-text font-bold uppercase">{selectedRule.ruleType}</span>
                 </div>
               </div>
 
-              {/* Description & Legal Clause Reference */}
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs font-mono">
-                <div className="p-4 bg-[#181816] border border-white/5 rounded space-y-2">
-                  <span className="text-[10px] uppercase text-slate">Statutory Clause & Citation:</span>
-                  <div className="text-white font-serif text-sm">
-                    {selectedRule.authoritativeSource}
-                  </div>
-                  <div className="text-[#EDE7DA] pt-1">
-                    {selectedRule.clauseReference} (Page {selectedRule.pageReference || 'N/A'})
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-4 text-xs">
+                <div className="space-y-1.5">
+                  <span className="text-text-muted font-mono uppercase text-[11px] font-bold block">Statutory Source Clause:</span>
+                  <div className="p-3 bg-bg-elevated border border-border rounded-xs text-text font-mono leading-relaxed">
+                    {selectedRule.clauseReference} ({selectedRule.authoritativeSource})
                   </div>
                 </div>
 
-                <div className="p-4 bg-[#181816] border border-white/5 rounded space-y-2">
-                  <span className="text-[10px] uppercase text-slate">Rule Logic & Description:</span>
-                  <p className="text-slate/90 leading-relaxed font-sans text-xs">
+                <div className="space-y-1.5">
+                  <span className="text-text-muted font-mono uppercase text-[11px] font-bold block">Evaluation Logic:</span>
+                  <div className="p-3 bg-bg-elevated border border-border rounded-xs text-text font-mono leading-relaxed">
                     {selectedRule.description}
-                  </p>
+                  </div>
                 </div>
               </div>
-
-              {/* Formula Rules with Named Inputs and Citations */}
-              {selectedRule.ruleType === 'formula' && selectedRule.formulaDefinition && (
-                <div className="p-4 bg-[#181816] border border-ochre/30 rounded space-y-3 font-mono text-xs">
-                  <div className="flex items-center justify-between">
-                    <span className="text-[10px] uppercase text-ochre font-bold flex items-center gap-1.5">
-                      <Scale className="w-3.5 h-3.5" />
-                      <span>Mathematical Formula Specification</span>
-                    </span>
-                    <span className="text-[10px] text-slate">Deterministic Evaluation</span>
-                  </div>
-
-                  <div className="p-2.5 bg-black/50 border border-white/5 rounded text-white font-bold text-xs">
-                    Formula Expression: {selectedRule.formulaDefinition.expression}
-                  </div>
-
-                  <div className="grid grid-cols-2 gap-3 pt-1">
-                    <div>
-                      <span className="text-slate text-[10px] block">Named Inputs:</span>
-                      <div className="text-white font-bold">
-                        {selectedRule.formulaDefinition.inputs.join(', ')}
-                      </div>
-                    </div>
-                    <div>
-                      <span className="text-slate text-[10px] block">Parameter Citations:</span>
-                      <div className="text-slate/80 text-[11px]">
-                        {JSON.stringify(selectedRule.formulaDefinition.parameterCitations)}
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              )}
             </div>
           )}
         </div>
       ) : (
-        /* Senior-Only Readiness Profile Editor */
-        <div className="p-6 bg-[#141413] border border-white/10 rounded-md space-y-6 font-mono text-xs">
-          <div className="flex items-center justify-between border-b border-white/10 pb-4">
+        /* Readiness Profile Editor Tab */
+        <div className="p-6 bg-surface border border-border rounded-xs space-y-6 shadow-subtle font-sans">
+          <div className="flex items-center justify-between border-b border-border pb-3">
             <div>
-              <div className="flex items-center gap-2">
-                <span className="text-ochre font-bold">{readinessProfile.id}</span>
-                <span className="text-slate">v{readinessProfile.version}</span>
-              </div>
-              <h3 className="text-base font-serif font-bold text-white mt-1">
-                {readinessProfile.name}
-              </h3>
+              <h3 className="text-lg font-bold text-text">Readiness Profile: {readinessProfile.name}</h3>
+              <p className="text-xs text-text-muted mt-0.5">
+                Version {readinessProfile.version} · Effective: {readinessProfile.effectiveDate}
+              </p>
             </div>
-
-            <div className="text-right">
-              {isSenior ? (
-                <span className="px-2.5 py-1 bg-verdigris/20 text-verdigris border border-verdigris rounded text-[11px] font-bold">
-                  Senior Officer Editing Unlocked
-                </span>
-              ) : (
-                <span className="px-2.5 py-1 bg-white/10 text-slate rounded text-[11px] flex items-center gap-1">
-                  <Lock className="w-3 h-3" />
-                  <span>Read-Only (Senior Role Required)</span>
-                </span>
-              )}
-            </div>
+            {!isSenior && (
+              <span className="px-2.5 py-1 bg-tint-ochre text-st-review border border-st-review rounded-xs text-xs font-mono font-bold flex items-center gap-1.5">
+                <Lock size={13} />
+                <span>Read-Only (Requires Senior Officer Role)</span>
+              </span>
+            )}
           </div>
 
-          {/* Per-field Confidence Floors */}
           <div className="space-y-3">
-            <div className="text-xs font-bold text-white uppercase tracking-wider">
-              Per-Field Extraction OCR Confidence Floors:
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+            <h4 className="font-mono text-xs uppercase tracking-wider text-text font-bold">
+              Per-Field Confidence Floors:
+            </h4>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3">
               {Object.entries(readinessProfile.perFieldConfidenceFloor).map(([field, floor]) => (
-                <div key={field} className="p-3 bg-[#181816] border border-white/5 rounded flex items-center justify-between">
-                  <div>
-                    <div className="text-white font-bold">{field}</div>
-                    <div className="text-[10px] text-slate">Minimum OCR floor threshold</div>
-                  </div>
-                  <div className="flex items-center gap-2">
-                    <input
-                      type="number"
-                      step={0.05}
-                      min={0.5}
-                      max={1.0}
-                      disabled={!isSenior}
-                      value={floor}
-                      onChange={(e) => handleUpdateConfidenceFloor(field, Number(e.target.value))}
-                      className="w-16 bg-[#141413] border border-white/15 rounded p-1 text-right text-white font-bold disabled:opacity-40"
-                    />
-                  </div>
+                <div key={field} className="p-3 bg-bg-elevated border border-border rounded-xs flex items-center justify-between">
+                  <span className="font-mono text-xs text-text font-medium">{field}</span>
+                  <input
+                    type="number"
+                    step="0.05"
+                    min="0.5"
+                    max="1.0"
+                    disabled={!isSenior}
+                    value={floor}
+                    onChange={(e) => handleUpdateConfidenceFloor(field, parseFloat(e.target.value))}
+                    className="w-16 px-2 py-1 bg-surface border border-control text-right font-mono text-xs rounded-xs text-text disabled:opacity-60 focus:outline-none focus:ring-1 focus:ring-focus-ring"
+                  />
                 </div>
               ))}
             </div>
-          </div>
-
-          <div className="p-4 bg-black/40 border border-white/5 rounded space-y-2 text-slate text-[11px]">
-            <div className="text-white font-bold">Statutory Workflow Invariants (§3.4):</div>
-            <div>• Require terminal issuer response: <span className="text-verdigris font-bold">TRUE</span></div>
-            <div>• Disallow unreviewed duplicates: <span className="text-verdigris font-bold">TRUE</span></div>
-            <div>• Profile effective date: <span className="text-white">{readinessProfile.effectiveDate}</span></div>
           </div>
         </div>
       )}

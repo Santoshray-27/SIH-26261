@@ -55,29 +55,29 @@ export const PdfStructureInspector: React.FC = () => {
   const activeAnomaly = mockAnomalies.find((a) => a.id === selectedAnomalyId) || mockAnomalies[0];
 
   return (
-    <div className="bg-[#141413] border border-white/10 rounded-md overflow-hidden">
+    <div className="bg-surface border border-border rounded-md overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-3.5 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+      <div className="px-5 py-3.5 bg-surface-2 border-b border-border flex items-center justify-between">
         <div>
           <div className="text-[10px] uppercase font-mono tracking-wider text-slate">
             FORENSIC PARSER · §3.3
           </div>
-          <h3 className="text-sm font-serif font-bold text-[#EDE7DA] mt-0.5">
+          <h3 className="text-sm font-serif font-bold text-text mt-0.5">
             PDF Structure & Byte-Level Inspection
           </h3>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 bg-black/40 border border-white/10 rounded font-mono text-[10px] text-ochre">
+          <span className="px-2 py-0.5 bg-surface-2 border border-border rounded font-mono text-[10px] text-ochre">
             SYNTHETIC EDITED PDF FIXTURE
           </span>
         </div>
       </div>
 
       <div className="p-6 space-y-6">
-        <div className="p-3 bg-black/40 border border-white/10 rounded text-[11px] text-slate leading-relaxed flex items-start gap-2.5">
+        <div className="p-3 bg-surface-2 border border-border rounded text-[11px] text-slate leading-relaxed flex items-start gap-2.5">
           <AlertCircle className="w-4 h-4 text-ochre flex-shrink-0 mt-0.5" />
           <div>
-            <strong className="text-[#EDE7DA]">Statutory Copy Rule (§14):</strong> Structure anomalies are
+            <strong className="text-text">Statutory Copy Rule (§14):</strong> Structure anomalies are
             strictly categorized as <span className="text-ochre font-mono font-bold">"indicator, requires review"</span>,
             never "forgery" or "fraud". Mechanical indicators highlight byte inconsistencies for officer adjudication.
           </div>
@@ -98,15 +98,15 @@ export const PdfStructureInspector: React.FC = () => {
                 onClick={() => setSelectedAnomalyId(item.id)}
                 className={`w-full text-left p-3 rounded border transition-all ${
                   selectedAnomalyId === item.id
-                    ? 'bg-[#1F2A38] border-[#385B88]'
-                    : 'bg-[#181816] border-white/5 hover:border-white/15'
+                    ? 'bg-st-structure-bg border-st-structure'
+                    : 'bg-surface-2 border-border hover:border-border'
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
                   <span className="font-mono text-[10px] text-slate">{item.id}</span>
                   <StatusPill status="STRUCTURE_INDICATOR" label="indicator, requires review" />
                 </div>
-                <div className="text-xs font-serif font-bold text-[#EDE7DA]">
+                <div className="text-xs font-serif font-bold text-text">
                   {item.title}
                 </div>
                 <div className="font-mono text-[10.5px] text-slate truncate mt-1">
@@ -117,13 +117,13 @@ export const PdfStructureInspector: React.FC = () => {
           </div>
 
           {/* Forensic Detail & Simulated Stream View (Right 7 cols) */}
-          <div className="col-span-12 lg:col-span-7 bg-[#181816] border border-white/10 rounded p-5 space-y-4">
-            <div className="flex items-center justify-between border-b border-white/10 pb-3">
+          <div className="col-span-12 lg:col-span-7 bg-surface-2 border border-border rounded p-5 space-y-4">
+            <div className="flex items-center justify-between border-b border-border pb-3">
               <div>
                 <span className="text-[10px] font-mono text-ochre uppercase font-bold">
                   {activeAnomaly.id} · {activeAnomaly.category}
                 </span>
-                <h4 className="text-sm font-serif font-bold text-white mt-0.5">
+                <h4 className="text-sm font-serif font-bold text-text mt-0.5">
                   {activeAnomaly.title}
                 </h4>
               </div>
@@ -135,7 +135,7 @@ export const PdfStructureInspector: React.FC = () => {
               <span className="text-[10px] font-mono uppercase text-slate">
                 Cited PDF Low-Level Object / Stream:
               </span>
-              <div className="p-2.5 bg-black/50 border border-white/10 rounded font-mono text-xs text-ochre break-all select-all">
+              <div className="p-2.5 bg-black/50 border border-border rounded font-mono text-xs text-ochre break-all select-all">
                 {activeAnomaly.citedObject}
               </div>
             </div>
@@ -145,26 +145,26 @@ export const PdfStructureInspector: React.FC = () => {
               <span className="text-[10px] font-mono uppercase text-slate">
                 Forensic Finding Description:
               </span>
-              <p className="text-xs text-[#EDE7DA] leading-relaxed">
+              <p className="text-xs text-text leading-relaxed">
                 {activeAnomaly.details}
               </p>
             </div>
 
             {/* Simulated Visual Highlight if Font-Mix */}
             {activeAnomaly.category === 'FONT_MIX' && (
-              <div className="mt-4 p-4 bg-[#F5F2EB] text-[#0C0C0B] rounded border border-neutral-300 font-serif">
-                <div className="text-[9px] font-mono uppercase tracking-widest text-neutral-500 mb-2 border-b border-neutral-200 pb-1 flex items-center justify-between">
+              <div className="mt-4 p-4 bg-surface-2 text-text rounded border border-border font-serif">
+                <div className="text-[9px] font-mono uppercase tracking-widest text-text-muted mb-2 border-b border-border pb-1 flex items-center justify-between">
                   <span>Document Visual Rendering Simulation</span>
                   <span className="text-vermilion font-bold font-mono">GLYPH DISPARITY DETECTED</span>
                 </div>
-                <div className="text-xs text-neutral-800 leading-relaxed">
+                <div className="text-xs text-text leading-relaxed">
                   The applicant declares that the total campus instructional space is{' '}
                   <span className="px-1.5 py-0.5 bg-vermilion/20 border-b-2 border-vermilion font-sans font-bold text-vermilion inline-block" title="Font /F7 (ArialMT) substituted into Times-Roman stream">
                     {activeAnomaly.highlightedText}
                   </span>{' '}
                   constructed in accordance with AICTE approval norms.
                 </div>
-                <div className="mt-2 text-[10px] font-mono text-neutral-600 bg-neutral-100 p-2 rounded">
+                <div className="mt-2 text-[10px] font-mono text-text-muted bg-surface-2 p-2 rounded">
                   Font metric diff: Glyphs "8,450" rendered in ArialMT (72.4pt bbox height) while surrounding text uses Times-Roman (68.1pt bbox).
                 </div>
               </div>
@@ -185,7 +185,7 @@ export const PdfStructureInspector: React.FC = () => {
                   </button>
                 </div>
 
-                <div className="p-3 bg-black/60 border border-white/10 rounded font-mono text-xs">
+                <div className="p-3 bg-surface-2 border border-border rounded font-mono text-xs">
                   <div className="text-slate text-[10px]">BT /F1 10.0 Tf 1 0 0 1 72 710 Tm 3 Tr</div>
                   <div className={showHiddenLayer ? 'text-vermilion font-bold text-sm bg-vermilion/20 p-1.5 rounded my-1' : 'text-slate/30'}>
                     [CANCELLED - SUPERSEDED TITLES]

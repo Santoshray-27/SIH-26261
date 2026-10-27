@@ -127,18 +127,18 @@ export const PrecheckEmbedWidget: React.FC = () => {
   const passCount = items.filter((i) => i.status === 'PASS').length;
 
   return (
-    <div className="w-full bg-[#FAF7F2] text-[#0C0C0B] p-6 rounded border border-neutral-300 font-sans shadow-sm select-none">
+    <div className="w-full bg-bg text-text p-6 rounded border border-border font-sans shadow-sm select-none">
       {/* Widget Header */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-neutral-300 gap-3">
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between pb-4 border-b border-border gap-3">
         <div className="flex items-center gap-2.5">
-          <div className="w-7 h-7 bg-[#0C0C0B] text-[#FAF7F2] flex items-center justify-center font-serif font-black text-sm rounded-xs">
+          <div className="w-7 h-7 bg-text text-bg flex items-center justify-center font-serif font-black text-sm rounded-xs">
             प्र
           </div>
           <div>
-            <h3 className="font-serif font-bold text-base text-[#0C0C0B]">
+            <h3 className="font-serif font-bold text-base text-text">
               {lang === 'en' ? 'Pramāṇa Applicant Pre-Check' : 'प्रमाण आवेदक पूर्व-सत्यापन'}
             </h3>
-            <p className="text-[11px] font-mono text-neutral-600">
+            <p className="text-[11px] font-mono text-text-muted">
               {lang === 'en'
                 ? 'Pre-Submission Deficiency Catchment Engine'
                 : 'आवेदन प्रस्तुत करने से पूर्व कमी पकड़ने वाला इंजन'}
@@ -147,11 +147,11 @@ export const PrecheckEmbedWidget: React.FC = () => {
         </div>
 
         {/* Language switch */}
-        <div className="flex items-center gap-1 bg-neutral-200/80 p-0.5 rounded text-xs font-mono">
+        <div className="flex items-center gap-1 bg-surface-2/80 p-0.5 rounded text-xs font-mono">
           <button
             onClick={() => setLang('en')}
             className={`px-2.5 py-1 rounded transition-colors ${
-              lang === 'en' ? 'bg-[#0C0C0B] text-white font-bold' : 'text-neutral-700'
+              lang === 'en' ? 'bg-text text-text font-bold' : 'text-text-muted'
             }`}
           >
             English
@@ -159,7 +159,7 @@ export const PrecheckEmbedWidget: React.FC = () => {
           <button
             onClick={() => setLang('hi')}
             className={`px-2.5 py-1 rounded transition-colors ${
-              lang === 'hi' ? 'bg-[#0C0C0B] text-white font-bold' : 'text-neutral-700'
+              lang === 'hi' ? 'bg-text text-text font-bold' : 'text-text-muted'
             }`}
           >
             हिंदी
@@ -168,8 +168,8 @@ export const PrecheckEmbedWidget: React.FC = () => {
       </div>
 
       {/* Security & Scope Banner */}
-      <div className="my-4 p-3 bg-neutral-100 border border-neutral-200 rounded text-[11px] text-neutral-700 flex items-start gap-2">
-        <Info className="w-4 h-4 text-neutral-500 flex-shrink-0 mt-0.5" />
+      <div className="my-4 p-3 bg-surface-2 border border-border rounded text-[11px] text-text-muted flex items-start gap-2">
+        <Info className="w-4 h-4 text-text-muted flex-shrink-0 mt-0.5" />
         <span>
           {lang === 'en'
             ? 'Deterministic pre-check catches fixable deficiencies before official submission. Integrity investigations and internal vigilance records are restricted to officer review.'
@@ -181,15 +181,15 @@ export const PrecheckEmbedWidget: React.FC = () => {
       <div className="space-y-4">
         <div
           onClick={runPrecheckSimulation}
-          className="p-6 border-2 border-dashed border-neutral-300 hover:border-neutral-600 bg-white rounded cursor-pointer transition-colors text-center"
+          className="p-6 border-2 border-dashed border-border hover:border-border-strong bg-white rounded cursor-pointer transition-colors text-center"
         >
-          <UploadCloud className="w-8 h-8 text-neutral-500 mx-auto mb-2" />
-          <div className="font-serif font-bold text-sm text-neutral-900">
+          <UploadCloud className="w-8 h-8 text-text-muted mx-auto mb-2" />
+          <div className="font-serif font-bold text-sm text-text">
             {lang === 'en'
               ? 'Select or Drop Institutional Compliance Dossier'
               : 'संस्थान का अनुपालन दस्तावेज़ चुनें या यहाँ खींचें'}
           </div>
-          <div className="text-[11px] font-mono text-neutral-500 mt-1">
+          <div className="text-[11px] font-mono text-text-muted mt-1">
             {lang === 'en'
               ? 'Supported: PDF Affidavits, NOCs, Accreditation Certificates (Max 50MB)'
               : 'समर्थित: शपथ पत्र, एनओसी, प्रत्यायन प्रमाणपत्र (अधिकतम 50MB)'}
@@ -201,7 +201,7 @@ export const PrecheckEmbedWidget: React.FC = () => {
             type="button"
             onClick={runPrecheckSimulation}
             disabled={isEvaluating}
-            className="px-6 py-2.5 bg-[#0C0C0B] hover:bg-neutral-800 text-white font-mono text-xs rounded transition-colors flex items-center gap-2 shadow"
+            className="px-6 py-2.5 bg-text hover:bg-surface-2 text-text font-mono text-xs rounded transition-colors flex items-center gap-2 shadow"
           >
             {isEvaluating ? (
               <>
@@ -220,12 +220,12 @@ export const PrecheckEmbedWidget: React.FC = () => {
 
       {/* Checklist & Results */}
       <div className="mt-6 space-y-3">
-        <div className="flex items-center justify-between text-xs font-mono uppercase text-neutral-600 tracking-wider">
+        <div className="flex items-center justify-between text-xs font-mono uppercase text-text-muted tracking-wider">
           <span>{lang === 'en' ? 'Mandatory Checklist' : 'अनिवार्य चेकलिस्ट'}</span>
           {hasRun && (
             <span className="font-bold">
               {passCount} {lang === 'en' ? 'Clear' : 'सत्यापित'} ·{' '}
-              <span className="text-[#D6361F]">
+              <span className="text-st-deficiency">
                 {gapCount} {lang === 'en' ? 'Fixable Gap' : 'सुधार योग्य अंतर'}
               </span>
             </span>
@@ -238,32 +238,32 @@ export const PrecheckEmbedWidget: React.FC = () => {
               key={item.id}
               className={`p-3.5 bg-white border rounded transition-all ${
                 item.status === 'RECTIFIABLE_GAP'
-                  ? 'border-[#D6361F] bg-red-50/20 shadow-sm'
-                  : 'border-neutral-200'
+                  ? 'border-st-deficiency bg-st-deficiency-bg shadow-sm'
+                  : 'border-border'
               }`}
             >
               <div className="flex items-start justify-between gap-3">
                 <div className="space-y-1 flex-1">
                   <div className="flex items-center gap-2">
-                    <FileText className="w-4 h-4 text-neutral-500" />
-                    <span className="font-serif font-bold text-xs text-neutral-900">
+                    <FileText className="w-4 h-4 text-text-muted" />
+                    <span className="font-serif font-bold text-xs text-text">
                       {lang === 'en' ? item.nameEn : item.nameHi}
                     </span>
                     {item.isMandatory && (
-                      <span className="px-1.5 py-0.5 bg-neutral-200 text-neutral-700 font-mono text-[9px] rounded font-bold">
+                      <span className="px-1.5 py-0.5 bg-surface-2 text-text-muted font-mono text-[9px] rounded font-bold">
                         {lang === 'en' ? 'MANDATORY' : 'अनिवार्य'}
                       </span>
                     )}
                   </div>
 
                   {item.fileName && (
-                    <div className="text-[11px] font-mono text-neutral-500 pl-6">
+                    <div className="text-[11px] font-mono text-text-muted pl-6">
                       File: {item.fileName}
                     </div>
                   )}
 
                   {item.status === 'RECTIFIABLE_GAP' && (
-                    <div className="mt-2 pl-6 pt-2 border-t border-red-200 text-xs text-[#D6361F] flex items-start gap-1.5">
+                    <div className="mt-2 pl-6 pt-2 border-t border-st-deficiency text-xs text-st-deficiency flex items-start gap-1.5">
                       <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
                       <div>
                         <strong>{lang === 'en' ? 'Rectifiable Gap Found:' : 'सुधार योग्य अंतर मिला:'}</strong>{' '}
@@ -273,7 +273,7 @@ export const PrecheckEmbedWidget: React.FC = () => {
                   )}
 
                   {item.status === 'PASS' && (
-                    <div className="mt-1 pl-6 text-[11px] text-[#1F6B5C] font-mono flex items-center gap-1">
+                    <div className="mt-1 pl-6 text-[11px] text-st-pass font-mono flex items-center gap-1">
                       <CheckCircle2 className="w-3.5 h-3.5" />
                       <span>{lang === 'en' ? item.explanationEn : item.explanationHi}</span>
                     </div>

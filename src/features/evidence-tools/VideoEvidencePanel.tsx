@@ -66,19 +66,19 @@ export const VideoEvidencePanel: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#141413] border border-white/10 rounded-md overflow-hidden">
+    <div className="bg-surface border border-border rounded-md overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-3.5 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+      <div className="px-5 py-3.5 bg-surface-2 border-b border-border flex items-center justify-between">
         <div>
           <div className="text-[10px] uppercase font-mono tracking-wider text-slate">
             TEMPORAL INFRASTRUCTURE EVIDENCE · §3.3
           </div>
-          <h3 className="text-sm font-serif font-bold text-[#EDE7DA] mt-0.5">
+          <h3 className="text-sm font-serif font-bold text-text mt-0.5">
             Campus Walkthrough Video Frame Sampling
           </h3>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 bg-black/40 border border-white/10 rounded font-mono text-[10px] text-slate">
+          <span className="px-2 py-0.5 bg-surface-2 border border-border rounded font-mono text-[10px] text-slate">
             ADVISORY LABELS ONLY
           </span>
         </div>
@@ -91,17 +91,17 @@ export const VideoEvidencePanel: React.FC = () => {
         </p>
 
         {/* Video Canvas Simulation */}
-        <div className="relative aspect-video bg-[#0B0B0A] border border-white/15 rounded flex items-center justify-center overflow-hidden">
+        <div className="relative aspect-video bg-bg border border-border rounded flex items-center justify-center overflow-hidden">
           {/* Simulated Frame Preview with Timestamp Stamp */}
           <div className="w-full h-full p-8 flex flex-col justify-between bg-gradient-to-t from-black via-neutral-900 to-black/80">
             <div className="flex items-center justify-between font-mono text-[11px] text-slate">
-              <div className="flex items-center gap-2 bg-black/60 px-2 py-1 rounded border border-white/10">
+              <div className="flex items-center gap-2 bg-surface-2 px-2 py-1 rounded border border-border">
                 <span className="w-2 h-2 rounded-full bg-vermilion animate-pulse" />
-                <span className="text-white font-bold">FRAME {selectedFrame.id}</span>
+                <span className="text-text font-bold">FRAME {selectedFrame.id}</span>
                 <span>·</span>
                 <span className="text-ochre">{selectedFrame.timestamp}</span>
               </div>
-              <div className="bg-black/60 px-2 py-1 rounded border border-white/10 text-slate">
+              <div className="bg-surface-2 px-2 py-1 rounded border border-border text-slate">
                 FPS: 29.97 · H.264 MP4
               </div>
             </div>
@@ -109,7 +109,7 @@ export const VideoEvidencePanel: React.FC = () => {
             {/* Frame Subject Watermark */}
             <div className="text-center space-y-2 py-8">
               <Film className="w-12 h-12 text-slate/40 mx-auto" />
-              <div className="font-serif font-bold text-xl text-white">
+              <div className="font-serif font-bold text-xl text-text">
                 {selectedFrame.label}
               </div>
               <p className="text-xs font-mono text-slate max-w-md mx-auto">
@@ -122,7 +122,7 @@ export const VideoEvidencePanel: React.FC = () => {
               <div className="flex items-center gap-2 text-slate">
                 <Tag className="w-3.5 h-3.5 text-ochre" />
                 <span>Linked Claim: </span>
-                <span className="text-[#EDE7DA] font-bold">{selectedFrame.facilityClaim}</span>
+                <span className="text-text font-bold">{selectedFrame.facilityClaim}</span>
               </div>
 
               {selectedFrame.isMarked && (
@@ -149,15 +149,15 @@ export const VideoEvidencePanel: React.FC = () => {
                 onClick={() => setSelectedFrame(frame)}
                 className={`p-2.5 rounded border text-left transition-all relative ${
                   selectedFrame.id === frame.id
-                    ? 'bg-[#1F2A38] border-[#385B88]'
-                    : 'bg-[#181816] border-white/10 hover:border-white/25'
+                    ? 'bg-st-structure-bg border-st-structure'
+                    : 'bg-surface-2 border-border hover:border-white/25'
                 }`}
               >
                 <div className="flex items-center justify-between text-[10px] font-mono text-slate mb-1">
                   <span>{frame.id}</span>
                   <span className="text-ochre">{frame.timestamp}</span>
                 </div>
-                <div className="text-xs font-serif font-bold text-white truncate">
+                <div className="text-xs font-serif font-bold text-text truncate">
                   {frame.label}
                 </div>
                 <div className="text-[10px] font-mono text-slate truncate mt-0.5">
@@ -173,7 +173,7 @@ export const VideoEvidencePanel: React.FC = () => {
         </div>
 
         {/* Annotation & Claim Attachment */}
-        <div className="p-4 bg-[#181816] border border-white/10 rounded space-y-3">
+        <div className="p-4 bg-surface-2 border border-border rounded space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-xs font-mono uppercase text-slate">
               Officer Evidentiary Annotation for Frame {selectedFrame.id}:
@@ -193,7 +193,7 @@ export const VideoEvidencePanel: React.FC = () => {
               value={claimAnnotation}
               onChange={(e) => setClaimAnnotation(e.target.value)}
               placeholder="e.g. Verified Divyangjan handrail and slope angle matches Form 1 declarations."
-              className="flex-1 bg-[#141413] border border-white/15 rounded p-2.5 text-xs text-white font-mono focus:border-verdigris outline-none"
+              className="flex-1 bg-surface border border-border rounded p-2.5 text-xs text-text font-mono focus:border-verdigris outline-none"
             />
             <button
               onClick={() => {
@@ -202,7 +202,7 @@ export const VideoEvidencePanel: React.FC = () => {
                   setClaimAnnotation('');
                 }
               }}
-              className="px-4 py-2.5 bg-white/10 hover:bg-white/20 text-white font-mono text-xs rounded transition-colors"
+              className="px-4 py-2.5 bg-surface-2 hover:bg-white/20 text-text font-mono text-xs rounded transition-colors"
             >
               Attach Note
             </button>

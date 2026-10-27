@@ -7,15 +7,15 @@ export const PrototypeBanner: React.FC = () => {
   return (
     <div
       role="banner"
-      className="bg-ink text-paper dark:bg-bone dark:text-ink px-4 py-1.5 text-xs font-mono flex items-center justify-between border-b border-hairline tracking-tight z-40 select-none"
+      className="bg-tint-ochre text-text border-b border-border px-4 py-1.5 text-xs font-mono flex items-center justify-between tracking-tight z-50 select-none shrink-0"
     >
       <div className="flex items-center gap-2">
-        <span className="inline-block w-2 h-2 rounded-full bg-vermilion animate-pulse" />
+        <span className="inline-block w-2 h-2 rounded-full bg-st-deficiency animate-pulse" />
         <span className="font-semibold">{t.common.prototypeBanner}</span>
       </div>
-      <div className="hidden md:flex items-center gap-4 text-[11px] text-paper/80 dark:text-ink/80">
+      <div className="hidden sm:flex items-center gap-4 text-[12px] text-text-muted">
         <span>{t.common.designedNow}</span>
-        <span className="border-l border-hairline pl-4">{t.common.phaseTag}</span>
+        <span className="border-l border-border pl-4">{t.common.phaseTag}</span>
       </div>
     </div>
   );

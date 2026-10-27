@@ -26,61 +26,59 @@ export const LifecycleStrip: React.FC<LifecycleStripProps> = ({
   selectedState,
   onSelectState,
 }) => {
+  const totalCount = Object.values(stateCounts).reduce((a, b) => a + b, 0);
+
   return (
-    <div className="border border-hairline bg-ink-surface p-3 font-mono text-xs">
-      <div className="flex items-center justify-between pb-2 mb-2 border-b border-hairline/60">
-        <span className="text-[10px] uppercase tracking-widest text-slate">
-          Application Lifecycle State Machine (§6 / §7)
+    <div className="border border-border bg-surface p-4 font-sans text-xs rounded-xs shadow-subtle">
+      <div className="flex flex-wrap items-center justify-between gap-2 pb-2.5 mb-3 border-b border-border">
+        <span className="text-[12px] font-mono uppercase tracking-wider text-text-muted font-bold">
+          Lifecycle State Stepper (§6 / §7)
         </span>
         <button
           onClick={() => onSelectState('ALL')}
-          className={`text-[11px] uppercase tracking-wider px-2 py-0.5 border ${
+          className={`text-xs px-2.5 py-1 border rounded-xs transition-colors font-medium ${
             selectedState === 'ALL'
-              ? 'border-paper text-paper font-bold bg-bone/10'
-              : 'border-transparent text-slate hover:text-paper'
+              ? 'border-accent-2 bg-tint-teal text-accent-2 font-bold'
+              : 'border-border text-text-muted hover:text-text hover:bg-surface-2'
           }`}
         >
-          View All ({Object.values(stateCounts).reduce((a, b) => a + b, 0)})
+          View All ({totalCount})
         </button>
       </div>
 
-      <div className="flex items-center gap-2 overflow-x-auto pb-1 scrollbar-thin">
-        {ORDERED_LIFECYCLE_STATES.map((item, idx) => {
+      {/* Wrapping Stepper (No scrollbar; responsive wrap across viewports) */}
+      <div className="flex flex-wrap items-center gap-2">
+        {ORDERED_LIFECYCLE_STATES.map((item) => {
           const count = stateCounts[item.state] || 0;
           const isSelected = selectedState === item.state;
           const isEscalated = item.state === 'ESCALATED';
           const isIncomplete = item.state === 'EVIDENCE_INCOMPLETE';
 
           return (
-            <React.Fragment key={item.state}>
-              <button
-                onClick={() => onSelectState(item.state)}
-                className={`flex items-center gap-2 px-2.5 py-1.5 border text-xs whitespace-nowrap transition-colors shrink-0 ${
+            <button
+              key={item.state}
+              onClick={() => onSelectState(item.state)}
+              className={`flex items-center gap-2 px-3 py-1.5 border text-xs rounded-xs transition-colors ${
+                isSelected
+                  ? 'border-accent-2 bg-tint-teal text-accent-2 font-bold shadow-subtle'
+                  : isEscalated && count > 0
+                  ? 'border-st-deficiency bg-st-deficiency-bg text-st-deficiency font-semibold'
+                  : isIncomplete && count > 0
+                  ? 'border-st-review bg-st-review-bg text-st-review font-semibold'
+                  : 'border-border bg-bg-elevated text-text-muted hover:text-text hover:bg-surface-2'
+              }`}
+            >
+              <span>{item.label}</span>
+              <span
+                className={`px-1.5 py-0.2 rounded-xs font-mono text-[11px] ${
                   isSelected
-                    ? 'border-paper bg-ink text-paper font-semibold shadow-subtle'
-                    : 'border-hairline/60 bg-ink-dark/60 text-slate hover:text-paper hover:border-hairline'
+                    ? 'bg-accent-2 text-accent-2-contrast'
+                    : 'bg-surface-2 text-text font-bold'
                 }`}
               >
-                <span className="text-[10px] text-slate/70">0{idx + 1}</span>
-                <span>{item.label}</span>
-                <span
-                  className={`text-[10px] px-1.5 py-0.2 rounded-xs font-bold ${
-                    count > 0
-                      ? isEscalated
-                        ? 'bg-vermilion text-white'
-                        : isIncomplete
-                        ? 'bg-ochre text-white'
-                        : 'bg-paper text-ink'
-                      : 'bg-ink-surface text-slate/60'
-                  }`}
-                >
-                  {count}
-                </span>
-              </button>
-              {idx < ORDERED_LIFECYCLE_STATES.length - 1 && (
-                <span className="text-slate/40 text-[10px] select-none">→</span>
-              )}
-            </React.Fragment>
+                {count}
+              </span>
+            </button>
           );
         })}
       </div>

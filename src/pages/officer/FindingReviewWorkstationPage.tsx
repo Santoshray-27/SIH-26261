@@ -315,35 +315,35 @@ export const FindingReviewWorkstationPage: React.FC = () => {
 
   if (!application || findings.length === 0) {
     return (
-      <div className="min-h-screen bg-[#0F0F0E] text-[#EDE7DA] p-8 flex flex-col items-center justify-center font-mono text-xs">
-        <Clock className="w-6 h-6 text-slate animate-spin mb-3" />
+      <div className="min-h-screen bg-bg text-text p-8 flex flex-col items-center justify-center font-mono text-xs">
+        <Clock className="w-6 h-6 text-text-muted animate-spin mb-3" />
         <span>Loading Evidence Review Workstation...</span>
       </div>
     );
   }
 
   return (
-    <div className="h-screen flex flex-col bg-[#0F0F0E] text-[#EDE7DA] overflow-hidden select-none">
+    <div className="h-screen flex flex-col bg-bg text-text overflow-hidden select-none">
       {/* Top Header Bar */}
-      <header className="h-14 px-6 bg-[#171715] border-b border-white/10 flex items-center justify-between flex-shrink-0">
+      <header className="h-14 px-6 bg-surface-2 border-b border-border flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-4">
           <Link
             to={`/officer/cases/${id}`}
-            className="flex items-center gap-1.5 text-xs font-mono text-slate hover:text-white transition-colors"
+            className="flex items-center gap-1.5 text-xs font-mono text-slate hover:text-text transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             <span>Case Overview</span>
           </Link>
 
-          <div className="h-4 w-px bg-white/15" />
+          <div className="h-4 w-px bg-surface-2" />
 
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-mono text-xs font-bold text-white">
+              <span className="font-mono text-xs font-bold text-text">
                 {application.id}
               </span>
               <span className="text-slate text-xs">·</span>
-              <span className="text-xs text-[#EDE7DA] font-serif truncate max-w-sm">
+              <span className="text-xs text-text font-serif truncate max-w-sm">
                 {application.institutionName}
               </span>
             </div>
@@ -358,14 +358,14 @@ export const FindingReviewWorkstationPage: React.FC = () => {
           <button
             onClick={handlePrev}
             disabled={currentIndex === 0}
-            className="p-1.5 rounded hover:bg-white/10 text-slate hover:text-white disabled:opacity-30 transition-colors"
+            className="p-1.5 rounded hover:bg-surface-2 text-slate hover:text-text disabled:opacity-30 transition-colors"
             title="Previous finding (K)"
           >
             <ChevronLeft className="w-4 h-4" />
           </button>
 
           <div className="flex items-center gap-1.5 font-mono text-xs">
-            <span className="text-white font-bold">{currentIndex + 1}</span>
+            <span className="text-text font-bold">{currentIndex + 1}</span>
             <span className="text-slate">of</span>
             <span className="text-slate">{findings.length}</span>
             <span className="text-[10px] text-slate ml-1">FINDINGS</span>
@@ -374,7 +374,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
           <button
             onClick={handleNext}
             disabled={currentIndex === findings.length - 1}
-            className="p-1.5 rounded hover:bg-white/10 text-slate hover:text-white disabled:opacity-30 transition-colors"
+            className="p-1.5 rounded hover:bg-surface-2 text-slate hover:text-text disabled:opacity-30 transition-colors"
             title="Next finding (J)"
           >
             <ChevronRight className="w-4 h-4" />
@@ -395,7 +395,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
 
           <button
             onClick={handleToggleShortcuts}
-            className="flex items-center gap-1 px-2.5 py-1 bg-white/5 hover:bg-white/10 border border-white/10 rounded font-mono text-xs text-slate hover:text-white transition-colors"
+            className="flex items-center gap-1 px-2.5 py-1 bg-surface-2 hover:bg-surface-2 border border-border rounded font-mono text-xs text-slate hover:text-text transition-colors"
           >
             <HelpCircle className="w-3.5 h-3.5" />
             <span>Shortcuts (?)</span>
@@ -440,7 +440,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
       </main>
 
       {/* Bottom Sticky Action Control Bar */}
-      <footer className="h-16 px-6 bg-[#171715] border-t border-white/10 flex items-center justify-between flex-shrink-0">
+      <footer className="h-16 px-6 bg-surface-2 border-t border-border flex items-center justify-between flex-shrink-0">
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <span className="font-mono text-xs text-slate">Active Finding:</span>
@@ -449,11 +449,11 @@ export const FindingReviewWorkstationPage: React.FC = () => {
             </span>
           </div>
 
-          <div className="h-4 w-px bg-white/15" />
+          <div className="h-4 w-px bg-surface-2" />
 
           {currentFinding && (
             <span className="font-mono text-[11px] text-slate uppercase">
-              Class: <span className="text-[#EDE7DA]">{currentFinding.findingClass.replace(/_/g, ' ')}</span>
+              Class: <span className="text-text">{currentFinding.findingClass.replace(/_/g, ' ')}</span>
             </span>
           )}
         </div>
@@ -507,7 +507,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
             onClick={handleOpenResolve}
             disabled={isAuditor || currentFinding?.status === 'PASS'}
             variant="primary"
-            className="flex items-center gap-1.5 text-xs font-mono bg-verdigris hover:bg-verdigris/90 text-white"
+            className="flex items-center gap-1.5 text-xs font-mono bg-verdigris hover:bg-verdigris/90 text-text"
             title="Keyboard shortcut: X"
           >
             <CheckCircle className="w-3.5 h-3.5" />
@@ -552,11 +552,11 @@ export const FindingReviewWorkstationPage: React.FC = () => {
       {/* Resolve Finding Modal */}
       {showResolveModal && currentFinding && (
         <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-          <div className="bg-[#141413] border border-white/15 rounded-lg w-full max-w-lg shadow-2xl overflow-hidden">
-            <div className="px-6 py-4 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+          <div className="bg-surface border border-border rounded-lg w-full max-w-lg shadow-2xl overflow-hidden">
+            <div className="px-6 py-4 bg-surface-2 border-b border-border flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <CheckCircle className="w-5 h-5 text-verdigris" />
-                <h3 className="text-base font-serif font-bold text-[#EDE7DA]">
+                <h3 className="text-base font-serif font-bold text-text">
                   Resolve Statutory Deficiency
                 </h3>
               </div>
@@ -566,7 +566,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
                 <div className="font-mono text-verdigris uppercase font-bold text-[10px]">
                   {currentFinding.id} · {currentFinding.ruleId}
                 </div>
-                <div className="text-[#EDE7DA] mt-0.5">{currentFinding.explanation}</div>
+                <div className="text-text mt-0.5">{currentFinding.explanation}</div>
               </div>
 
               <div>
@@ -579,7 +579,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
                   placeholder="Record verification rationale (e.g., validated via secondary physical register or gazette notification)..."
                   rows={4}
                   required
-                  className="w-full bg-[#1A1A18] border border-white/15 rounded p-3 text-xs text-[#EDE7DA] font-mono focus:border-verdigris outline-none"
+                  className="w-full bg-surface-2 border border-border rounded p-3 text-xs text-text font-mono focus:border-verdigris outline-none"
                 />
               </div>
 
@@ -587,7 +587,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
                 <button
                   type="button"
                   onClick={() => setShowResolveModal(false)}
-                  className="px-4 py-2 text-xs font-mono text-slate hover:text-white"
+                  className="px-4 py-2 text-xs font-mono text-slate hover:text-text"
                 >
                   Cancel
                 </button>
@@ -595,7 +595,7 @@ export const FindingReviewWorkstationPage: React.FC = () => {
                   type="submit"
                   disabled={!resolveRationale.trim()}
                   variant="primary"
-                  className="bg-verdigris hover:bg-verdigris/90 text-white"
+                  className="bg-verdigris hover:bg-verdigris/90 text-text"
                 >
                   Mark Resolved (PASS)
                 </Button>

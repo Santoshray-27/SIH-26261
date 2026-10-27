@@ -3,6 +3,7 @@ import {
   Network,
   AlertTriangle,
   Info,
+  ShieldAlert,
 } from 'lucide-react';
 
 interface OverlapCandidate {
@@ -15,8 +16,27 @@ interface OverlapCandidate {
   status: 'PENDING_REVIEW' | 'FLAGGED_VIGILANCE';
 }
 
+interface NodeData {
+  id: string;
+  name: string;
+  sub: string;
+  type: 'INSTITUTION' | 'DOCUMENT' | 'SIGNATORY';
+  x: number;
+  y: number;
+  r: number;
+}
+
 export const CrossAppNetworkPage: React.FC = () => {
-  const [, setSelectedNode] = useState<string>('INST-8801');
+  const [selectedNode, setSelectedNode] = useState<string>('INST-8801');
+
+  const nodes: NodeData[] = [
+    { id: 'INST-8801', name: 'Sri Vidya Institute', sub: 'APP-2026-8801', type: 'INSTITUTION', x: 200, y: 220, r: 38 },
+    { id: 'DOC-LAND', name: 'Land Title Deed', sub: 'SHA: d7a8fb...e592', type: 'DOCUMENT', x: 420, y: 130, r: 34 },
+    { id: 'INST-8808', name: 'Thar Institute of Engg', sub: 'APP-2026-8808', type: 'INSTITUTION', x: 640, y: 220, r: 38 },
+    { id: 'PERSON-RAO', name: 'Dr. C. Rao', sub: 'Signatory Deponent', type: 'SIGNATORY', x: 200, y: 380, r: 32 },
+    { id: 'INST-8803', name: 'Deccan Inst Pharmacy', sub: 'APP-2026-8803', type: 'INSTITUTION', x: 420, y: 380, r: 36 },
+    { id: 'DOC-NOC', name: 'State Govt NOC', sub: 'Affiliation Valid', type: 'DOCUMENT', x: 420, y: 20, r: 28 },
+  ];
 
   const overlapCandidates: OverlapCandidate[] = [
     {
@@ -45,199 +65,225 @@ export const CrossAppNetworkPage: React.FC = () => {
     },
   ];
 
+  const activeNodeInfo = nodes.find((n) => n.id === selectedNode);
+
   return (
-    <div className="min-h-screen bg-[#0F0F0E] text-[#EDE7DA] p-6 lg:p-10 space-y-6 font-sans select-none">
-      {/* Editorial Header with Required Copy Banner */}
-      <div className="border-b border-white/10 pb-5 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div className="space-y-6 text-text font-sans">
+      {/* Editorial Header */}
+      <div className="border-b border-border pb-4 flex flex-col md:flex-row md:items-end justify-between gap-4">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-ochre uppercase tracking-wider mb-1">
+          <div className="flex items-center gap-2 font-mono text-xs text-st-review uppercase tracking-wider mb-1">
             <Network className="w-4 h-4" />
             <span>Cross-Application Graph Analytics</span>
           </div>
-          <h1 className="text-2xl md:text-4xl font-serif font-black tracking-tight text-white">
+          <h1 className="text-2xl md:text-4xl font-display font-black tracking-tight text-text">
             Institution & Document Entity Network
           </h1>
-          <p className="text-xs font-mono text-slate mt-1 max-w-2xl">
+          <p className="text-sm font-sans text-text-muted mt-1 max-w-2xl">
             Detects multi-year entity overlaps, shared deponents, and document collisions across institutions.
           </p>
         </div>
 
-        {/* MANDATORY COPY RULE BANNER */}
-        <div className="px-3.5 py-1.5 bg-ochre/15 border border-ochre/40 text-ochre rounded font-mono text-xs font-bold flex items-center gap-2">
+        {/* Phase 4 Banner */}
+        <div className="px-3.5 py-1.5 bg-tint-ochre border border-border-strong text-st-review rounded-xs font-mono text-xs font-bold flex items-center gap-2 shrink-0">
           <Info className="w-4 h-4 flex-shrink-0" />
           <span>Designed now · built in Phase 4</span>
         </div>
       </div>
 
-      {/* Strict Privacy & Governance Banner */}
-      <div className="p-4 bg-[#141413] border border-white/10 rounded-md text-xs font-mono text-slate space-y-1">
-        <div className="text-white font-bold flex items-center gap-1.5">
-          <AlertTriangle className="w-4 h-4 text-ochre" />
+      {/* Safety & Boundaries Notice */}
+      <div className="p-4 bg-surface border border-border rounded-xs text-xs font-sans text-text-muted space-y-1.5 shadow-subtle">
+        <div className="text-text font-bold flex items-center gap-1.5 text-sm">
+          <AlertTriangle className="w-4 h-4 text-st-review" />
           <span>Algorithmic Safety & Privacy Boundaries (§14):</span>
         </div>
-        <div>
-          • <strong className="text-white">Zero Biometrics:</strong> No facial recognition, fingerprint hashes, or biometric identifiers exist anywhere in Pramāṇa.
-        </div>
-        <div>
-          • <strong className="text-white">Never Auto-Merge:</strong> Fuzzy identity matches produce review candidates only and are never merged automatically.
-        </div>
+        <p className="leading-relaxed">
+          • <strong className="text-text">Zero Biometrics:</strong> No facial recognition, voiceprints, or biometric profiling exist anywhere in Pramāṇa.
+          <br />
+          • <strong className="text-text">Review Indicators Only:</strong> Exact byte-identical matches produce candidate alerts for vigilance officers; records are never automatically merged or altered without human statutory review.
+        </p>
       </div>
 
-      {/* Interactive SVG Network Graph (Synthetic) */}
-      <div className="grid grid-cols-12 gap-6">
-        <div className="col-span-12 lg:col-span-8 bg-[#141413] border border-white/10 rounded-md p-4 space-y-3">
-          <div className="flex items-center justify-between text-xs font-mono text-slate border-b border-white/5 pb-2">
+      {/* Responsive Graph and Candidate Split */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+        {/* Interactive Responsive SVG Graph */}
+        <div className="lg:col-span-8 bg-surface border border-border rounded-xs p-4 sm:p-5 space-y-3 shadow-subtle">
+          <div className="flex flex-wrap items-center justify-between text-xs font-mono text-text-muted border-b border-border pb-2 gap-2">
             <span>Entity Relationship Graph (Multi-Cycle 2023–2027)</span>
-            <span>Click any node to inspect entity metadata</span>
+            <span>Tap/click any node to inspect metadata</span>
           </div>
 
-          <div className="h-[460px] bg-black/40 rounded border border-white/5 relative overflow-hidden flex items-center justify-center">
-            <svg className="w-full h-full">
-              {/* Connection Edges */}
-              {/* Sri Vidya to Land Deed */}
-              <line x1="280" y1="220" x2="440" y2="140" stroke="rgba(214, 54, 31, 0.6)" strokeWidth="2" strokeDasharray="4 2" />
-              {/* Thar Institute to Land Deed (COLLISION) */}
-              <line x1="600" y1="220" x2="440" y2="140" stroke="rgba(214, 54, 31, 0.6)" strokeWidth="2" strokeDasharray="4 2" />
-              {/* Sri Vidya to Dr. Rao */}
-              <line x1="280" y1="220" x2="160" y2="340" stroke="rgba(196, 138, 18, 0.5)" strokeWidth="1.5" />
-              {/* Deccan Inst to Dr. Rao */}
-              <line x1="280" y1="380" x2="160" y2="340" stroke="rgba(196, 138, 18, 0.5)" strokeWidth="1.5" />
-              {/* Sri Vidya to Telangana NOC */}
-              <line x1="280" y1="220" x2="200" y2="100" stroke="rgba(31, 107, 92, 0.5)" strokeWidth="1.5" />
+          <div className="w-full bg-bg-elevated rounded-xs border border-border relative overflow-hidden flex items-center justify-center min-h-[480px]">
+            <svg
+              viewBox="0 0 840 460"
+              preserveAspectRatio="xMidYMid meet"
+              className="w-full h-[480px] select-none"
+            >
+              <defs>
+                <filter id="halo" x="-20%" y="-20%" width="140%" height="140%">
+                  <feFlood floodColor="var(--surface)" result="bg" />
+                  <feComposite in="SourceGraphic" in2="bg" operator="over" />
+                </filter>
+              </defs>
 
-              {/* Central Collision Edge Callout */}
-              <rect x="370" y="115" width="140" height="20" rx="3" fill="#D6361F" />
-              <text x="440" y="129" fill="#FFFFFF" fontSize="9" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
-                BYTE-IDENTICAL COLLISION
-              </text>
+              {/* Edge 1: Sri Vidya to Land Deed */}
+              <line x1="200" y1="220" x2="420" y2="130" stroke="var(--st-deficiency)" strokeWidth="2.5" strokeDasharray="4 3" />
+              {/* Edge 2: Thar Inst to Land Deed (COLLISION) */}
+              <line x1="640" y1="220" x2="420" y2="130" stroke="var(--st-deficiency)" strokeWidth="2.5" strokeDasharray="4 3" />
+              {/* Edge 3: Sri Vidya to Dr. Rao */}
+              <line x1="200" y1="220" x2="200" y2="380" stroke="var(--st-review)" strokeWidth="2" />
+              {/* Edge 4: Deccan Inst to Dr. Rao */}
+              <line x1="420" y1="380" x2="200" y2="380" stroke="var(--st-review)" strokeWidth="2" />
+              {/* Edge 5: Sri Vidya to State NOC */}
+              <line x1="200" y1="220" x2="420" y2="20" stroke="var(--st-pass)" strokeWidth="2" />
 
-              {/* Node 1: Sri Vidya Institute (Hero) */}
-              <g
-                className="cursor-pointer"
-                onClick={() => setSelectedNode('INST-8801')}
-              >
-                <circle cx="280" cy="220" r="32" fill="#1B2A49" stroke="#EDE7DA" strokeWidth="2" />
-                <text x="280" y="218" fill="#FFFFFF" fontSize="10" fontFamily="sans-serif" textAnchor="middle" fontWeight="bold">
-                  Sri Vidya
-                </text>
-                <text x="280" y="232" fill="#94A3B8" fontSize="8" fontFamily="monospace" textAnchor="middle">
-                  APP-8801
+              {/* Central Collision Edge Pill (Solid background, above edges) */}
+              <g transform="translate(330, 95)">
+                <rect x="0" y="0" width="180" height="24" rx="4" fill="var(--st-deficiency)" stroke="var(--border-strong)" strokeWidth="1" />
+                <text x="90" y="16" fill="var(--accent-contrast)" fontSize="10" fontFamily="monospace" textAnchor="middle" fontWeight="bold">
+                  BYTE-IDENTICAL COLLISION
                 </text>
               </g>
 
-              {/* Node 2: Land Deed Document (Collision Target) */}
-              <g
-                className="cursor-pointer"
-                onClick={() => setSelectedNode('DOC-LAND')}
-              >
-                <circle cx="440" cy="140" r="26" fill="#7F1D1D" stroke="#D6361F" strokeWidth="2" />
-                <text x="440" y="138" fill="#FCA5A5" fontSize="9" fontFamily="sans-serif" textAnchor="middle" fontWeight="bold">
-                  Land Deed
-                </text>
-                <text x="440" y="150" fill="#FFFFFF" fontSize="7.5" fontFamily="monospace" textAnchor="middle">
-                  d7a8fb...
-                </text>
-              </g>
+              {/* Render Nodes with High-Contrast Text Halo and Full Labels */}
+              {nodes.map((node) => {
+                const isSelected = selectedNode === node.id;
+                const fillColor =
+                  node.type === 'INSTITUTION'
+                    ? 'var(--tint-teal)'
+                    : node.type === 'DOCUMENT'
+                    ? 'var(--tint-clay)'
+                    : 'var(--tint-ochre)';
 
-              {/* Node 3: Thar Institute */}
-              <g
-                className="cursor-pointer"
-                onClick={() => setSelectedNode('INST-8808')}
-              >
-                <circle cx="600" cy="220" r="28" fill="#1B2A49" stroke="#94A3B8" strokeWidth="1.5" />
-                <text x="600" y="218" fill="#FFFFFF" fontSize="9.5" fontFamily="sans-serif" textAnchor="middle">
-                  Thar Inst
-                </text>
-                <text x="600" y="230" fill="#94A3B8" fontSize="8" fontFamily="monospace" textAnchor="middle">
-                  APP-8808
-                </text>
-              </g>
+                const strokeColor =
+                  node.type === 'INSTITUTION'
+                    ? 'var(--accent-2)'
+                    : node.type === 'DOCUMENT'
+                    ? 'var(--st-deficiency)'
+                    : 'var(--st-review)';
 
-              {/* Node 4: Common Signatory Dr. Rao */}
-              <g
-                className="cursor-pointer"
-                onClick={() => setSelectedNode('PERSON-RAO')}
-              >
-                <circle cx="160" cy="340" r="24" fill="#2E230D" stroke="#C48A12" strokeWidth="1.5" />
-                <text x="160" y="338" fill="#FDE68A" fontSize="9" fontFamily="sans-serif" textAnchor="middle">
-                  Dr. Rao
-                </text>
-                <text x="160" y="350" fill="#94A3B8" fontSize="7.5" fontFamily="monospace" textAnchor="middle">
-                  Signatory
-                </text>
-              </g>
+                return (
+                  <g
+                    key={node.id}
+                    className="cursor-pointer transition-transform"
+                    onClick={() => setSelectedNode(node.id)}
+                    tabIndex={0}
+                    role="button"
+                    aria-label={`Select entity ${node.name}`}
+                    onKeyDown={(e) => {
+                      if (e.key === 'Enter' || e.key === ' ') setSelectedNode(node.id);
+                    }}
+                  >
+                    <circle
+                      cx={node.x}
+                      cy={node.y}
+                      r={node.r}
+                      fill={fillColor}
+                      stroke={isSelected ? 'var(--text)' : strokeColor}
+                      strokeWidth={isSelected ? 3.5 : 2}
+                    />
 
-              {/* Node 5: Deccan Institute */}
-              <g
-                className="cursor-pointer"
-                onClick={() => setSelectedNode('INST-8803')}
-              >
-                <circle cx="280" cy="380" r="24" fill="#1B2A49" stroke="#94A3B8" strokeWidth="1.5" />
-                <text x="280" y="378" fill="#FFFFFF" fontSize="9" fontFamily="sans-serif" textAnchor="middle">
-                  Deccan Inst
-                </text>
-                <text x="280" y="390" fill="#94A3B8" fontSize="7.5" fontFamily="monospace" textAnchor="middle">
-                  APP-8803
-                </text>
-              </g>
-
-              {/* Node 6: State NOC Document */}
-              <g
-                className="cursor-pointer"
-                onClick={() => setSelectedNode('DOC-NOC')}
-              >
-                <circle cx="200" cy="100" r="22" fill="#064E3B" stroke="#1F6B5C" strokeWidth="1.5" />
-                <text x="200" y="103" fill="#A7F3D0" fontSize="8.5" fontFamily="sans-serif" textAnchor="middle">
-                  State NOC
-                </text>
-              </g>
+                    {/* Node Label (2-line centered, high contrast) */}
+                    <text
+                      x={node.x}
+                      y={node.y - 3}
+                      fill="var(--text)"
+                      fontSize="11"
+                      fontFamily="sans-serif"
+                      fontWeight="bold"
+                      textAnchor="middle"
+                    >
+                      {node.name}
+                    </text>
+                    <text
+                      x={node.x}
+                      y={node.y + 12}
+                      fill="var(--text-muted)"
+                      fontSize="9"
+                      fontFamily="monospace"
+                      textAnchor="middle"
+                    >
+                      {node.sub}
+                    </text>
+                  </g>
+                );
+              })}
             </svg>
+          </div>
+
+          {/* Graph Legend */}
+          <div className="flex flex-wrap items-center gap-4 text-xs font-sans text-text-muted pt-2 border-t border-border">
+            <div className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-tint-teal border border-accent-2" />
+              <span>Institutions</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-tint-clay border border-st-deficiency" />
+              <span>Documents</span>
+            </div>
+            <div className="flex items-center gap-1.5">
+              <span className="w-3 h-3 rounded-full bg-tint-ochre border border-st-review" />
+              <span>Signatory Deponents</span>
+            </div>
           </div>
         </div>
 
-        {/* Overlap Review Candidates (Right 4 cols) */}
-        <div className="col-span-12 lg:col-span-4 space-y-4">
-          <div className="text-xs font-mono uppercase text-slate tracking-wider font-bold">
+        {/* Overlap Review Candidates (Sidebar Cards) */}
+        <div className="lg:col-span-4 space-y-4">
+          <div className="text-sm font-sans uppercase text-text-muted tracking-wider font-bold">
             Identity Overlap Candidates ({overlapCandidates.length})
           </div>
 
-          <div className="space-y-3">
+          <div className="space-y-3 font-sans">
             {overlapCandidates.map((candidate) => (
               <div
                 key={candidate.id}
-                className="p-4 bg-[#141413] border border-white/10 rounded space-y-3 font-mono text-xs"
+                className="p-4 bg-surface border border-border rounded-xs space-y-3 text-xs shadow-subtle"
               >
-                <div className="flex items-center justify-between border-b border-white/5 pb-2">
-                  <span className="text-ochre font-bold">{candidate.id}</span>
-                  <span className="px-2 py-0.5 bg-vermilion/20 border border-vermilion/40 text-vermilion rounded text-[10px] font-bold">
-                    {candidate.status.replace('_', ' ')}
+                <div className="flex items-center justify-between border-b border-border pb-2">
+                  <span className="font-mono font-bold text-accent-2">{candidate.id}</span>
+                  <span
+                    className={`px-2 py-0.5 rounded-xs font-mono text-[10px] uppercase font-bold ${
+                      candidate.status === 'FLAGGED_VIGILANCE'
+                        ? 'bg-st-deficiency-bg text-st-deficiency border border-st-deficiency'
+                        : 'bg-st-review-bg text-st-review border border-st-review'
+                    }`}
+                  >
+                    {candidate.status.replace(/_/g, ' ')}
                   </span>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-slate text-[10px]">Source:</div>
-                  <div className="text-white font-bold">{candidate.sourceInstitution}</div>
+                  <div className="text-text-muted font-medium">Source:</div>
+                  <div className="font-bold text-text">{candidate.sourceInstitution}</div>
                 </div>
 
                 <div className="space-y-1">
-                  <div className="text-slate text-[10px]">Target Collision:</div>
-                  <div className="text-white font-bold">{candidate.targetInstitution}</div>
+                  <div className="text-text-muted font-medium">Target:</div>
+                  <div className="font-bold text-text">{candidate.targetInstitution}</div>
                 </div>
 
-                <div className="p-2.5 bg-black/40 rounded border border-white/5 space-y-1">
-                  <div className="text-[10px] uppercase text-ochre">Explained Match Features:</div>
-                  {candidate.matchFeatures.map((feat, idx) => (
-                    <div key={idx} className="text-[11px] text-slate/90 leading-tight">
-                      • {feat}
-                    </div>
+                <div className="p-2.5 bg-bg-elevated border border-border rounded-xs space-y-1 text-text-muted">
+                  <div className="font-semibold text-text text-[11px] flex items-center gap-1">
+                    <ShieldAlert size={12} className="text-st-deficiency" />
+                    <span>Evidence Feature Citations:</span>
+                  </div>
+                  {candidate.matchFeatures.map((f, i) => (
+                    <div key={i} className="text-[11px] leading-snug">• {f}</div>
                   ))}
-                </div>
-
-                <div className="text-[10px] text-slate italic pt-1">
-                  Fuzzy candidate: requires manual officer review. Automatic merging prohibited.
                 </div>
               </div>
             ))}
+
+            {activeNodeInfo && (
+              <div className="p-4 bg-tint-teal border border-accent-2 rounded-xs space-y-1.5 text-xs">
+                <div className="font-bold text-accent-2 uppercase text-[11px] font-mono">
+                  Inspected Node Details
+                </div>
+                <div className="text-text font-bold text-sm">{activeNodeInfo.name}</div>
+                <div className="text-text-muted font-mono">{activeNodeInfo.sub}</div>
+              </div>
+            )}
           </div>
         </div>
       </div>

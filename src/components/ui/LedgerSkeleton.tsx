@@ -2,38 +2,39 @@ import React from 'react';
 
 interface LedgerSkeletonProps {
   rows?: number;
+  columns?: number;
   className?: string;
 }
 
 export const LedgerSkeleton: React.FC<LedgerSkeletonProps> = ({
   rows = 5,
+  columns = 4,
   className = '',
 }) => {
   return (
-    <div className={`space-y-3 animate-pulse font-mono ${className}`}>
-      {/* Header skeleton */}
-      <div className="h-8 bg-white/5 border border-white/5 rounded-xs w-full flex items-center px-4 justify-between">
-        <div className="h-3 bg-white/10 rounded w-1/4" />
-        <div className="h-3 bg-white/10 rounded w-1/6" />
+    <div
+      className={`border border-border bg-surface p-4 space-y-3 animate-pulse font-mono ${className}`}
+      role="status"
+      aria-label="Loading ledger records"
+    >
+      <div className="h-4 bg-surface-2 w-1/3 mb-4 rounded-xs" />
+      <div className="space-y-2">
+        {Array.from({ length: rows }).map((_, rIdx) => (
+          <div
+            key={rIdx}
+            className="flex items-center gap-3 py-2 border-b border-border/50"
+          >
+            {Array.from({ length: columns }).map((_, cIdx) => (
+              <div
+                key={cIdx}
+                className="h-3 bg-surface-2 rounded-xs flex-1"
+                style={{ opacity: 1 - cIdx * 0.15 }}
+              />
+            ))}
+          </div>
+        ))}
       </div>
-
-      {/* Row skeletons */}
-      {Array.from({ length: rows }).map((_, i) => (
-        <div
-          key={i}
-          className="p-4 bg-white/[0.02] border border-white/5 rounded-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-        >
-          <div className="space-y-2 flex-1">
-            <div className="h-3.5 bg-white/15 rounded w-1/3" />
-            <div className="h-2.5 bg-white/10 rounded w-1/2" />
-          </div>
-
-          <div className="flex items-center gap-3">
-            <div className="h-5 bg-white/10 rounded w-20" />
-            <div className="h-5 bg-white/10 rounded w-24" />
-          </div>
-        </div>
-      ))}
+      <span className="sr-only">Loading records...</span>
     </div>
   );
 };

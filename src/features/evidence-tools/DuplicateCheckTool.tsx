@@ -83,19 +83,19 @@ export const DuplicateCheckTool: React.FC = () => {
   };
 
   return (
-    <div className="bg-[#141413] border border-white/10 rounded-md overflow-hidden">
+    <div className="bg-surface border border-border rounded-md overflow-hidden">
       {/* Header */}
-      <div className="px-5 py-3.5 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+      <div className="px-5 py-3.5 bg-surface-2 border-b border-border flex items-center justify-between">
         <div>
           <div className="text-[10px] uppercase font-mono tracking-wider text-slate">
             CRYPTO EVIDENCE TOOL · §3.3
           </div>
-          <h3 className="text-sm font-serif font-bold text-[#EDE7DA] mt-0.5">
+          <h3 className="text-sm font-serif font-bold text-text mt-0.5">
             Client-Side SHA-256 Duplicate Check
           </h3>
         </div>
         <div className="flex items-center gap-2">
-          <span className="px-2 py-0.5 bg-black/40 border border-white/10 rounded font-mono text-[10px] text-verdigris">
+          <span className="px-2 py-0.5 bg-surface-2 border border-border rounded font-mono text-[10px] text-verdigris">
             COMPUTED LOCALLY (WEB CRYPTO API)
           </span>
         </div>
@@ -104,7 +104,7 @@ export const DuplicateCheckTool: React.FC = () => {
       <div className="p-6 space-y-5">
         <p className="text-xs text-slate leading-relaxed">
           Drop any local file. Your browser computes the SHA-256 cryptographic digest locally via the
-          native Web Crypto API (<code className="font-mono text-white">crypto.subtle.digest</code>).
+          native Web Crypto API (<code className="font-mono text-text">crypto.subtle.digest</code>).
           The file is never transmitted to any external server.
         </p>
 
@@ -119,7 +119,7 @@ export const DuplicateCheckTool: React.FC = () => {
           className={`border-2 border-dashed rounded-md p-8 text-center transition-all cursor-pointer ${
             isDragging
               ? 'border-ochre bg-ochre/10'
-              : 'border-white/15 bg-black/30 hover:border-white/30'
+              : 'border-border bg-black/30 hover:border-border-strong'
           }`}
           onClick={() => document.getElementById('duplicate-file-input')?.click()}
         >
@@ -130,7 +130,7 @@ export const DuplicateCheckTool: React.FC = () => {
             className="hidden"
           />
           <UploadCloud className="w-8 h-8 text-slate mx-auto mb-2" />
-          <div className="text-xs font-mono text-[#EDE7DA] font-semibold">
+          <div className="text-xs font-mono text-text font-semibold">
             {isComputing ? 'Computing digest locally...' : 'Drop any file here or click to browse'}
           </div>
           <div className="text-[11px] text-slate mt-1 font-mono">
@@ -167,7 +167,7 @@ export const DuplicateCheckTool: React.FC = () => {
                   ) : (
                     <StatusPill status="PASS" label="NO REPOSITORY MATCH" />
                   )}
-                  <span className="font-mono text-xs text-[#EDE7DA] font-bold truncate">
+                  <span className="font-mono text-xs text-text font-bold truncate">
                     {result.fileName}
                   </span>
                   <span className="font-mono text-[10px] text-slate">
@@ -178,12 +178,12 @@ export const DuplicateCheckTool: React.FC = () => {
                 {/* Hash row */}
                 <div className="flex items-center gap-2 pt-1">
                   <Hash className="w-3.5 h-3.5 text-slate flex-shrink-0" />
-                  <span className="font-mono text-[11px] text-white break-all select-all">
+                  <span className="font-mono text-[11px] text-text break-all select-all">
                     {result.sha256}
                   </span>
                   <button
                     onClick={copyHash}
-                    className="p-1 hover:text-white text-slate transition-colors flex-shrink-0"
+                    className="p-1 hover:text-text text-slate transition-colors flex-shrink-0"
                     title="Copy SHA-256"
                   >
                     {copied ? <Check className="w-3 h-3 text-verdigris" /> : <Copy className="w-3 h-3" />}
@@ -198,10 +198,10 @@ export const DuplicateCheckTool: React.FC = () => {
                       <span>Cross-Application Document Match Detected</span>
                     </div>
                     <div className="text-slate text-[11px]">
-                      Collision with: <span className="text-white font-bold">{result.matchedDoc.id}</span> ({result.matchedDoc.originalFilename})
+                      Collision with: <span className="text-text font-bold">{result.matchedDoc.id}</span> ({result.matchedDoc.originalFilename})
                     </div>
                     <div className="text-slate text-[11px]">
-                      Target Application: <span className="text-white font-bold">{result.matchedDoc.applicationId}</span>
+                      Target Application: <span className="text-text font-bold">{result.matchedDoc.applicationId}</span>
                     </div>
                     <div className="text-[10px] text-slate pt-1">
                       Statutory rule: Byte-identical cross-application submissions require Senior Review / Vigilance scrutiny (§14).

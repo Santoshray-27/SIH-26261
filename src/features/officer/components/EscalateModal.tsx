@@ -36,13 +36,13 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
 
   return (
     <div className="fixed inset-0 z-50 bg-black/80 backdrop-blur-sm flex items-center justify-center p-4">
-      <div className="bg-[#141413] border border-white/15 rounded-lg w-full max-w-lg shadow-2xl overflow-hidden">
+      <div className="bg-surface border border-border rounded-lg w-full max-w-lg shadow-2xl overflow-hidden">
         {/* Header */}
-        <div className="px-6 py-4 bg-[#171715] border-b border-white/10 flex items-center justify-between">
+        <div className="px-6 py-4 bg-surface-2 border-b border-border flex items-center justify-between">
           <div className="flex items-center gap-2.5">
             <ShieldAlert className="w-5 h-5 text-vermilion" />
             <div>
-              <h3 className="text-base font-serif font-bold text-[#EDE7DA]">
+              <h3 className="text-base font-serif font-bold text-text">
                 Escalate Integrity Concern
               </h3>
               <p className="text-[11px] font-mono text-slate">
@@ -52,7 +52,7 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
           </div>
           <button
             onClick={onClose}
-            className="p-1 text-slate hover:text-white transition-colors"
+            className="p-1 text-slate hover:text-text transition-colors"
           >
             <X className="w-5 h-5" />
           </button>
@@ -64,11 +64,11 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
             <div className="font-mono text-[10px] text-vermilion uppercase font-bold">
               Target Finding: {finding.id} · {finding.ruleId}
             </div>
-            <div className="text-[#EDE7DA]">{finding.explanation}</div>
+            <div className="text-text">{finding.explanation}</div>
           </div>
 
           {/* Copy Rule Disclaimer */}
-          <div className="p-3 bg-black/40 border border-white/10 rounded text-[11px] text-slate leading-relaxed flex items-start gap-2">
+          <div className="p-3 bg-surface-2 border border-border rounded text-[11px] text-slate leading-relaxed flex items-start gap-2">
             <AlertTriangle className="w-4 h-4 text-ochre flex-shrink-0 mt-0.5" />
             <span>
               <strong>Copy Policy (§14):</strong> Classified as "indicator, requires review", never "forgery".
@@ -87,8 +87,8 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
                 onClick={() => setRoutingTarget('senior_officer')}
                 className={`p-2.5 rounded border text-left text-xs font-mono transition-colors ${
                   routingTarget === 'senior_officer'
-                    ? 'bg-vermilion/20 border-vermilion text-white font-bold'
-                    : 'bg-[#1A1A18] border-white/10 text-slate hover:border-white/20'
+                    ? 'bg-vermilion/20 border-vermilion text-text font-bold'
+                    : 'bg-surface-2 border-border text-slate hover:border-border'
                 }`}
               >
                 <div>Senior Officer Review</div>
@@ -100,8 +100,8 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
                 onClick={() => setRoutingTarget('vigilance_division')}
                 className={`p-2.5 rounded border text-left text-xs font-mono transition-colors ${
                   routingTarget === 'vigilance_division'
-                    ? 'bg-vermilion/20 border-vermilion text-white font-bold'
-                    : 'bg-[#1A1A18] border-white/10 text-slate hover:border-white/20'
+                    ? 'bg-vermilion/20 border-vermilion text-text font-bold'
+                    : 'bg-surface-2 border-border text-slate hover:border-border'
                 }`}
               >
                 <div>AICTE Vigilance Division</div>
@@ -121,7 +121,7 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
               placeholder="Record forensic observation, reason for escalation, and specific queries for the Senior Reviewer..."
               rows={4}
               required
-              className="w-full bg-[#1A1A18] border border-white/15 rounded p-3 text-xs text-[#EDE7DA] placeholder-slate focus:border-vermilion outline-none font-mono"
+              className="w-full bg-surface-2 border border-border rounded p-3 text-xs text-text placeholder-slate focus:border-vermilion outline-none font-mono"
             />
           </div>
 
@@ -129,7 +129,7 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
             <button
               type="button"
               onClick={onClose}
-              className="px-4 py-2 text-xs font-mono text-slate hover:text-white transition-colors"
+              className="px-4 py-2 text-xs font-mono text-slate hover:text-text transition-colors"
             >
               Cancel
             </button>
@@ -137,7 +137,7 @@ export const EscalateModal: React.FC<EscalateModalProps> = ({
               type="submit"
               disabled={!rationale.trim() || readOnly || isSubmitting}
               variant="primary"
-              className="flex items-center gap-1.5 !bg-vermilion hover:!bg-vermilion/90 text-white"
+              className="flex items-center gap-1.5 !bg-vermilion hover:!bg-vermilion/90 text-text"
             >
               <Send className="w-3.5 h-3.5" />
               <span>{isSubmitting ? 'Routing...' : 'Escalate to Senior Review'}</span>

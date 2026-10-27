@@ -32,20 +32,23 @@ export const SectionNonClaims: React.FC = () => {
   ];
 
   return (
-    <section className="py-24 px-6 md:px-12 bg-ink text-paper border-b border-hairline/20 select-none">
+    <section
+      data-theme="dark"
+      className="py-24 px-6 md:px-12 bg-bg text-text border-b border-border select-none transition-colors"
+    >
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-slate mb-4">
-          <span className="font-bold text-vermilion">10 —</span>
-          <span className="text-paper/70">Institutional Integrity · Explicit Non-Claims (§14)</span>
+        <div className="flex items-center gap-3 font-mono text-xs uppercase tracking-widest text-text-muted mb-4">
+          <span className="font-bold text-st-deficiency">10 —</span>
+          <span className="text-text-muted">Institutional Integrity · Explicit Non-Claims (§14)</span>
         </div>
 
-        <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-paper uppercase mb-4">
+        <h2 className="font-display font-black text-3xl sm:text-5xl tracking-tight text-text uppercase mb-4">
           {language === 'hi'
             ? 'प्रमाण क्या दावा नहीं करता'
             : 'What Pramāṇa will NOT claim.'}
         </h2>
 
-        <p className="font-mono text-xs text-paper/70 max-w-2xl mb-16">
+        <p className="font-mono text-xs text-text-muted max-w-2xl mb-16">
           Integrity begins with scientific honesty. In compliance with solution guidelines §14,
           we explicitly reject the following common tech demo exaggerations:
         </p>
@@ -54,13 +57,13 @@ export const SectionNonClaims: React.FC = () => {
           {nonClaims.map((item, idx) => (
             <div
               key={idx}
-              className="p-6 border border-hairline/30 bg-ink-surface/60 rounded-xs space-y-2 hover:border-vermilion/50 transition-colors"
+              className="p-6 border border-border bg-surface rounded-xs space-y-2 hover:border-st-deficiency transition-colors"
             >
-              <div className="flex items-center gap-2 text-vermilion font-bold uppercase text-[11px]">
+              <div className="flex items-center gap-2 text-st-deficiency font-bold uppercase text-[11px]">
                 <span>✕</span>
                 <span>{item.title}</span>
               </div>
-              <p className="font-sans text-sm text-paper/80 leading-relaxed pt-1">
+              <p className="font-sans text-sm text-text-muted leading-relaxed pt-1">
                 {item.desc}
               </p>
             </div>

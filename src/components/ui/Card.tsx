@@ -14,13 +14,13 @@ export const Card: React.FC<CardProps> = ({
 }) => {
   return (
     <div
-      className={`border border-hairline bg-paper dark:bg-ink-surface p-5 relative transition-colors ${
-        variant === 'ledger' ? 'border-l-4 border-l-ink dark:border-l-paper' : ''
+      className={`border border-border bg-surface text-text p-5 relative transition-colors ${
+        variant === 'ledger' ? 'border-l-4 border-l-text' : ''
       } ${className}`}
       {...props}
     >
       {sectionNumber && (
-        <span className="font-mono text-[10px] tracking-widest text-slate uppercase absolute top-3 right-4 select-none">
+        <span className="font-mono text-[10px] tracking-widest text-text-muted uppercase absolute top-3 right-4 select-none">
           {sectionNumber} —
         </span>
       )}
